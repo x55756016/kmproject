@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FF4B268F-D518-4726-9679-F363B152D49B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KMHC.CTMS.Model</RootNamespace>
+    <AssemblyName>KMHC.CTMS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=1.7.0.4714, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.7.0.4714, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authorization\UserFunction.cs" />
+    <Compile Include="Authorization\UserTypeRoles.cs" />
+    <Compile Include="CancerProcess\ConditionItem.cs" />
+    <Compile Include="CancerProcess\HrDictionary.cs" />
+    <Compile Include="CancerProcess\DoctorControl.cs" />
+    <Compile Include="CancerProcess\EventProduct.cs" />
+    <Compile Include="CancerProcess\GuideLine.cs" />
+    <Compile Include="CancerProcess\GuideLineData.cs" />
+    <Compile Include="CancerProcess\GuideLineFlow.cs" />
+    <Compile Include="CancerProcess\GuidelineProduct.cs" />
+    <Compile Include="CancerProcess\MetaData.cs" />
+    <Compile Include="CancerProcess\MetaDataParam.cs" />
+    <Compile Include="CancerProcess\ServiceTraceInfo.cs" />
+    <Compile Include="CancerProcess\Symptom.cs" />
+    <Compile Include="CancerProcess\SymptomRecord.cs" />
+    <Compile Include="CancerProcess\UserEvent.cs" />
+    <Compile Include="CancerRecord\Attachment.cs" />
+    <Compile Include="CancerRecord\BaseTemplateResult.cs" />
+    <Compile Include="CancerRecord\Disease.cs" />
+    <Compile Include="CancerRecord\MyHouseKeeper.cs" />
+    <Compile Include="CancerRecord\MyProduct.cs" />
+    <Compile Include="CancerRecord\MyQuestion.cs" />
+    <Compile Include="CancerRecord\SeeDoctorHistory.cs" />
+    <Compile Include="CancerRecord\UserGene.cs" />
+    <Compile Include="Common\Area.cs" />
+    <Compile Include="Common\BaseResult.cs" />
+    <Compile Include="Common\Dictionary.cs" />
+    <Compile Include="Authorization\Function.cs" />
+    <Compile Include="Authorization\FunctionPermission.cs" />
+    <Compile Include="Common\Info.cs" />
+    <Compile Include="Common\MenuInfo.cs" />
+    <Compile Include="Authorization\Permission.cs" />
+    <Compile Include="Authorization\Role.cs" />
+    <Compile Include="Authorization\RoleFunction.cs" />
+    <Compile Include="Authorization\UserRole.cs" />
+    <Compile Include="Common\SolrContext.cs" />
+    <Compile Include="Common\SolrResponse.cs" />
+    <Compile Include="Common\SolrResponseHeader.cs" />
+    <Compile Include="Common\SolrSelectDocs.cs" />
+    <Compile Include="Common\SolrSelectParams.cs" />
+    <Compile Include="Examine\ExamineItemType.cs" />
+    <Compile Include="Examine\ExamineTemplateItemOptions.cs" />
+    <Compile Include="Examine\ExamineTemplateItems.cs" />
+    <Compile Include="Examine\ExamineTemplates.cs" />
+    <Compile Include="Examine\ImageExamineReport.cs" />
+    <Compile Include="PrecisionMedicine\BaseModel.cs" />
+    <Compile Include="PrecisionMedicine\Chart.cs" />
+    <Compile Include="PrecisionMedicine\CnDrug.cs" />
+    <Compile Include="CancerRecord\Community.cs" />
+    <Compile Include="CancerRecord\Area.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CancerRecord\CancerUserExtend.cs" />
+    <Compile Include="CancerRecord\Code.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CancerRecord\DiseaseHistory.cs" />
+    <Compile Include="PrecisionMedicine\DrugAllele.cs" />
+    <Compile Include="PrecisionMedicine\DrugBank.cs" />
+    <Compile Include="PrecisionMedicine\DrugEffect.cs" />
+    <Compile Include="PrecisionMedicine\DrugUse.cs" />
+    <Compile Include="CancerRecord\ExamineItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CancerRecord\ExamineRecord.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CancerRecord\ExamineResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CancerRecord\FamilyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CancerRecord\FamilyMember.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CancerRecord\FD_Disease.cs" />
+    <Compile Include="CancerRecord\FD_Member.cs" />
+    <Compile Include="CancerRecord\FD_Relation.cs" />
+    <Compile Include="CancerRecord\FileUpload.cs" />
+    <Compile Include="PrecisionMedicine\ExamineTemplate.cs" />
+    <Compile Include="PrecisionMedicine\Gene.cs" />
+    <Compile Include="PrecisionMedicine\GeneAllele.cs" />
+    <Compile Include="PrecisionMedicine\GeneAlleleLocus.cs" />
+    <Compile Include="PrecisionMedicine\Habits.cs" />
+    <Compile Include="CancerRecord\ImageExamination.cs" />
+    <Compile Include="CancerRecord\LaboratoryResult.cs" />
+    <Compile Include="CancerRecord\LaboratoryTestItem.cs" />
+    <Compile Include="CancerRecord\LabTestItem.cs" />
+    <Compile Include="CancerRecord\LabTestRecord.cs" />
+    <Compile Include="CancerRecord\LabTestResult.cs" />
+    <Compile Include="CancerRecord\PersonInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CancerRecord\Score.cs" />
+    <Compile Include="CancerRecord\ScoreTemplate.cs" />
+    <Compile Include="CancerRecord\TreatmentHistory.cs" />
+    <Compile Include="PrecisionMedicine\ResetPasswordLog.cs" />
+    <Compile Include="PrecisionMedicine\SMSRequest.cs" />
+    <Compile Include="PrecisionMedicine\UserInfo.cs" />
+    <Compile Include="Product\AccountRecord.cs" />
+    <Compile Include="Product\MemberModel.cs" />
+    <Compile Include="Product\MemberProducts.cs" />
+    <Compile Include="Product\Products.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\AnnualIncomeRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\EcogTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\EFFD_DiseaseRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\EFFD_MemberRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\EFFD_RelationRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\EFFileUploadRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\EFImageExaminationRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\HPNRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\KpsTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\LaboratoryResultRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\LaboratoryTestItemRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\MnaTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\MustTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\NrsTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\PsqiTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\QolTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\request.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\SasTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\SclTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\SdsTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\SeeDoctorHistoryRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\SesTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\SgaTemplate.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\template.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\TemplateService.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\UserGeneRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\CancerUserInfoRepository.cs" />
+    <Compile Include="Repository\Implement\CancerRecord\ZpsTemplate.cs" />
+    <Compile Include="Repository\Implement\EDiseaseHistoryRepository.cs" />
+    <Compile Include="Repository\Implement\EFCodeRepository.cs" />
+    <Compile Include="Repository\Implement\EFDictionaryRepository.cs" />
+    <Compile Include="Repository\Implement\EFDiseaseRepository.cs" />
+    <Compile Include="Repository\Implement\EFDrugBankRepository.cs" />
+    <Compile Include="Repository\Implement\EFDrugUseRepository.cs" />
+    <Compile Include="Repository\Implement\EFExamineItemRepository.cs" />
+    <Compile Include="Repository\Implement\EFExamineRecordRepository.cs" />
+    <Compile Include="Repository\Implement\EFAreaRepository.cs" />
+    <Compile Include="Repository\Implement\EFExamineTemplateItemOptionsRepository.cs" />
+    <Compile Include="Repository\Implement\EFExamineTemplateItemRepository.cs" />
+    <Compile Include="Repository\Implement\EFExamineTemplateRepository.cs" />
+    <Compile Include="Repository\Implement\EFFamilyMemberRepository.cs" />
+    <Compile Include="Repository\Implement\EFGeneAlleleLocusRepository.cs" />
+    <Compile Include="Repository\Implement\EFGeneAlleleRepository.cs" />
+    <Compile Include="Repository\Implement\EFGeneRepository.cs" />
+    <Compile Include="Repository\Implement\EFImageExamineReportRepository.cs" />
+    <Compile Include="Repository\Implement\EFPersonInfoRepository.cs" />
+    <Compile Include="Repository\Implement\EFFamilyRepository.cs" />
+    <Compile Include="Repository\IBaseRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repository\Implement\EFProductsRepository.cs" />
+    <Compile Include="Repository\Implement\EFResetPasswordLogRepository.cs" />
+    <Compile Include="Repository\Implement\EFScoreRepository.cs" />
+    <Compile Include="Repository\Implement\EFScoreTemplateRepository.cs" />
+    <Compile Include="Repository\Implement\EFServiceTraceInfoRepository.cs" />
+    <Compile Include="Repository\Implement\EFUserInfoRepository.cs" />
+    <Compile Include="Repository\Implement\EFUserTypeRolesRepository.cs" />
+    <Compile Include="Repository\Interface\IAreaRepository.cs" />
+    <Compile Include="Repository\Interface\ICodeRepository.cs" />
+    <Compile Include="Repository\Interface\IDictionaryRepository.cs" />
+    <Compile Include="Repository\Interface\IDiseaseHistoryRepository.cs" />
+    <Compile Include="Repository\Interface\IDiseaseRepository.cs" />
+    <Compile Include="Repository\Interface\IDrugBankRepository.cs" />
+    <Compile Include="Repository\Interface\IDrugUseRepository.cs" />
+    <Compile Include="Repository\Interface\IExamineItemRepository.cs" />
+    <Compile Include="Repository\Interface\IExamineRecordRepository.cs" />
+    <Compile Include="Repository\Interface\IExamineTemplateItemOptionsRepository.cs" />
+    <Compile Include="Repository\Interface\IExamineTemplateItemRepository.cs" />
+    <Compile Include="Repository\Interface\IExamineTemplateRepository.cs" />
+    <Compile Include="Repository\Interface\IFamilyMemberRepository.cs" />
+    <Compile Include="Repository\Interface\IFamilyInfoRepository.cs" />
+    <Compile Include="Repository\Interface\IFD_DiseaseRepository.cs" />
+    <Compile Include="Repository\Interface\IFD_MemberRepository.cs" />
+    <Compile Include="Repository\Interface\IFD_RelationRepository.cs" />
+    <Compile Include="Repository\Interface\IFileUploadRepository.cs" />
+    <Compile Include="Repository\Interface\IGeneAlleleLocusRepository.cs" />
+    <Compile Include="Repository\Interface\IGeneAlleleRepository.cs" />
+    <Compile Include="Repository\Interface\IGeneRepository.cs" />
+    <Compile Include="Repository\Interface\IHPNRepository.cs" />
+    <Compile Include="Repository\Interface\IImageExaminationRepository.cs" />
+    <Compile Include="Repository\Interface\IImageExamineReportRepository.cs" />
+    <Compile Include="Repository\Interface\ILabTestRecordRepository.cs" />
+    <Compile Include="Repository\Interface\IPersonInfoRepository.cs" />
+    <Compile Include="Repository\Interface\IProductsRepository.cs" />
+    <Compile Include="Repository\Interface\IResetPasswordLogRepository.cs" />
+    <Compile Include="Repository\Interface\IScoreRepository.cs" />
+    <Compile Include="Repository\Interface\IScoreTemplateRepository.cs" />
+    <Compile Include="Repository\Interface\IServiceTraceInfoRepository.cs" />
+    <Compile Include="Repository\Interface\ITemplate.cs" />
+    <Compile Include="Repository\Interface\IUserInfoRepository.cs" />
+    <Compile Include="Repository\Interface\IUserTypeRolesRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KMHC.CTMS.Common\KMHC.CTMS.Common.csproj">
+      <Project>{db659f49-e0cc-4abd-9e81-9d96511f3964}</Project>
+      <Name>KMHC.CTMS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KMHC.CTMS.DAL\KMHC.CTMS.DAL.csproj">
+      <Project>{a4c34e33-9bd8-4371-a1a2-a782526c5336}</Project>
+      <Name>KMHC.CTMS.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

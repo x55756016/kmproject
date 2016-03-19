@@ -1,0 +1,185 @@
+﻿<div class="container-fluid">
+    <h2>二型糖尿病健康管理</h2>
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column" style="height: 800px;">
+            <form name="baseform" ng-submit="save()" novalidate class="form-horizontal">
+                <div class="panel-group nav nav-list affix-top">
+                    <div class="panel panel-default">
+                        <div id="baseInfo" class="panel-heading ">
+                            <i class="icon-user-md icon-large"></i> 基本信息
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-1" for="txt_Name">姓名</label>
+                                <div class="col-md-3">
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" maxlength="50" required />
+                                </div>
+                                <label class="control-label col-md-2" for="txt_VistorDate">日期</label>
+                                <div class="col-md-2">
+                                    <div class="input-group date form_date" data-date="" data-date-format="yyyymmdd" datepicker>
+                                        <input id="txt_VistorDate" class="form-control" size="16" type="text" value="" ng-model="Data.VistorDate" required />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-1" for="txt_DoctorName">检测医生</label>
+                                <div class="col-md-3">
+                                    <input id="txt_DoctorName" name="DoctorName" ng-model="Data.DoctorName" class="form-control" maxlength="50" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1" for="list_Symptom">症状</label>
+                                <div class="col-md-3">
+                                    <select id="list_Symptom" name="symptom" style="width: 100%;" bind="Data.SymptomName" multiselect>
+                                        <option value="1">头痛</option>
+                                        <option value="2">头晕</option>
+                                        <option value="3">心悸</option>
+                                        <option value="4">胸闷</option>
+                                        <option value="5">胸痛</option>
+                                        <option value="6">咳嗽</option>
+                                        <option value="7">咳痰</option>
+                                        <option value="8">呼吸困难</option>
+                                        <option value="9">多饮</option>
+                                        <option value="10">多尿</option>
+                                        <option value="11">体重下降</option>
+                                        <option value="12">乏力</option>
+                                        <option value="13">关节肿痛</option>
+                                        <option value="14">视力模糊</option>
+                                        <option value="15">四肢麻木</option>
+                                        <option value="16">消瘦</option>
+                                        <option value="17">尿痛</option>
+                                        <option value="18">便秘</option>
+                                        <option value="19">腹泻</option>
+                                        <option value="20">恶心呕吐</option>
+                                        <option value="21">眼花</option>
+                                        <option value="22">耳鸣</option>
+                                        <option value="23">发热</option>
+                                        <option value="24">鼻衄</option>
+                                        <option value="25">浮肿</option>
+                                        <option value="26">多食</option>
+                                        <option value="27">皮疹</option>
+                                        <option value="99">其他</option>
+                                    </select>
+                                </div>
+                                <label class="control-label col-md-2" for="txt_BloodPressure">血压</label>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input id="txt_BloodPressure" name="BloodPressure" ng-model="Data.BloodPressure" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">mmHg</span>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-1" for="txt_Weight">体重</label>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input id="txt_Weight" name="Weight" ng-model="Data.Weight" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">KG</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1" for="txt_BMI">体质指数</label>
+                                <div class="col-md-3">
+                                    <input id="txt_BMI" name="HeartRate" ng-model="Data.HeartRate" class="form-control" maxlength="50" />
+                                </div>
+                                <label class="control-label col-md-2" for="txt_HeartRate">心率</label>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input id="txt_HeartRate" name="HeartRate" ng-model="Data.HeartRate" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">次/分钟</span>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-1" for="txt_PhyOther">其他</label>
+                                <div class="col-md-3">
+                                    <input id="txt_PhyOther" name="PhyOther" ng-model="Data.PhyOther" class="form-control" maxlength="50" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1" for="txt_DaySmoke">日吸烟量</label>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input id="txt_DaySmoke" name="DaySmoke" ng-model="Data.DaySmoke" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">支</span>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2" for="txt_Drink">日饮酒量</label>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input id="txt_Drink" name="Drink" ng-model="Data.Drink" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">两</span>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-1" for="txt_Exercise">运动</label>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input id="txt_Exercise" name="Exercise" ng-model="Data.Exercise" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">周</span>
+                                        <input name="Exercise" ng-model="Data.Exercise" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">次</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1" for="radio_DayEatSalt">摄盐情况</label>
+                                <div class="col-md-3">
+                                    <div class="radio">
+                                        <label><input type="radio" name="EatSalt" ng-model="Data.EatSalt" value="轻" />轻</label>
+                                        <label><input type="radio" name="EatSalt" ng-model="Data.EatSalt" value="中" id="radio_DayEatSalt" />中</label>
+                                        <label><input type="radio" name="EatSalt" ng-model="Data.EatSalt" value="重" />重</label>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2" for="radio_MentalAdjust">心理调整</label>
+                                <div class="col-md-2">
+                                    <div class="radio">
+                                        <label><input type="radio" name="MentalAdjust" ng-model="Data.MentalAdjust" value="良好" id="radio_MentalAdjust" />良好</label>
+                                        <label><input type="radio" name="MentalAdjust" ng-model="Data.MentalAdjust" value="一般" />一般</label>
+                                        <label><input type="radio" name="MentalAdjust" ng-model="Data.MentalAdjust" value="差" />差</label>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-1" for="radio_FollowDoctor">遵医行为</label>
+                                <div class="col-md-3">
+                                    <div class="radio">
+                                        <label><input type="radio" name="FollowDoctor" ng-model="Data.FollowDoctor" value="良好" id="radio_FollowDoctor" />良好</label>
+                                        <label><input type="radio" name="FollowDoctor" ng-model="Data.FollowDoctor" value="一般" />一般</label>
+                                        <label><input type="radio" name="FollowDoctor" ng-model="Data.FollowDoctor" value="差" />差</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1" for="txt_GLU">空腹血糖</label>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input id="txt_GLU" name="GLU" ng-model="Data.GLU" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">mmol/L</span>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2" for="radio_LowBlood">低血糖反应</label>
+                                <div class="col-md-2">
+                                    <div class="radio">
+                                        <label><input type="radio" name="LowBlood" ng-model="Data.LowBlood" value="无" />无</label>
+                                        <label><input type="radio" name="LowBlood" ng-model="Data.LowBlood" value="偶尔" id="radio_LowBlood" />偶尔</label>
+                                        <label><input type="radio" name="LowBlood" ng-model="Data.LowBlood" value="频繁" />频繁</label>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-1" for="txt_HBA1c">其他检查</label>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">糖化血红蛋白</span>
+                                        <input id="txt_HBA1c" name="Exercise" ng-model="Data.HBA1c" class="form-control" maxlength="50" />
+                                        <span class="input-group-addon">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                <button class="btn btn-success" type="submit">确定信息无误并提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#list_Symptomtest").multiselect({ maxHeight: 100 });
+    })
+</script>

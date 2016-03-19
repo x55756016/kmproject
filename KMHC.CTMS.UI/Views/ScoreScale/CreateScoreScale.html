@@ -1,0 +1,89 @@
+﻿<div class="container-fluid">
+    <div class="page-header">
+        <h1>{{Data.TemplateTitle}}</h1>
+    </div>
+    <div class="panel panel-default">
+        <!--<div class="panel-heading ">
+            </div>
+            <div class="panel-body">
+            <div class="col-md-10">
+                <div class="col-md-1">姓名：</div><div class="col-md-1">{{Data.UserInfo.Name}}</div>
+                <div class="col-lg-1">性别：</div><div class="col-md-1">{{Data.UserInfo.Sex}}</div>
+                <div class="col-lg-1">
+                    年龄：
+                </div>
+                <div class="col-lg-1">
+                    {{Data.UserInfo.Age}}岁
+                </div>
+                <div class="col-lg-1">
+                    档案编号：
+                </div>
+                <div class="col-lg-1">
+                    {{Data.UserInfo.DID}}
+                </div>
+                <div class="col-lg-1">
+                    住址：
+                </div>
+                <div class="col-lg-3">
+                    {{Data.UserInfo.Address}}
+                </div>
+            </div>
+        </div>-->
+        <div class="row-fluid">
+            <div class="clearfix" style="padding-left:20px;"><small>{{Data.TemplateLabel}}</small></div>
+        </div>
+        <div class="panel-heading ">
+        </div>
+        <div class="row-fluid">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>题号</td>
+                        <td>问题</td>
+                        <td>回答</td>
+                        <!--<td>评分</td>-->
+                    </tr>
+                    <tr ng-repeat="q in Data.Questions">
+                        <td>{{$index+1}}</td>
+                        <td>{{q.Question}}</td>
+                        <td>
+                            <span ng-repeat="o in q.Options">
+                                <input type="radio" name="s{{Data.Questions.indexOf(q)+1}}" value="{{o.Value}}" ng-model="q.Score" /> {{o.Text}}
+                                <br ng-show="q.Options.length>=5" />
+                            </span>
+                        </td>
+                        <!--<td>{{q.Score}}</td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel-heading" ng-show="ShowResult">
+        </div>
+        <div class="panel-body" ng-show="ShowResult" id="pn_result">
+                <div class="row-fluid">你的评分结果：{{ShowResultScore()}}</div>
+                <div class="row">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th ng-show="Data.ShowGrade">等级</th>
+                                <th ng-hide="Data.ShowGrade">范围</th>
+                                <th>描述</th>
+                            </tr>
+                            <tr ng-repeat="g in Data.Grades" ng-class="SetResultCss(g)">
+                                <td ng-show="Data.ShowGrade">{{g.Grade}}</td>
+                                <td ng-hide="Data.ShowGrade">{{g.minValue}}分~{{g.maxValue}}分</td>
+                                <td>{{g.Description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+    <div class="row-fluid  text-center" id="submit" ng-hide="ShowResult">
+        <input type="button" ng-click="Save()" value="提交" class="btn-success" />
+    </div>
+ </div>
+
+
+

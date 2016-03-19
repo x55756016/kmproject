@@ -1,0 +1,115 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <label><i class="fa fa-fw fa-info fa-lg"></i> 待办明细</label>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="InfoForm">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">医生建议</label>
+                    <div class="col-md-11 text-left">
+                        <textarea class="form-control" readonly="readonly">{{Info.DoctorSuggest}}</textarea>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="col-md-1 control-label">当前所处GuideLine</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.CurrentNodeName}}" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">当前待办</label>
+                    <div class="col-md-11 text-left">
+                        <textarea class="form-control" readonly="readonly">{{Info.RecommendProcess}}</textarea>
+                    </div>
+                </div>-->
+                <fieldset>
+                    <legend>历史轨迹</legend>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr class="info">
+                                        <th>时间</th>
+                                        <th>角色</th>
+                                        <th>姓名</th>
+                                        <th>轨迹</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in Info.Tracks">
+                                        <td>{{x.ReceiptTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                        <td>{{x.Remarks}}</td>
+                                        <td>{{x.ToUser}}</td>
+                                        <td>{{x.ActionInfo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>推荐产品</legend>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr class="info">
+                                        <th>产品名称</th>
+                                        <th>产品价格/元</th>
+                                        <th>描述</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in Info.Products">
+                                        <td>{{x.ProductName}}</td>
+                                        <td>{{x.ProductPrice}}</td>
+                                        <td>{{x.ProductDes}}</td>
+                                        <td>
+                                            <label ng-if="x.IsAlreadyBuy=='1'">已购买该产品</label>
+                                            <a href="javascript:void(0);" ng-click="BuyProducts($index,x)" title="购买该产品" ng-if="x.IsAlreadyBuy=='0'"><i class="fa fa-fw fa-check-circle-o"></i>购买</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>上传附件</legend>
+                    <div class="form-group">
+                        <div class="col-sm-2 col-md-offset-1"><div id="picker">选择文件</div></div>
+                        <div class="col-md-1">
+                            <button class="btn btn-default" ng-click="StartUpload()">开始上传</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-1 control-label ">文件列表</label>
+                        <div class="col-md-6">
+                            <ul class="list-group " ng-repeat="x in Files">
+                                <li class="list-group-item">{{x.Name}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-info">{{x.Msg}}</span><span class="badge" ng-click="RemoveFile($index)">删除</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">说明</label>
+                    <div class="col-md-11 text-left">
+                        <textarea class="form-control" ng-model="Info.Remarks"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-1">
+                        <button type="button" class="btn btn-info btn-lg btn-block" ng-click="GoBack()"><i class="fa fa-fw fa-reply-all"></i> 返回</button>
+                    </div>
+                    <div class="col-md-2 col-md-offset-1" ng-show="Info.ActionStatus=='待办'">
+                        <button type="button" class="btn btn-info btn-lg btn-block" ng-disabled="InfoForm.$invalid" ng-click="Save()"><i class="fa fa-fw fa-save"></i> 确定</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

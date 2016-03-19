@@ -1,0 +1,146 @@
+﻿<style type="text/css">
+    .panel-body {
+        z-index: 9999;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4><i class="fa fa-fw fa-user-md"></i>检验报告</h4>
+        </div>
+        <div class=" panel-body">
+            <div class="col-md-12 form-horizontal">
+                <div class="form-group" ng-include="'/Views/DoctorHistory/Person.html'"></div>
+                <div class="form-group">
+                    <label class="col-md-2 col-lg-1 col-sm-4 control-label">临床印象</label>
+                    <div class="col-md-3">
+                        <input type="hidden" ng-model="Data.LabresultId">
+                        <input type="text" class="form-control" ng-model="Data.CI" />
+                    </div>
+                    <label class="col-md-2 col-lg-1 col-sm-4 control-label">科室</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="Data.Hospital" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-lg-1 col-sm-4 control-label">检查日期</label>
+                    <div class="col-md-3">
+                        <div class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                            <input id="txt_Date" class="form-control" size="16" type="text" value="" required ng-model="Data.DiagnosisTime" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                    </div>
+                    <label class="col-md-2 col-lg-1 col-sm-4 control-label">住院/门诊号</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="Data.Diagnosis" />
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="col-md-2 col-lg-1 col-sm-4 control-label">检验目的</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="Data.MedicalhisAttachment" readonly="readonly" data-toggle="modal" data-target="#modalAtt" />
+                        <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                    <label class="col-md-2 col-lg-1 col-sm-4 control-label">床号</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" ng-model="Data.DiagnosisReport" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 table-responsive">
+                <label class="control-label">患者上传的附件列表：</label>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr class="info">
+                            <th>文件名</th>
+                            <th>上传日期</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="f in Files">
+                            <td>{{f.FileName}}</td>
+                            <td>{{f.CreatTime|date:'yyyy-MM-dd'}}</td>
+                            <td><a href="/Upload/{{f.FilePath}}" target="_blank">查看</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12"><button type="button" class="btn btn-info " ng-click="AddLib()" style="margin:10px;">新增</button></div>
+                <div class="col-md-12 table-responsive ">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>序号</th>
+                                <th>分析项目名称</th>
+                                <th>英文名称</th>
+                                <th>检查值</th>
+                                <th class="col-sm-4 col-md-2 col-lg-1">检查结果</th>
+                                <th>单位</th>
+                                <th>正常参考值</th>
+                                <th>检查手段</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in LibItems">
+                                <td><input type="text" ng-model="x.Ordernumber" class="form-control" /></td>
+                                <td><input type="text" ng-model="x.ItemName" class="form-control"></td>
+                                <td><input type="text" ng-model="x.ItemNameEN" class="form-control"></td>
+                                <td><input type="text" ng-model="x.ItemValue" class="form-control"></td>
+                                <td>
+                                    <select ng-model="x.Reslut" class="form-control">
+                                        <option value="正常">正常</option>
+                                        <option value="降低">降低</option>
+                                        <option value="升高">升高</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" ng-model="x.Uom" class="form-control"></td>
+                                <td><input type="text" ng-model="x.NormalValue" class="form-control"></td>
+                                <td><input type="text" ng-model="x.InspectedMeans" class="form-control"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="btn btn-info col-md-offset-2" ng-click="GoBack()">返回</a>
+            <a href="javascript:void(0);" class="btn btn-info col-md-offset-2" ng-click="SaveLib()">保存</a>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalAtt" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label><i class="fa fa-fw fa-stethoscope"></i>检验目的选择</label> <small class="text-danger">（*选择新的检验目的会清空原有的检查项目）</small>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>名称</th>
+                                <th>描述</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in Templates">
+                                <td>{{x.TEMPLATENAME}}</td>
+                                <td>{{x.DESCRIPTION}}</td>
+                                <td><a href="javascript:void(0);" title="确定" ng-click="CheckTemplate(x)"><i class="fa fa-fw fa-check fa-lg"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

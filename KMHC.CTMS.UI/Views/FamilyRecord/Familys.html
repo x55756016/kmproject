@@ -1,0 +1,42 @@
+﻿<div class="container-fluid">
+    <h2>家庭列表</h2>
+    <div class="row-fluid clearfix">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="Keyword" ng-model="Keyword" placeholder="请输入关键字">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="Search()"><i class="icon-search"></i>查询</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-default" type="button" ng-click="Add()">新增</button>
+                </div>
+            </div>
+            <table class="table table-hover table-bordered table-responsive">
+                <thead>
+                    <tr class="info">
+                        <th>户主</th>
+                        <th>身份证号</th>
+                        <th>家庭地址</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in ListItems" ng-dblclick="Open(item.ID)">
+                        <td>{{item.HouseholderName}}</td>
+                        <td>{{item.CardNo}}</td>
+                        <td>{{ShowAddr(item.Address)}}</td>
+                        <td>
+                            <button class="btn btn-small btn-danger" ng-click="Remove(item.ID)">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div id="pager"></div>
+        </form>
+    </div>
+</div>

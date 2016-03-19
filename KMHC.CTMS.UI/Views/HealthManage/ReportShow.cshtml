@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>健康档案报表</title>
+    <style type="text/css">
+        table {-webkit-border-horizontal-spacing: 0px;-webkit-border-vertical-spacing: 0px;border-collapse: collapse;color: rgb(51, 51, 51);display: table;text-align: center;width: 950px;}
+        td {border: 1px solid rgb(221, 221, 221);display: table-cell;padding: 0px;vertical-align: middle;word-break: break-all;}
+        .body-type table tr td.content,.content {text-align: left;text-indent: 10px;}
+        tr {height: 40px;line-height: 40px;}
+        .body-type {width: 950px;margin:0 auto;}
+        .body-type, .body-type table, .body-type table tr, .body-type table tr td {font-size: 20px; text-align: center;}
+        .inline-table {width: 100%; border: transparent;}
+        .inline-table tr td {border: transparent;border-bottom: 1px solid rgb(221, 221, 221);border-right: 1px solid rgb(221, 221, 221);}
+        .inline-table tr td:last-child {border: transparent;border-bottom: 1px solid rgb(221, 221, 221);}
+        .inline-table tr:last-child td {border: transparent;border-right: 1px solid rgb(221, 221, 221);}
+        .title {text-align: left;width: 375px;float: left;padding: 5px 50px;}
+        .title span{padding-left: 10px;}
+    </style>
+</head>
+<body>
+<div class="body-type">
+<div style="margin-bottom: 10px;">
+    <strong>
+        <span>个人基本信息表</span></strong>
+</div>
+<div class="title">
+    <strong>
+        <span>姓名</span></strong>@Html.Raw(ViewBag.RenderData["Name"])</div>
+<div class="title">
+    <strong>
+        <span>编号</span></strong>@Html.Raw(ViewBag.RenderData["RecordNo"])</div>
+<table>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>性别</span></strong></div>
+    </td>
+    <td colspan="3" class="content">
+        <div>
+            @Html.Raw(ViewBag.RenderData["Gender"])
+        </div>
+    </td>
+    <td style="width: 120px;">
+        <div>
+            <strong><span>出生日期</span></strong></div>
+    </td>
+    <td colspan="2" class="content">
+        <div>
+            @Html.Raw(ViewBag.RenderData["BirthDate"])
+        </div>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>身份证号</span></strong></div>
+    </td>
+    <td colspan="2" class="content">
+        <div>
+            @Html.Raw(ViewBag.RenderData["IDNumber"])
+        </div>
+    </td>
+    <td style="width: 120px;">
+        <div>
+            <strong><span>工作单位</span></strong></div>
+    </td>
+    <td colspan="3" class="content">
+        <div>@Html.Raw(ViewBag.RenderData["Company"])</div>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>本人电话</span></strong></div>
+    </td>
+    <td class="content">
+        <div>@Html.Raw(ViewBag.RenderData["Phone"])</div>
+    </td>
+    <td style="width: 150px;">
+        <div>
+            <strong><span>联系人姓名</span></strong></div>
+    </td>
+    <td class="content">
+        <div>@Html.Raw(ViewBag.RenderData["ContactName"])</div>
+    </td>
+    <td>
+        <div>
+            <strong><span>联系人电话</span></strong></div>
+    </td>
+    <td colspan="2" class="content">
+        <div>@Html.Raw(ViewBag.RenderData["ContactPhone"])</div>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>常住类型</span></strong></div>
+    </td>
+    <td colspan="2" class="content">
+        <div>
+            <span>常住户口</span></div>
+    </td>
+    <td>
+        <div>
+            <strong><span>民族</span></strong></div>
+    </td>
+    <td colspan="3" class="content">
+        <div>@Html.Raw(ViewBag.RenderData["Nationality"])</div>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>血型</span></strong></div>
+    </td>
+    <td colspan="6" class="content">
+        <div>@Html.Raw(ViewBag.RenderData["ABOType"])<span>  / RH  </span>@Html.Raw(ViewBag.RenderData["RHType"])</div>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>文化程度</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["EducationLevel"])</td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>职业</span></strong></div>
+    </td>
+    <td colspan="6" class="content" style="width: 800px;">@Html.Raw(ViewBag.RenderData["OccupationClass"])</td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>婚姻状况</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["MarriageStatus"])</td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>医疗费用</span></strong></div>
+        <div>
+            <strong><span>支付方式</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["PayMethod"])</td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>药物过敏史</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["AllergyHistory"])</td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>暴露史</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["RiskFactors"])</td>
+</tr>
+<tr>
+    <td style="width: 30px;" rowspan="4">
+        <div>
+            <strong><span>既往史</span></strong></div>
+    </td>
+    <td style="width: 80px;">
+        <div>
+            <strong><span>疾病</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["Disease"])</td>
+</tr>
+<tr>
+    <td>
+        <div>
+            <strong><span>手术</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["Operation"])</td>
+</tr>
+<tr>
+    <td>
+        <div>
+            <strong><span>外伤</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["OuterInjuery"])</td>
+</tr>
+<tr>
+    <td>
+        <div>
+            <strong><span>输血</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["BloodTrans"])</td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>家族史</span></strong></div>
+    </td>
+    <td colspan="6">
+        <table class="inline-table">
+            <tr>
+                <td>父亲</td>
+                <td class="content">@Html.Raw(ViewBag.RenderData["Father"])</td>
+            </tr>
+            <tr>
+                <td>母亲</td>
+                <td class="content">@Html.Raw(ViewBag.RenderData["Mother"])</td>
+            </tr>
+            <tr>
+                <td>兄弟</td>
+                <td class="content">@Html.Raw(ViewBag.RenderData["Sibling"])</td>
+            </tr>
+            <tr>
+                <td>儿女</td>
+                <td class="content">@Html.Raw(ViewBag.RenderData["Children"])</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>遗传病史</span></strong></div>
+    </td>
+    <td colspan="6" class="content">
+        <span>无遗传疾病</span></td>
+</tr>
+<tr>
+    <td colspan="2">
+        <div>
+            <strong><span>残疾情况</span></strong></div>
+    </td>
+    <td colspan="6" class="content">@Html.Raw(ViewBag.RenderData["DisabilityStatus"])</td>
+</tr>
+<tr>
+    <td colspan="2" rowspan="5">
+        <div>
+            <strong><span>生活环境*</span></strong></div>
+    </td>
+    <td style="width: 140px;">
+        <div>
+            <strong><span>厨房排风设施</span></strong></div>
+    </td>
+    <td colspan="5" class="content"></td>
+</tr>
+<tr>
+    <td>
+        <div>
+            <strong><span>燃料类型</span></strong></div>
+    </td>
+    <td colspan="5" class="content"></td>
+</tr>
+<tr>
+    <td>
+        <div>
+            <strong><span>饮水</span></strong></div>
+    </td>
+    <td colspan="5" class="content"></td>
+</tr>
+<tr>
+    <td>
+        <div>
+            <strong><span>厕所</span></strong></div>
+    </td>
+    <td colspan="5" class="content"></td>
+</tr>
+<tr>
+    <td>
+        <div>
+            <strong><span>禽畜栏</span></strong></div>
+    </td>
+    <td colspan="5" class="content"></td>
+</tr>
+</table>
+</div>
+</body>
+</html>

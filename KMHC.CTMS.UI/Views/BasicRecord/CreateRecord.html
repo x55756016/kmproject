@@ -1,0 +1,323 @@
+﻿<div class="container-fluid">
+    <div class="page-header">
+        <h1>基本信息建档</h1>
+    </div>
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column">
+            <form name="baseform" ng-submit="save()" novalidate>
+                <div class="panel-group nav nav-list affix-top">
+                    <!--居民基本资料-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="icon-user-md icon-large"></i> 居民基本资料
+                        </div>
+                        <div class="panel panel-body">
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i>基本情况
+                                </div>
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="txt_RecordNo">城乡居民健康档案编号</label>
+                                        <div class="col-md-10">
+                                            <input id="txt_RecordNo" name="RecordNo" ng-model="Data.RecordNo" class="form-control" maxlength="17" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_Name">姓名</label>
+                                        <div class="col-md-10">
+                                            <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入您的中文名" maxlength="50" required disabled />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_Gender">性别</label>
+                                        <div class="col-md-10">
+                                            <select id="list_Gender" name="Gender" ng-model="Data.Gender" class="form-control" ng-options="Gender.Value as Gender.Name for Gender in Dic.Gender"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_BirthDate">出生日期</label>
+                                        <div class="col-md-10">
+                                            <div class="input-group date form_date " data-date="" data-date-format="yyyymmdd" datepicker>
+                                                <input id="txt_BirthDate" class="form-control" size="16" type="text" value="" ng-model="Data.BirthDate" required />
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_Country">国籍</label>
+                                        <div class="col-md-10">
+                                            <select id="list_Country" name="Nation" ng-model="Data.Country" class="form-control" ng-options="Country.Value as Country.Name for Country in Dic.Country"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_Nationality">民族</label>
+                                        <div class="col-md-10">
+                                            <select id="list_Nationality" name="Nationality" ng-model="Data.Nationality" class="form-control" ng-options="Nationality.Value as Nationality.Name for Nationality in Dic.Nationality"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_MarriageStatus">婚姻状况</label>
+                                        <div class="col-md-10">
+                                            <select id="list_MarriageStatus" name="MarriageStatus" ng-model="Data.MarriageStatus" class="form-control" ng-options="MarriageStatus.Value as MarriageStatus.Name for MarriageStatus in Dic.MarriageStatus"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_IDNumber">
+                                            证件号码
+                                        </label>
+                                        <div class="col-md-10">
+                                            <div class="input-group">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" disabled>{{Data.IDTypeName}} <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu" ng-click="IDTypeChange()">
+                                                        <li ng-repeat="IDType in Dic.IDType" style=" cursor: pointer; font-weight: 400; padding: 3px 20px 3px 10px;">
+                                                            <a value="{{IDType.Value}}">{{IDType.Name}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <input id="txt_IDNumber" type="text" class="form-control" ng-model="Data.IDNumber" required disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i> 联系方式
+                                </div>
+
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_Phone">本人电话</label>
+                                        <div class="col-md-10">
+                                            <input id="txt_Phone" name="Phone" ng-model="Data.Phone" class="form-control" ng-maxlength="20" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_ContactName">联系人姓名</label>
+                                        <div class="col-md-10">
+                                            <input id="txt_ContactName" name="ContactName" ng-model="Data.ContactName" class="form-control" ng-maxlength="50" placeholder="请填入联系人" required />
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_ContactPhone">联系人电话</label>
+                                        <div class="col-md-10">
+                                            <input id="txt_ContactPhone" name="ContactPhone" ng-model="Data.ContactPhone" class="form-control" ng-maxlength="20" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_EmailAddress">电子邮件地址</label>
+                                        <div class="col-md-10">
+                                            <input id="txt_EmailAddress" name="EmailAddress" ng-model="Data.EmailAddress" class="form-control" ng-maxlength="70" type="email" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i> 地址
+                                </div>
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_CensusAddressName">
+                                            户籍地址
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input id="txt_CensusAddressName" name="CensusAddressName" ng-model="Data.CensusAddressName" class="form-control" ng-maxlength="500" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_CensusPostCode">
+                                            户籍地址邮编
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" ng-maxlength="6" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_CurrentAddressName">
+                                            现住址
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input id="txt_CurrentAddressName" name="CurrentAddressName" ng-model="Data.CurrentAddressName" class="form-control" ng-maxlength="500" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_CurrentPostCode">
+                                            现住址邮编
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input id="txt_CurrentPostCode" name="CurrentPostCode" ng-model="Data.CurrentPostCode" class="form-control" ng-maxlength="6" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i> 学历和工作情况
+                                </div>
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_Company">
+                                            工作单位
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input id="txt_Company" name="Company" ng-model="Data.Company" class="form-control" ng-maxlength="70" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="txt_HireDate">参加工作日期</label>
+                                        <div class="col-md-10">
+                                            <div class="input-group date form_date" data-date="" data-date-format="yyyymmdd" datepicker>
+                                                <input id="txt_HireDate" class="form-control" size="16" type="text" value="" ng-model="Data.HireDate" required />
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_EducationLevel">文化程度</label>
+                                        <div class="col-md-10">
+                                            <select id="list_EducationLevel" name="EducationLevel" ng-model="Data.EducationLevel" class="form-control" ng-options="EducationLevel.Value as EducationLevel.Name for EducationLevel in Dic.EducationLevel"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_OccupationClass">职业</label>
+                                        <div class="col-md-10">
+                                            <select id="list_OccupationClass" name="OccupationClass" ng-model="Data.OccupationClass" class="form-control" ng-options="OccupationClass.Value as OccupationClass.Name for OccupationClass in Dic.OccupationClass"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i> 医保情况
+                                </div>
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_InsuranceType">医疗保险类别</label>
+                                        <div class="col-md-10">
+                                            <select id="list_InsuranceType" name="InsuranceType" ng-model="Data.InsuranceType" class="form-control" ng-options="InsuranceType.Value as InsuranceType.Name for InsuranceType in Dic.InsuranceType" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_InsuranceType">医疗保险支付方式</label>
+                                        <div class="col-md-10">
+                                            <select id="list_PayMethod" name="PayMethod" ng-model="Data.PayMethod" class="form-control" ng-options="PayMethod.Value as PayMethod.Name for PayMethod in Dic.PayMethod"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--居民基本资料-->
+                    <!--居民健康资料-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="icon-user-md icon-large"></i> 居民健康资料
+                        </div>
+                        <div class="panel panel-body">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i>血型
+                                </div>
+
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_BloodType">ABO血型</label>
+                                        <div class="col-md-10" style="text-align: left;">
+                                            <select id="list_BloodType" name="BloodType" ng-model="Data.ABOType" class="form-control" ng-options="BloodType.Value as BloodType.Name for BloodType in Dic.BloodType"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Rh血型</label>
+                                        <span class="col-md-10">
+                                            <input id="opt_RHType1" name="RHType" type="Radio" ng-model="Data.RHType" value="1" /><span>阳性</span>
+                                            <input id="opt_RHType2" name="RHType" type="Radio" ng-model="Data.RHType" value="2" /><span>阴性</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i> 过敏
+                                </div>
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_AllergyHistory">
+                                            过敏史
+                                        </label>
+                                        <div class="col-md-10" style="text-align: left;">
+                                            <select id="list_AllergyHistory" name="AllergyHistory" ng-model="Data.AllergyHistory" class=" form-control" ng-options="AllergyHistory.Value as AllergyHistory.Name for AllergyHistory in Dic.AllergyHistory"><option value="0" ng-selected="selected">没有过敏</option></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i> 危险因素
+                                </div>
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_RiskFactors">环境危险因素暴露史</label>
+                                        <div class="col-md-10">
+                                            <select id="list_RiskFactors" name="RiskFactors" ng-model="Data.RiskFactors" class=" form-control" ng-options="RiskFactors.Value as RiskFactors.Name for RiskFactors in Dic.RiskFactors"><option value="0" ng-selected="selected">没有过敏</option></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="icon-user-md icon-large"></i> 残疾情况
+                                </div>
+                                <div class="panel panel-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="list_DisabilityStatus">残疾状况</label>
+                                        <div class="col-md-10">
+                                            <select id="list_DisabilityStatus" name="DisabilityStatus" class=" form-control" ng-model="Data.DisabilityStatus" ng-options="DisabilityStatus.Value as DisabilityStatus.Name for DisabilityStatus in Dic.DisabilityStatus"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--居民健康资料-->
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="icon-user-md icon-large"></i> 居民社区资料
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="icon-user-md icon-large"></i> 管理机构和医师
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                        <button class="btn btn-default" type="button" ng-click="Cancel()" style="width:100px;">返回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-success" type="submit" ng-disabled="baseform.$invalid">确定信息无误并提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

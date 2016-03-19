@@ -1,0 +1,250 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                基因信息
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-1 col-sm-12">
+                            基因名：
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            {{Gene.GeneName}}
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            等位基因名：
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            {{GeneAllele.GeneAlleleName}}
+                        </div>
+                        <!--<div class="col-md-1 col-sm-12">
+                            <button type="button" class="btn btn-info btn-block form-control" ng-click="Search()"><i class="fa fa-fw fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-md-1 col-sm-12">
+                            <button type="button" class="btn btn-info btn-block  form-control" ng-click="Reset()"><i class="fa fa-fw fa-refresh"></i> 重置</button>
+                        </div>-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a ng-click="AddGeneAlleleLocus()" href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-plus "></i>新增</a>
+            <a ng-click="BackToGeneAlleleList()" href="javascript:void(0);"><i class="fa fa-fw fa-backward "></i>返回</a>
+            <!--<a ng-click="SearchCondition()" href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-refresh fa-lg"></i>刷新</a>
+            <a href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-download"></i>导出</a>-->
+            <!--<div id="picker" style="display:inline-block;">
+                <i class="fa fa-fw fa-upload"></i>导入
+            </div>-->
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <tr>
+                    <th class="col-md-1">
+                        类型
+                    </th>
+                    <th class="col-md-1">
+                        起始位点
+                    </th>
+                    <th class="col-md-1">
+                        终止位点
+                    </th>
+                    <th class="col-md-1">
+                        标准值
+                    </th>
+                    <th class="col-md-1">
+                        变化值
+                    </th>
+                    <th class="col-md-1">
+                        变化方式
+                    </th>
+                    <th class="col-md-1">
+                        参照规范
+                    </th>
+                    <th class="col-md-1">
+                        参照编码
+                    </th>
+                    <th class="col-md-1">
+                        HGVS名称
+                    </th>
+                    <th class="col-md-1">
+                        氨基酸影响
+                    </th>
+                    <th class="col-md-1">
+                        变异种类
+                    </th>
+                    <th class="col-md-1  text-center">
+                        操作
+                    </th>
+                </tr>
+                <tr ng-repeat="g in GeneAlleleLocusList">
+                    <td class="col-md-1">
+                        {{g.LocusType}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.StartPosition}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.EndPosition}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.StandardValue}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.VariantValue}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.VariantType}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.VariantGuideLine}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.VariantCode}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.HGVSName}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.AminoAcidEffect}}
+                    </td>
+                    <td class="col-md-1">
+                        {{g.VariantCategory}}
+                    </td>
+                    <td class="col-md-1  text-center">
+                        <input type="button" class="btn btn-default btn-small" value="编辑" ng-click="EditGeneAlleleLocus(g)" />
+                        <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteGeneAlleleLocus(g)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="geneAlleleLocusPager" class="pull-right"></div>
+
+
+    <div class="modal fade" id="modalEditGeneAlleleLocus" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>等位基因</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="eGeneAlleleLocusForm" name="eGeneAlleleLocusForm">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-2">ID:</label>
+                                <div class="col-md-9">{{CRUDGeneAllele.ID}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">基因名</label>
+                                <div class="col-md-10">
+                                    {{Gene.GeneName}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">等位基因名</label>
+                                <div class="col-md-10">
+                                    {{GeneAllele.GeneAlleleName}}
+                                </div>
+                            </div>
+                            
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">类型</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" ng-options="o.Value as o.Text for o in [{Text:'c.(cDNA)',Value:'c.'},{Text:'g.(基因)',Value:'g.'},{Text:'m.(线粒体DNA)',Value:'m.'},{Text:'r.(RNA)',Value:'r.'},{Text:'p.(蛋白序列)',Value:'p.'}]" ng-model="CRUDGeneAlleleLocus.LocusType"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">起始位置</label>
+                                <div class="col-md-10">
+                                    <input type="number" class="form-control" ng-model="CRUDGeneAlleleLocus.StartPosition" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">终止位置</label>
+                                <div class="col-md-10">
+                                    <input type="number" class="form-control" ng-model="CRUDGeneAlleleLocus.EndPosition"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">标准值</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDGeneAlleleLocus.StandardValue" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">变化值</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDGeneAlleleLocus.VariantValue" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">变化方式</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" ng-options="o.Value as o.Text for o in [{Text:'>(变更)',Value:'>'},{Text:'del(删除)',Value:'del'},{Text:'ins(插入)',Value:'ins'}]" ng-model="CRUDGeneAlleleLocus.VariantType"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">引用规范</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" ng-options="o.Value as o.Text for o in [{Text:'snp',Value:'snp'}]" ng-model="CRUDGeneAlleleLocus.VariantGuideLine"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">引用编码</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDGeneAlleleLocus.VariantCode" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">HGVS名称</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDGeneAlleleLocus.HGVSName" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">氨基酸影响</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDGeneAlleleLocus.AminoAcidEffect" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">变异种类</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDGeneAlleleLocus.VariantCategory" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveGeneAlleleLocus()" ng-disabled="eGeneAlleleLocusForm.$invalid">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+

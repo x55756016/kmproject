@@ -1,0 +1,96 @@
+﻿<div class="container-fluid">
+        <h1>社区资料管理</h1>
+    <div class="row-fluid clearfix">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="Keyword" ng-model="Keyword" placeholder="请输入关键字">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="Search()"><i class="icon-search"></i>查询</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal" ng-click="Add()">新增</button>
+                </div>
+            </div>
+            <table class="table table-hover table-bordered table-responsive">
+                <tbody>
+                    <tr class="info">
+                        <td></td>
+                        <td>社区名称</td>
+                        <td>地址</td>
+                        <td>联系人</td>
+                        <td>联系电话</td>
+                        <td>操作</td>
+                    </tr>
+                    <tr ng-repeat="item in ItemList">
+                        <td>{{item.ID}}</td>
+                        <td>{{item.CommunityName}}</td>
+                        <td>{{item.CommunityAddress}}</td>
+                        <td>{{item.CommunityContactName}}</td>
+                        <td>{{item.CommunityContactPhone}}</td>
+                        <td>
+                            <button class="btn"
+                                    data-toggle="modal"
+                                    data-target="#myModal"
+                                    ng-click="GetComInfo(item.ID)">
+                                编辑
+                            </button>
+                            <button class="btn" ng-click="Remove(item.ID)">
+                                删除
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div id="pager"></div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form name="Communityform" ng-submit="SaveCommunity()" class="form-horizontal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" ng-model="fWindowName">社区资料编辑</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <td>社区名称：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="Community.CommunityName" name="CommunityName" placeholder="社区名称" /></td>
+                        </tr>
+                        <tr>
+                            <td>地址：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="Community.CommunityAddress" name="CommunityAddress" placeholder="地址" /></td>
+                        </tr>
+                        <tr>
+                            <td>联系人：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="Community.CommunityContactName" name="CommunityContactName" placeholder="联系人" /></td>
+                        </tr>
+                        <tr>
+                            <td>联系电话：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="Community.CommunityContactPhone" name="CommunityContactPhone" placeholder="联系电话" /></td>
+                        </tr>
+                        <tr>
+                            <td>地区选择：&nbsp;</td>
+                            <td>
+                                <div class="panel-group" ng-include="'/Views/Common/Area.html'" ng-init="CurrentAreas = Areas"></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" ng-disabled="Communityform.$invalid" type="submit">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

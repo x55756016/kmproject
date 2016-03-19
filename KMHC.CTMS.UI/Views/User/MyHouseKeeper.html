@@ -1,0 +1,102 @@
+﻿<div class="container-fluid">
+    <div class="form-horizontal  col-md-10">
+        <table class="table table-bordered table-striped table-hover col-md-8">
+            <tr ng-repeat="m in MyHouseKeeperList">
+                <td class="col-md-3 text-center">我的{{m.ObjectType}}</td>
+                <td class="col-md-3 text-center">{{m.ObjectLoginName}}</td>
+                <td class="col-md-3 text-center"><button class="btn btn-primary" name="btim" onclick="window.open(window.location.protocol + '//' + window.location.host + '/Content/web-im-1.0.7.2/index.html', '_blank'); /*var btims = document.getElementsByName('btim'); for (i = 0; i < btims.length; i++) { btims[i].disabled = true; }*/ return false">在线咨询</button></td>
+                <td class="col-md-3 text-center"><button class="btn btn-primary" ng-click="SendQuestion(m)">发送信息</button></td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-horizontal col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-search-plus fa-lg"></i>
+                <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                    查询条件
+                    <i class="fa fa-angle-down fa-fw pull-right"></i>
+                </strong>
+
+            </div>
+            <div class="panel-collapse collapse in" id="collapseExample">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-10 col-sm-12">
+                                <input type="text" ng-model="keyWord" class="form-control" placeholder="请输入关键字进行查询" />
+                            </div>
+                            <div class="col-md-1 col-sm-12">
+                                <button type="button" class="btn btn-info btn-block form-control" ng-click="Search()" style="min-width:50px;"><i class="fa fa-fw fa-search"></i> 查询</button>
+                            </div>
+                            <div class="col-md-1 col-sm-12">
+                                <!--<button type="button" class="btn btn-info btn-block  form-control" ng-click="Reset()" style="min-width:50px;"><i class="fa fa-fw fa-refresh"></i> 重置</button>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="">
+                <table class="table table-bordered table-striped table-hover col-md-8">
+                    <tr class="info">
+                        <th class="col-md-2">咨询时间</th>
+                        <th class="col-md-3">咨询内容</th>
+                        <th class="col-md-1">咨询对象</th>
+                        <th class="col-md-2">回复时间</th>
+                        <th class="col-md-3">回复内容</th>
+                    </tr>
+                    <tr ng-repeat="q in QuestionList">
+                        <td class="col-md-2">{{q.CreateDateTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="col-md-3">{{q.Question}}</td>
+                        <td class="col-md-1">{{q.ObjectLoginName}}</td>
+                        <td class="col-md-2">{{q.EditTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="col-md-3">{{q.Answer}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="pager" class="pull-right"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalQuestion" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>咨询</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="questionForm" name="questionForm">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-2">ID:</label>
+                                <div class="col-md-9">{{CRUDQuestion.ID}}</div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <textarea class="form-control" ng-model="CRUDQuestion.Question" rows="5" maxlength="2000" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveQuestion()" ng-disabled="questionForm.$invalid">
+                        发送咨询
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>

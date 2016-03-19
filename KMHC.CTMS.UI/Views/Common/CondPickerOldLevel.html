@@ -1,0 +1,19 @@
+﻿<script src="/Scripts/bootstrap-treeview.min.js"></script>
+<div class="container-fluid" ng-controller="CondPickerCtrl">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <form class="form-inline">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control" placeholder="请输入条件名称" ng-model="scKeyword" id="scKeyword">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default col-md-11" type="button" ng-click="SearchCondItem()">搜索</button>
+                    </span>
+                </div>
+            </form>
+            <br />
+            <div id="condItemTree" style="height: 420px; list-style-type: none;">
+                
+            </div>
+        </div>
+    </div>
+</div>

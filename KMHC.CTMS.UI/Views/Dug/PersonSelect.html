@@ -1,0 +1,58 @@
+﻿<style type="text/css">
+    /*.form-horizontal .control-label {
+        text-align: left;
+    }*/
+</style>
+<div class="container-fluid" ng-controller="personSelectCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+                <div class="form-group pull-left" >
+                    <label class="col-md-2">姓名</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" ng-model="NAME" />
+                    </div>
+                    <label class="col-md-2">身份证</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" ng-model="IDNUMBER" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-info btn-block" ng-click="Search()">查询</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-responsive table-striped table-bordered" id="taPerson">
+                <thead>
+                    <tr>
+                        <td style="min-width: 100px;">姓名</td>
+                        <td style="min-width: 50px;">性别</td>
+                        <td style="min-width: 50px;">年龄</td>
+                        <td style="min-width: 100px;">身份证号</td>
+                        <td style="min-width: 100px;">就诊疾病</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="u in UserInfos" ng-click="Check($index,u)">
+                        <td style="min-width: 100px;">{{u.NAME|limitTo:1}}**</td>
+                        <td style="min-width: 50px;">{{u.SEX}}</td>
+                        <td style="min-width: 50px;">{{u.AGE}}</td>
+                        <td style="min-width: 50px;">{{u.IDCARD|limitTo:4}}<text ng-show="u.IDCARD">**</text></td>
+                        <td style="min-width: 100px;">{{u.DISEASE}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--<div id="controlPager" class="pull-right"></div>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="col-md-offset-11 col-md-1 btn btn-info" ng-click="Save()">确定</button>
+        </div>
+    </div>
+</div>

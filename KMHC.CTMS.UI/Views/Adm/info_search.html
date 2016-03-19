@@ -1,0 +1,115 @@
+﻿<style>
+    th, td {
+        text-align: center;
+        white-space: nowrap;
+    }
+    .modal-dialog {
+        width: 1200px !important;
+    }
+</style>
+<div class="row head">
+        <div class="col-lg-6" style="margin:20px auto;float:none;">
+            <div class="input-group">
+                <select class="pull-left" style="height:34px;" ng-model="SearchType">
+                    <option value="Title">标题</option>
+                    <option value="Author">作者</option>
+                    <option value="Content">文章内容</option>
+                    <option value="Source">文献来源</option>
+                    <option value="Digest">摘要</option>
+                    <option value="KeyWord">关键词</option>
+                </select>
+                <input type="text" class="form-control" placeholder="请输入标题名或作者或内容" id="txtSearch" ng-keypress="searchInputOk($event)" style="float:right;width:89%;" />
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="button" ng-click="searchInfo()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+</div>
+
+<div class="container">
+    <div class="row" style="border-bottom:1px dotted #ccc;" ng-repeat="d in Data">
+        <div class="pull-left">
+            <a href="/Upload/{{d.FilePath}}"><img src="../../Content/images/exticon/{{d.FileType}}.png" style="width:165px;height:165px;" /></a>
+        </div>
+        <div style="padding-top:20px;font-size:32px;">
+            <a style="text-decoration:none;cursor:pointer;">{{d.Title}}</a>
+        </div>
+        <div style="font-size:18px;">
+            文章分类：{{d.ArticleClass}}
+        </div>
+        <div style="font-size:16px;">
+            文章类型：{{d.ArticleCategory}}
+        </div>
+        <div style="font-size:14px;margin-top:24px;" class="pull-right">
+            作者：{{d.Author}}
+        </div>
+    </div>
+    <table class="table table-bordered" style="margin-top:20px;">
+        <thead>
+            <tr>
+                <th>知识分类</th>
+                <th>文章数量</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in AllData">
+                <td>{{d[1]["_value"]}}</td>
+                <td>{{d[2]["_value"]}}</td>
+                <td><a data-toggle="modal" data-target="#modalInfoDetail" style="cursor:pointer;text-decoration:none;" ng-click='SearchList(d[0]["_value"])'>查看</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="loading-modal" ng-show="loading" style="background:rgba(255,255,255,0);">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>加载中，请稍候...</span>
+    </div>
+</div>
+
+<div class="modal fade" id="modalInfoDetail" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label>文章列表</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" style="table-layout:fixed;">
+                        <thead>
+                            <tr>
+                                <th style="width:350px;">标题</th>
+                                <th style="width:70px;">作者</th>
+                                <th>发布日期</th>
+                                <th style="width:70px;">文章类型</th>
+                                <th>修改日期</th>
+                                <th>修改人</th>
+                                <th style="width:100px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="d in CategoryData">
+                                <td class="wrapspace" style="text-align:left;">{{d.Title}}</td>
+                                <td>{{d.Author}}</td>
+                                <td class="wrapspace">{{d.PublishTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                <td>{{d.ArticleType}}</td>
+                                <td class="wrapspace">{{d.ModifyTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                <td>{{d.ModifyUser}}</td>
+                                <td class="text-center"><a href="{{d.FilePath}}" class="btn btn-info" ng-show="d.FilePath!=''">下载附件</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="pager"></div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

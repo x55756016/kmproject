@@ -1,0 +1,108 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                查询条件
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label ">上传日期</label>
+                        <div class="col-sm-6">
+                            <div class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                                <input id="txt_Date" class="form-control" size="16" type="text" value="" required ng-model="Date" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-info btn-block form-control" ng-click="SearchCondition()"><i class="fa fa-fw fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-info btn-block  form-control" ng-click="ResetSearch()"><i class="fa fa-fw fa-refresh"></i> 重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a ng-click="UserUpload()" href="javascript:void(0);"><i class="fa fa-fw fa-upload"></i>上传文件</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr class="info">
+                        <th>上传时间</th>
+                        <th>上传文件</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in Infos">
+                        <td>{{x.CreatTime| date:'yyyy-MM-dd'}}</td>
+                        <td><a title="查看文件" target="_blank" href="/Upload/{{x.FilePath}}">{{x.FileName}}</a></td>
+                        <td>{{x.Remark}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pager" class="pull-right"></div>
+    </div>
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>处理中，请稍候...</span>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUploader" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    <label><i class="fa fa-fw fa-upload"></i> 上传文件</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3"><div id="picker">选择文件</div></div>
+                    <div class="col-md-3">
+                        <button class="btn btn-default" ng-click="StartUpload()">开始上传</button>
+                    </div>
+                </div>
+                <ul class="list-group" ng-repeat="x in Files">
+                    <li class="list-group-item">{{x.FileName}}&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="text-info">{{x.Msg}}</span>
+                        <span class="btn btn-danger btn-small pull-right" style="padding:0px 12px;" ng-click="RemoveFile($index)">删除</span>
+                    </li>
+                </ul>
+                <div style="margin-top:15px;">
+                    <fieldset>
+                        <legend>备注</legend>
+                        <textarea class="form-control" id="txtRemark" rows="3" ng-model="Remark"></textarea>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" ng-click="Save()" ng-disabled="IsSave">确定</button>
+                <button class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

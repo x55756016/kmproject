@@ -1,0 +1,162 @@
+﻿<!--<!DOCTYPE html>
+<html id="ng-app">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style>
+        li label:hover{color:#222;text-shadow:1px 1px 2px rgba(0,0,0,0.3);}
+        li label{display:block;vertical-align:middle;padding:0.8em 2.5em;cursor:pointer;}
+        input[type=radio]{position:absolute;top:50%;left:0.7em;margin:-0.7em 0 0;z-index:1;}
+        input[type=radio]{border-radius:1em;outline:none;}
+        input[type=radio]{display:inline-block;height:1.4em;width:1.4em;}
+    </style>
+</head>
+<body ng-app="hpnApp">
+    <div class="container">
+        <div class="page-header" style="margin-bottom:0px;">
+            <h2>{{template.Title}}</h2>
+        </div>
+        <div class="form-group" style="font-size:1.1em;background:#f1f1f1;line-height:2em;margin-bottom:0px;">{{template.Description}}</div>
+        <div class="form-group">欢迎进入{{template.Title}}！</div>
+
+        <h5>您已完成{{template.Persent}}</h5>
+        <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ng-style="persent">
+                <span class="sr-only">{{template.Persent}} 完成(成功)</span>
+            </div>
+        </div>
+
+        <div class="form-group" style="border:1px solid #ccc;border-radius:4px;padding-bottom:60px;">
+            <div style="border-top-left-radius:4px;border-top-right-radius:4px;background:#f6f6f6;color:#181818;border-bottom:#f1f1f1;padding:0.5em 0.3em;height:36px;margin-bottom:0px;">
+                <span style="color:#ff8900;display:inline-block;">*</span>{{template.Question}}
+            </div>
+            <div style="height:24px;font-size:0.9em;margin:0.2em 0 0;padding:0.2em 0.3em;clear:both;font-style:italic;">{{template.Help}}</div>
+
+            <form ng-submit="processForm()" name="myForm">
+                <div ng-switch on="template.Type">
+                    <div ng-switch-when="1">
+                        <div ng-repeat="input in template.Content" style="height:40px;margin:0 auto;width:90%;">
+                            <input class="form-control" id="{{input.IDATTR}}" name="{{input.Name}}" type="text" placeholder="{{input.Text}}" autocomplete="off" required ng-model="formData[input.Name]" value="{{template.CurrentValue}}" />
+                        </div>
+                    </div>
+                    <div ng-switch-when="2">
+                        <div ng-repeat="number in template.Content" style="height:40px;margin:0 auto;width:90%;">
+                            <input class="form-control" id="{{number.IDATTR}}" type="number" placeholder="{{number.Text}}" autocomplete="off" required min="0" max="500" step="0.01" name="{{number.Name}}" ng-model="formData[number.Name]" value="{{template.CurrentValue}}" />
+                        </div>
+                    </div>
+                    <div ng-switch-when="3">
+                        <div ng-repeat="date in template.Content" style="height:40px;margin:0 auto;width:90%;">
+                            <input class="form-control date" id="{{date.IDATTR}}" type="date" placeholder="{{date.Text}}" autocomplete="off" required name="{{number.Name}}" ng-model="formData[date.Name]" value="{{template.CurrentValue}}" />
+                        </div>
+                    </div>
+                    <ul class="list-group" style="width:99%;margin:20px auto;" ng-switch-when="4">
+                        <li class="list-group-item" ng-repeat="option in template.Content"><label for="{{option.IDATTR}}"><input type="radio" id="{{option.IDATTR}}" name="{{option.Name}}" value="{{option.Value}}" required ng-model="formData[option.Name]" ng-checked="option.IDATTR == template.CurrentId" />{{option.Text}}</label></li>
+                    </ul>
+                </div>
+            </form>
+
+            <button type="button" class="btn btn-info  active col-xs-2 col-md-offset-8" ng-disabled="myForm.$invalid" ng-click="submitItem()">
+                <span class="glyphicon glyphicon-arrow-right"> {{getSubmitText()}}</span>
+            </button>
+
+            <div class="loading-modal" ng-show="loading">
+                <div class="loading">
+                    <img src="../../../Content/images/loading.gif" alt="" /><span>加载中，请稍后...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>-->
+
+
+
+<style>
+    li label:hover {
+        color: #222;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    li label {
+        display: block;
+        vertical-align: middle;
+        padding: 0.2em 1.5em;
+        cursor: pointer;
+    }
+
+    input[type=radio] {
+        position: absolute;
+        top: 50%;
+        left: 0.7em;
+        margin: -0.7em 0 0;
+        z-index: 1;
+    }
+
+    input[type=radio] {
+        border-radius: 1em;
+        outline: none;
+    }
+
+    input[type=radio] {
+        display: inline-block;
+        height: 1.4em;
+        width: 1.4em;
+    }
+</style>
+
+<div class="page-header" style="margin:20px 0;">
+    <h3>{{Data.Template.TITLE}}</h3>
+</div>
+<div class="form-group" style="font-size:1.1em;background:#f1f1f1;line-height:2em;margin-bottom:0px;" ng-bind-html-unsafe="template.Description"></div>
+<div class="form-group" ng-hide="template.Description" ng-bind-html-unsafe="Data.Template.Instruction">欢迎进入{{Data.Template.TITLE}}！</div>
+<h5 class="text-center">您已完成{{getPersent()}}</h5>
+<div class="progress progress-striped" style="width:60%;margin-left:20%;">
+    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ng-style="getPersentWidth()">
+        <span class="sr-only">{{getPersent()}} 完成(成功)</span>
+    </div>
+</div>
+
+<div class="form-group" style="border:1px solid #ccc;border-radius:4px;padding-bottom:60px;">
+    <div style="border-top-left-radius:4px;border-top-right-radius:4px;background:#f6f6f6;color:#181818;border-bottom:#f1f1f1;padding:0.5em 0.3em;height:36px;margin-bottom:0px;display:inline-table;min-width:100%;">
+        <span style="color:#ff8900;display:inline-block;">*</span>{{Data.Template.Questions[QuestionIndex].TITLE}}
+    </div>
+    <div style="font-size:12px;padding:0.5em 1em;clear:both;font-style:italic;display:inline-table;">{{Data.Template.Questions[QuestionIndex].INSTRUCTION}}</div>
+
+    <form ng-submit="processForm()" name="myForm" style="margin-top:5px;">
+        <div ng-switch on="Data.Template.Questions[QuestionIndex].TAGTYPE">
+            <div ng-switch-when="1">
+                <div ng-repeat="input in Data.Template.Questions[QuestionIndex].Options" style="height:40px;margin:0 auto;width:90%;">
+                    <input class="form-control" id="{{input.IDATTR}}" name="{{input.NAMEATTR}}" type="text" placeholder="{{input.TEXT}}" autocomplete="off" required ng-model="formData[input.NAMEATTR]" ng-keyup="goNext()" />
+                </div>
+            </div>
+            <div ng-switch-when="2">
+                <div ng-repeat="number in Data.Template.Questions[QuestionIndex].Options" style="height:40px;margin:0 auto;width:90%;">
+                    <input class="form-control" id="{{number.IDATTR}}" type="number" placeholder="{{number.TEXT}}" autocomplete="off" required min="1" max="275" name="{{number.NAMEATTR}}" ng-model="formData[number.NAMEATTR]" ng-maxlength="5" ng-keyup="goNext()" />
+                </div>
+            </div>
+            <div ng-switch-when="3">
+                <div ng-repeat="date in Data.Template.Questions[QuestionIndex].Options" style="height:40px;margin:0 auto;width:90%;">
+
+                    <input class="form-control date" type="text" placeholder="{{date.TEXT}}" autocomplete="off" required name="{{date.NAMEATTR}}" ng-model="formData[date.NAMEATTR]" ng-pattern="/^(([0-1]{1}[0-9]{1}|[2]{1}[0-3]{1})|([1-9]{1})):(([0-5]{1}[0-9]{1})|[1-9]{1})$/" ng-keyup="goNext()" />
+                </div>
+            </div>
+            <ul class="list-group" style="width:99%;margin:20px auto;" ng-switch-when="4">
+                <li class="list-group-item" ng-repeat="option in Data.Template.Questions[QuestionIndex].Options"><label for="{{option.IDATTR}}" style="font-weight:normal;"><input type="radio" id="{{option.IDATTR}}" name="{{option.NAMEATTR}}" value="{{option.VALUE}}" required ng-model="formData[option.NAMEATTR]" ng-click="submitItem()" />{{option.TEXT}}</label></li>
+            </ul>
+        </div>
+    </form>
+
+    <button type="button" class="btn btn-info  active pull-right" style="margin-right:10%;" ng-click="submitItem()" ng-hide="Data.Template.Questions[QuestionIndex].TagType == 4" ng-disabled="canSubmitItem()">
+        <span class="glyphicon glyphicon-arrow-right"> {{getSubmitText()}}</span>
+    </button>
+    <button type="button" class="btn btn-info  active pull-right" style="margin-right:10%;" ng-click="getPrevItem()" ng-hide="QuestionIndex == 0">
+        <span class="glyphicon glyphicon-arrow-left"> 上一题</span>
+    </button>
+
+    <div class="loading-modal" ng-show="loading">
+        <div class="loading">
+            <img src="../../Content/images/loading.gif" alt="" /><span>加载中，请稍候...</span>
+        </div>
+    </div>
+</div>

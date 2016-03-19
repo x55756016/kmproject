@@ -1,0 +1,57 @@
+﻿<div ng-controller="GuideLineCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            GuideLine流程列表
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="container col-md-11">
+                    <div class="row">
+                        <div class="col-md-8 text-left">
+                            <input type="text" ng-model="keyWord" class="form-control" placeholder="请输入名称或code查询" />
+                        </div>
+                        <div class="col-md-3 text-left">
+                            <input type="button" class="btn btn-default col-md-3" value="查询" ng-click="Search()" />
+                            <input type="button" class="btn btn-default col-md-3" value="新增" ng-click="AddGuideLine()" style="margin-left:10px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-2">
+                            序号
+                        </th>
+                        <th class="col-md-1">
+                            流程名称
+                        </th>
+                        <th class="col-md-1">
+                            创建时间
+                        </th>
+                        <th class="col-md-1 text-center" colspan="2">
+                            操作
+                        </th>
+                    </tr>
+                    <tr ng-repeat="g in GuideLineList">
+                        <td class="col-md-1">
+                            {{$index + 1}}
+                        </td>
+                        <td class="col-md-1">
+                            {{g.GUIDELINENAME}}
+                        </td>
+                        <td class="col-md-1">
+                            {{g.CREATEDATETIME}}
+                        </td>
+                        <td class="col-md-1  text-center">
+                            <input type="button" class="btn btn-default btn-small" value="编辑" ng-click="EditGuideLine(g)" />
+                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteGuideLine(g)" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

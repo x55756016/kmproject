@@ -1,0 +1,153 @@
+﻿<div ng-controller="MetaDataCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            元数据
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="container col-md-11">
+                    <div class="row">
+                        <div class="col-md-8 text-left">
+                            <input type="text" ng-model="keyWord" class="form-control" placeholder="请输入名称查询" />
+                        </div>
+                        <div class="col-md-3 text-left">
+                            <input type="button" class="btn btn-default col-md-3" value="查询" ng-click="Search()" />
+                            <input type="button" class="btn btn-default col-md-3" value="新增" ng-click="AddMetaData()" style="margin-left:10px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-2">
+                            名称
+                        </th>
+                        <th class="col-md-2">
+                            分组
+                        </th>
+                        <th class="col-md-1">
+                            数据类型
+                        </th>
+                        <th class="col-md-1">
+                            数据来源类型
+                        </th>
+                        <th class="col-md-2">
+                            数据来源
+                        </th>
+                        <th class="col-md-1">
+                            数据来源字段
+                        </th>
+                        <th class="col-md-1">
+                            参数列表
+                        </th>
+                        <th class="col-md-3 text-center" colspan="2">
+                            操作
+                        </th>
+                    </tr>
+                    <tr ng-repeat="m in MetaDataList">
+                        <td class="col-md-2">
+                            {{m.DisplayName}}
+                        </td>
+                        <td class="col-md-2">
+                            {{m.Category}}
+                        </td>
+                        <td class="col-md-1">
+                            {{m.DataTypeText}}
+                        </td>
+                        <td class="col-md-1">
+                            {{m.DataSourceTypeText}}
+                        </td>
+                        <td class="col-md-2">
+                            {{m.DataSource}}
+                        </td>
+                        <td class="col-md-1">
+                            {{m.DataSourceColumn}}
+                        </td>
+                        <td class="col-md-1  text-center">
+                            <input type="button" class="btn btn-default btn-small" value="编辑参数" ng-click="EditMetaDataParam(m)" />
+                        </td>
+                        <td class="col-md-2  text-center">
+                            <input type="button" class="btn btn-default btn-small" value="编辑" ng-click="EditMetaData(m)" />
+                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteMetaData(m)" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modalMetaData" tabindex="-1" role="dialog"
+               aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>元数据设置</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="eMetaDataFrom" name="eMetaDataFrom">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-3">ID:</label>
+                                <div class="col-md-8">{{CRUDMetaData.ID}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">名称*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDMetaData.DisplayName" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">分组</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDMetaData.Category" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">数据类型*</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-options="d.ivalue as d.text for d in DicDataTypeList|orderBy:'ivalue'" ng-model="CRUDMetaData.DataType" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">数据来源类型*</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-options="d.ivalue as d.text for d in DicDataSourceTypeList|orderBy:'ivalue'" ng-model="CRUDMetaData.DataSourceType" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">数据来源*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDMetaData.DataSource" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">数据来源字段</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDMetaData.DataSourceColumn" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveMetaData()" ng-disabled="eMetaDataFrom.$invalid">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+

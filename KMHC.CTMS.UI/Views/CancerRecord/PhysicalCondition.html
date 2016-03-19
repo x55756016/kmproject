@@ -1,0 +1,36 @@
+﻿<div class="pager" ng-controller="cancer_PhysicalConditionCtrl">
+    <div class="panel-body">
+        <table class="tab table-bordered">
+            <tbody>
+                <tr>
+                    <th>
+                        项目
+                    </th>
+                    <th>
+                        评分
+                    </th>
+                    <th>
+                        描述
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                <tr ng-repeat="s in Data">
+                    <td>
+                        {{s.TemplateTitle}}
+                    </td>
+                    <td>
+                        {{s.Grade}}
+                    </td>
+                    <td>
+                        {{s.Description}}
+                    </td>
+                    <td>
+                        <input type="button" class="btn btn-default" value="新增/查看" ng-click="AddView(s.TemplateTitle)" />
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+    </div>
+</div>

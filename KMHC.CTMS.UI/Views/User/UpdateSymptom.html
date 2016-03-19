@@ -1,0 +1,91 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <label><i class="fa fa-fw fa-medkit fa-lg"></i> 更新症状</label>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" >
+                <div class="form-group">
+                    <label class="col-lg-1 col-md-2 control-label">日期</label>
+                    <div class="col-lg-2 col-md-3">
+                        <div class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                            <input id="txt_Date" class="form-control" size="16" type="text" value="" required ng-model="Date" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-1 col-md-2 ">
+                        <button type="button" class="btn btn-info form-control" ng-click="Modal()">选择新症状</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12 col-md-12 table-responsive">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th>症状</th>
+                                    <th class="bg-success">无</th>
+                                    <th class="bg-info">轻微</th>
+                                    <th class="bg-warning">中等</th>
+                                    <th class="bg-danger">严重</th>
+                                </tr>
+                            </thead>
+                            <tbody id="symptomBody">
+                                <tr ng-repeat="x in symptom">
+                                    <td>{{x.SymptomName}}</td>
+                                    <td><button type="button" class="btn btn-block " ng-click="CheckLevel($index,0)">无</button></td>
+                                    <td><button type="button" class="btn btn-block " ng-click="CheckLevel($index,1)">轻微</button></td>
+                                    <td><button type="button" class="btn btn-block " ng-click="CheckLevel($index,2)">中等</button></td>
+                                    <td><button type="button" class="btn btn-block " ng-click="CheckLevel($index,3)">严重</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-1 col-md-2">
+                        <button type="button" class="btn btn-info btn-block" ng-click="Save()"><i class="fa fa-fw fa-save"></i>保存</button>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <button type="button" class="btn btn-info btn-block" ng-click="GoBack()"><i class="fa fa-fw fa-reply-all"></i>返回</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSymptom" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    <label>选择症状</label>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>症状名称</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in dict">
+                            <td>{{x.text}}</td>
+                            <td><a href="javascript:void(0);" ng-click="Select(x)"><i class="fa fa-fw fa-check-circle"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

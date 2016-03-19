@@ -1,0 +1,275 @@
+﻿<div class="container-fluid">
+    <div style="text-align: left;height: 70px"><h1>肿瘤精准用药</h1></div>
+    <!--<hr/>-->
+    <div class="row-fluid clearfix">
+        <form class="form-horizontal">
+            <div>
+                <div style="overflow: hidden; height: 40px; border: 1px solid #ccc; border-width: 0 0 0 0;">
+                    <!--<p style="float:left;">选择用户</p>
+                    <input type="text" style="border:1px solid #ccc; float:left;"/>
+                    <a style="float:left; border:1px solid #ccc;">搜索</a>-->
+                    <p style="float: left;">
+                        <label style="float: left; font-size: 24px;">姓名：{{UserInfo.NAME|limitTo:1}}<text ng-show="UserInfo.NAME">**</text></label>
+                        <label style="float: left; font-size: 24px; margin-left: 30px;">年龄：{{UserInfo.AGE}}</label>
+                        <label style="float: left; font-size: 24px; margin-left: 30px;">性别：{{UserInfo.SEX}}</label>
+                        <label style="float: left; font-size: 24px; margin-left: 30px;">就诊疾病：{{UserInfo.DISEASE}}</label>
+                    </p>
+
+                    <button type="button" class="btn btn-info " data-toggle="modal" style="margin-left: 12px;"
+                            data-target="#personSelect">
+                        选择用户
+                    </button>
+                    <!--</div>-->
+                    <!--<label class="col-md-2 control-label">姓名：{{UserInfo.NAME}}</label>
+                    <label class="col-md-2 control-label">性别：{{UserInfo.SEX}}</label>
+                    <label class="col-md-2 control-label">年龄：{{UserInfo.AGE}}</label>
+                    <label class="col-md-2 control-label">证件号：{{UserInfo.IDCARD}}</label>
+                    <label class="col-md-2 control-label">就诊疾病：{{UserInfo.DISEASE}}</label>-->
+                    <!--<div class=" col-md pull-right">
+                        <button type="button" class="btn btn-info " data-toggle="modal"
+                                data-target="#personSelect">
+                            选择用户
+                        </button>
+                    </div>-->
+                </div>
+            </div>
+
+            <div style="display: block; height: 50px; border: 1px solid #ccc; border-width: 1px 0 1px 0; padding: 5px 0;">
+                <div class="pull-left">
+                    <label style="font-size: 24px;">生活习惯</label>
+                </div>
+                <div class="pull-left" style="margin-left: 100px;">
+                    <label class="checkbox-inline" ng-repeat="item in Habits">
+                        <input type="checkbox" name="{{item.name}}" ng-click="updateSelection($event,item.value)">{{item.DisplayName}}
+                    </label>
+                </div>
+            </div>
+            <div style="display: block; height: 50px; border: 1px solid #ccc; border-width: 0 0 0 0; padding: 5px 0;">
+                <label style="float: left; font-size: 24px;">现在用药情况</label>
+                <button type="button" class="btn btn-info" ng-click="AddNewDrug(0)" style="margin-left: 12px;">
+                    添加
+                </button>
+                <!--<div style="float: right">
+                    <button type="button" class="btn btn-info" ng-click="AddNewDrug(0)">
+                        添加
+                    </button>
+                </div>-->
+            </div>
+            <table class="table table-hover table-bordered table-responsive" style="width: 800px;">
+                <thead>
+                    <tr class="info">
+                        <th style="width: 40%">药品全称</th>
+                        <th style="width: 25%">治疗疾病</th>
+                        <th>服用时间</th>
+                        <th style="width: 19%">操作</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="item in ListItem.OldDrug">
+                    <td>{{item.DRUGNAME}}</td>
+                    <td>{{item.TREATMENTDISEASES}}</td>
+                    <td>{{item.STARTTIME|date:'yyyy-MM-dd'}}-{{item.ENDTIME|date:'yyyy-MM-dd'}}</td>
+                    <td style="text-align: center">
+                        <button class="btn" ng-click="Edit(item.ID)">编辑</button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button class="btn" ng-click="Remove(item.ID)">删除</button>
+                    </td>
+                </tr>
+            </table>
+            <div style="display: block; height: 50px; border: 1px solid #ccc; border-width: 1px 0 1px 0;padding: 5px 0;">
+                <label style="float: left; font-size: 24px;">新用药情况</label>
+                <button type="button" class="btn btn-info" ng-click="AddNewDrug(1)" style="margin-left: 12px;">
+                    添加
+                </button>
+                <!--<div style="float: right">
+                    <button type="button" class="btn btn-info" ng-click="AddNewDrug(1)">
+                        添加
+                    </button>
+                </div>-->
+
+            </div>
+            <table class="table table-hover table-bordered table-responsive" style="width: 800px;">
+
+                <thead>
+                    <tr class="info">
+                        <th style="width: 40%">药品全称</th>
+                        <th style="width: 25%">治疗疾病</th>
+                        <th>服用时间</th>
+                        <th style="width: 19%">操作</th>
+                    </tr>
+                </thead>
+
+
+                <tr ng-repeat="item in ListItem.NewDrug">
+                    <td>{{item.DRUGNAME}}</td>
+                    <td>{{item.TREATMENTDISEASES}}</td>
+                    <td>{{item.STARTTIME|date:'yyyy-MM-dd'}}-{{item.ENDTIME|date:'yyyy-MM-dd'}}</td>
+                    <td>
+                        <button class="btn" ng-click="Edit(item.ID)">编辑</button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button class="btn" ng-click="Remove(item.ID)">删除</button>
+                    </td>
+                </tr>
+            </table>
+            <div style="display: block; border: 1px solid #ccc; border-width: 1px 0 1px 0;padding: 5px 0;">
+                <label style="float: left; font-size:24px;">
+                    药物相互作用
+                </label>
+                <!--<ul ng-repeat="item in ListItem.InterEffect">
+                    <li style="font-size: 15px;">
+                        {{item.INTERNAME}}与{{item.NAME}}会产生 {{item.DRUGINTERACTION}}
+                    </li>
+                </ul>-->
+                <textarea style="height: 100px;width: 100%" ng-model="InterEffect" readonly="readonly"></textarea>
+            </div>
+
+            <div style="display: block;  border: 1px solid #ccc; border-width: 0 0 1px 0;padding: 5px 0;">
+                <label style="float: left; font-size:24px;">
+                    基因与药物的作用
+                </label>
+                <!--<ul ng-repeat="item in ListItem.GeneEffect">
+                    <li style="font-size: 15px;">
+                        {{item.DRUGNAME}}药品会对 个人基因{{item.GENENAME}} 产生{{item.GENEDESC}}的效果
+                    </li>
+                </ul>-->
+                <textarea style="height: 100px;width: 100%" ng-model="GeneEffect" readonly="readonly"></textarea>
+            </div>
+
+            <div style="display: block; border: 1px solid #ccc; border-width: 0 0 1px 0;padding: 5px 0;">
+                <label style="float: left; font-size:24px;">
+                    个人基因突变的影响
+                </label>
+                <!--<ul ng-repeat="item in UserGeneAllele">
+                    <li style="font-size: 15px;">
+                        {{item}}
+                    </li>
+                </ul>-->
+                <textarea style="height: 100px;width: 100%" ng-model="GeneAllele" readonly="readonly"></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="dlgDrugUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form name="Prescriptionform" ng-submit="SaveDrugUse()" class="form-horizontal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" ng-model="fWindowName">用药情况</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <td>治疗疾病：&nbsp;</td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="DrugUser.TREATMENTDISEASES" name="TreatmentDiseases" placeholder="治疗疾病" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>使用药品：&nbsp;</td>
+                            <td>
+                                <div class="pull-left">
+                                    <input type="text" id="DrugName" class="form-control" ng-model="DrugUser.DRUGNAME" name="DrugName"
+                                           placeholder="使用药品" ng-click="SelectDrug()" readonly="readonly" required />
+                                </div>
+                                <div class="pull-right">
+                                    <input type="hidden" id="DrugId" ng-model="DrugUser.DrugId" name="DrugId" />
+                                    <input type="hidden" id="drugType" ng-model="DrugUser.DrugType" name="DrugType" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>使用剂量(每天):</td>
+                            <td>
+                                <div class="pull-left">
+                                    <input type="text" class="form-control" ng-model="DrugUser.TIMESADAY" name="TimesADay" />
+
+
+                                </div>
+                                <div class="pull-left">(次)</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>每次:</td>
+                            <td>
+                                <div class="pull-left"><input type="text" class="form-control" ng-model="DrugUser.DOSE" name="Dose" /></div>
+                                <div class="pull-right"><select class="form-control" ng-model="DrugUser.Units" ng-options="a.name as a.name for a in UnitList"></select></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>开始使用时间：&nbsp;</td>
+                            <td>
+
+                                <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" datepicker>
+                                    <input id="txt_StartDate" class="form-control" size="16" type="text" name="CREATTIME" value="" ng-model="DrugUser.STARTTIME" placeholder="开始时间" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>结束服用时间：&nbsp;</td>
+                            <td>
+
+                                <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" datepicker>
+                                    <input id="txt_StartDate" class="form-control" size="16" type="text" name="EndTime" value="" ng-model="DrugUser.ENDTIME" placeholder="开始时间" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>已使用天数：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="DrugUser.USEDAY" name="UseDay" placeholder="已使用天数" /></td>
+                        </tr>
+                    </table>
+                    <hr />
+                    药物相互作用：
+                    <div ng-repeat="item in DrugUser.InterEffect">
+                        <p id="InterEffect">
+                            {{DrugUser.DrugName}}与{{item.NAME}}会产生 {{item.DRUGINTERACTION}}
+                        </p>
+                    </div>
+                    <hr />
+                    药物对个人基因作用：
+                    <div ng-repeat="item in DrugUser.GeneEffect">
+                        <p id="GeneEffect">
+                            <!--个人基因{{item.GENENAME}} 会对 {{DrugUser.DrugName}}药品会与会产生{{item.GENEDESC}}的效果-->
+                            {{DrugUser.DrugName}}药品会 对个人基因{{item.GENENAME}} 产生{{item.GENEDESC}}的效果
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit" ng-disabled="Prescriptionform.$invalid">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">药品选择</h4>
+            </div>
+            <div class="modal-body" ng-include="'/Views/Dug/DrugControl.html'">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="personSelect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">患者选择</h4>
+            </div>
+            <div class="modal-body" ng-include="'/Views/Dug/PersonSelect.html'">
+            </div>
+        </div>
+    </div>
+</div>

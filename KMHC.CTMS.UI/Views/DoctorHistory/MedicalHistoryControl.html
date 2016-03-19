@@ -1,0 +1,25 @@
+﻿<div class="container-fluid" ng-controller="MedicalHistoryControlCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-responsive table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>就诊时间</th>
+                        <th>就诊医院</th>
+                        <th>就诊疾病</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in Infos">
+                        <td>{{x.DIAGNOSISTIME | date:'yyyy-MM-dd' }}</td>
+                        <td>{{x.HOSPITAL}}</td>
+                        <td>{{x.ICD10}}</td>
+                        <td><a href="javascript:void(0);" title="选择该病历" ng-click="CheckMH(x)"><i class="fa fa-fw fa-check"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="controlPager" class="pull-right"></div>
+    </div>
+</div>

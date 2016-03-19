@@ -1,0 +1,35 @@
+﻿<div class="container-fluid">
+    <h2>@ViewBag.Title</h2>
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column">
+            <form ng-submit="Submit()" novalidate>
+                <div class="panel-group nav nav-list affix-top">
+                    <div class="panel panel-default">
+                        <div id="baseInfo" class="panel-heading ">
+                            <i class="icon-user-md icon-large"></i> 基本信息
+                        </div>
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="ExamDate">检查日期</label>
+                                <div class="col-md-3">
+                                    <div class="input-group date form_date " data-date="" data-date-format="yyyymmdd" datepicker>
+                                        <input id="ExamDate" class="form-control" size="16" type="text" value="" ng-model="Data.ExamDate" required />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2" for="DoctorID">责任医生</label>
+                                <div class="col-md-3">
+                                    <select id="DoctorID" name="DoctorID" ng-model="Data.DoctorID" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @MvcHtmlString.Create(ViewBag.Content)
+                </div>
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                    <button class="btn btn-success" type="submit">确定信息无误并提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

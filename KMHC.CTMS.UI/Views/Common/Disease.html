@@ -1,0 +1,43 @@
+﻿<script src="/Scripts/bootstrap-treeview.min.js"></script>
+<div class="container-fluid" ng-controller="diseaseCtr">
+    <div class="row-fluid">
+        <div class="col-md-5">
+            <form class="form-inline">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="搜索疾病类别" ng-model="KeywordType" id="txtKeywordType">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="SearchType()">搜索</button>
+                    </span>
+                </div>
+            </form><br />
+            <div id="tree" style="overflow-y:scroll;height:420px;"></div> 
+        </div>
+        <div class="col-md-7">
+            <form class="form-inline">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="搜索疾病编码,名称" ng-model="Keyword">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click='Search("")'>搜索</button>
+                    </span>
+                </div>
+            </form><br />
+            <table class="table table-hover table-bordered table-responsive">
+                <thead>
+                <tr class="info">
+                    <th><!--<input type="checkbox" id="chkAll" ng-click="chkAll()"/>--></th>
+                    <th>ICD编码</th>
+                    <th>疾病名称</th>
+                </tr>
+                </thead>
+                <tbody id="tbDisease">
+                <tr ng-repeat="item in ListItems">
+                    <td><input type="checkbox" id={{item.Code}} name="{{item.Name}}" ng-checked="isSelected(item.Code)" ng-click="updateSelection($event,item.Code)" /></td>
+                    <td>{{item.Code}}</td>
+                    <td>{{item.Name}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>

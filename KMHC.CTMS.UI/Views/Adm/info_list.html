@@ -1,0 +1,127 @@
+﻿<style>
+    th,td{vertical-align:middle !important;}
+</style>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            知识管理
+        </div>
+        <div class="panel-body">
+            <div class="col-md-2" ng-include="'/Views/Adm/tree.html'" ng-init="InitTree()"></div>
+            <div class="col-md-10">
+                <div class="row" style="margin-left:1px;">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-4 col-lg-2 col-sm-8">
+                                <input type="text" class="form-control" autocomplete="off" placeholder="请输入标题名或内容或作者" ng-model="Kwd" />
+                            </div>
+                            <div class="col-md-2 col-lg-1 col-sm-4">
+                                <button class="btn btn-info" ng-click="Search()">搜索</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" style="table-layout:fixed;">
+                        <caption><button type="button" class="pull-left btn btn-info col-md-2 col-lg-1 col-sm-4" ng-click="EditInfo()">新建</button></caption>
+                        <thead>
+                            <tr>
+                                <th>文章分类</th>
+                                <th>标题</th>
+                                <th>作者</th>
+                                <th>发布日期</th>
+                                <th>文章类型</th>
+                                <th>修改日期</th>
+                                <th>修改人</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="d in Data">
+                                <td>{{d.CategoryName}}</td>
+                                <td>{{d.Title}}</td>
+                                <td>{{d.Author}}</td>
+                                <td>{{d.PublishTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                <td>{{d.ArticleType}}</td>
+                                <td>{{d.ModifyTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                <td>{{d.ModifyUser}}</td>
+                                <td class="text-center"><button type="button" class="btn btn-info" ng-click="EditInfo(d.FileId)">编辑</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">结果维护</h4>
+            </div>
+            <form ng-submit="processForm()" name="myForm">
+                <div class="modal-body">
+                    <table cellpadding="0" cellspacing="0" width="100%;">
+                        <tr>
+                            <td class="text-center"><label>模版名称：</label></td>
+                            <td><input type="text" class="form-control" autocomplete="off" placeholder="请输入模版名称" ng-model="formData.TEMPLATENAME" required ng-readonly="true" /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><label>分值下限：</label></td>
+                            <td><input type="text" class="form-control" autocomplete="off" placeholder="请输入分值下限" ng-model="formData.MINSCORES" required /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><label>分值上限：</label></td>
+                            <td><input type="text" class="form-control" autocomplete="off" placeholder="请输入分值上限" ng-model="formData.MAXSCORES" required /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><label>结果名称：</label></td>
+                            <td><input type="text" class="form-control" autocomplete="off" placeholder="请输入结果名称" ng-model="formData.RESULT" /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><label>结果概况：</label></td>
+                            <td><textarea type="text" class="form-control" rows="3" placeholder="请输入结果概况" ng-model="formData.SUBRESULTNAME"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><label>结果详情：</label></td>
+                            <td><textarea type="text" class="form-control" rows="3" placeholder="请输入结果详情" ng-model="formData.Description"></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="btnClose" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>加载中，请稍候...</span>
+    </div>
+</div>
+
+<!--<div class="modal fade" id="typeModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">类型选择</h4>
+            </div>
+            <form ng-submit="processForm()" name="myForm">
+                <div class="modal-body">
+                    <div id="tree"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="btnClose" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>-->

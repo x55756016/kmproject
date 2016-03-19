@@ -1,0 +1,36 @@
+﻿<script src="/Scripts/jquery.ztree.all-3.5.js"></script>
+<div class="container-fluid">
+    <h2>档案模版信息</h2>
+    <div class="row-fluid clearfix">
+        <form class="form-horizontal" name="baseForm"  ng-submit="Save()">
+            <div class="form-group">
+                <label for="TemplateCode" class="col-md-2 control-label">模版代号</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="TemplateCode" name="TemplateCode" ng-model="Data.TemplateCode"  required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TEMPLATENAME" class="col-md-2 control-label">模版名称</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="TEMPLATENAME" name="TEMPLATENAME" ng-model="Data.TEMPLATENAME" ng-maxlength="20" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Description" class="col-md-2 control-label">描述</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" rows="3" id="Description" ng-model="Data.Description" ng-maxlength="500"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tree" class="col-md-2 control-label">分类选择</label>
+                <div class="col-md-10">
+                    <ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <input class="btn btn-success" type="submit"  value="保存" />
+                <button class="btn btn-default" type="button" ng-click="GoBack()">返回</button>
+            </div>
+        </form>
+    </div>
+</div>

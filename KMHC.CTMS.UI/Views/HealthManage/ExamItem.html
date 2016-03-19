@@ -1,0 +1,55 @@
+﻿<div class="container-fluid">
+    <h2>检查项目信息</h2>
+    <div class="row-fluid clearfix">
+        <form class="form-horizontal" name="baseForm" ng-submit="Save()">
+            <div class="form-group">
+                <label for="ItemCode" class="col-md-2 control-label">项目代号</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="ItemCode" name="ItemCode" ng-model="Data.ItemCode" ng-maxlength="20" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ItemName" class="col-md-2 control-label">项目名称</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="ItemName" name="ItemName" ng-model="Data.ItemName" ng-maxlength="100" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Description" class="col-md-2 control-label">项目描述</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" rows="3" id="Description" ng-model="Data.Description" ng-maxlength="500"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ValueType" class="col-md-2 control-label">数据类型</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ValueType" name="ValueType" ng-model="Data.ValueType">
+                        <option value="S">S)字符型</option>
+                        <option value="S1">S1)字符型-单选</option>
+                        <option value="S2">S2)字符型-多选</option>
+                        <option value="S3">S3)字符型</option>
+                        <option value="L">L)布尔型</option>
+                        <option value="N">N)数值型</option>
+                        <option value="D">D)日期型</option>
+                        <option value="T">T)时间型</option>
+                        <option value="DT">DT)日期时间型</option>
+                        <option value="BY">BY)二进制</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="CodeValue" class="col-md-2 control-label">值域</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="CodeValue" name="CodeValue" ng-model="Data.CodeValue"/>
+                </div>
+            </div>
+
+            
+            <div class="form-group text-center">
+                <input class="btn btn-success" type="submit" value="保存" />
+                <button class="btn btn-default" type="button" ng-click="GoBack()">返回</button>
+            </div>
+        </form>
+    </div>
+</div>

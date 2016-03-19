@@ -1,0 +1,224 @@
+﻿<div class="container-fluid" ng-controller="UserGene_Controller">
+    <div class="page-header">
+        <h1>基因信息</h1>
+    </div>
+    <div class="panel panel-default">
+
+        <div id="baseInfo" class="panel-heading ">
+            <i class="icon-user-md icon-large"></i> 基因信息
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-10 form-horizontal">
+                <div class="form-group" ng-include="'/Views/DoctorHistory/Person.html'">
+                </div>
+                <div class="panel-group">
+                    <!--<div class="col-md-2">
+                        <
+                    </div>-->
+                    <div >用户上传的基因检测信息列表：</div>
+                    <div ><button type="button" class="btn btn-info col-md-1" ng-click="Upload('UserGene',UID)">上传</button></div>
+                    <div>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th class="col-md-6">文件名</th>
+                                    <th class="col-md-2">上传时间</th>
+                                    <th class="col-md-2">查看</th>
+                                </tr>
+                                <tr ng-repeat="u in UpFiles">
+                                    <td class="col-md-6">{{u.FileName}}</td>
+                                    <td class="col-md-2">{{u.CreatTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td class="col-md-2">
+                                        <button class="btn btn-default" ng-click="ShowFile('upload/'+u.FilePath)">查看</button>
+                                        &nbsp;
+                                        <button class="btn btn-danger" ng-click="DeleteFile(u.FileUploadid)">删除</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel-group">
+                    <button type="button" class="btn btn-default" ng-click="AddUserGeneList()" ng-show="UserGeneList==null||UserGeneList.length==0">新增基因信息</button>
+                    <button type="button" class="btn btn-default" ng-click="AddUserGene()" ng-hide="UserGeneList.length==0">新增基因</button>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>序号</td>
+                                <td>基因名</td>
+                                <td>Allele1</td>
+                                <td>复制个数</td>
+                                <td>Allele2</td>
+                                <td>复制个数</td>
+                                <td>操作</td>
+                            </tr>
+                            <tr ng-repeat="u in UserGeneList|orderBy:'GeneModel.GeneName'">
+                                <td>{{$index + 1}}</td>
+                                <td>{{u.GeneModel.GeneName}}</td>
+                                <td>{{u.Allele1Model.GeneAlleleName}}</td>
+                                <td>{{u.CopyNumber1}}</td>
+                                <td>{{u.Allele2Model.GeneAlleleName}}</td>
+                                <td>{{u.CopyNumber2}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-default" ng-click="EditUserGene(u)">编辑</button>&nbsp;
+                                    <button type="button" class="btn btn-danger" ng-click="DeleteUserGene(u)">删除</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a ng-click="back()" class="btn btn-primary active col-md-offset-2">返回</a>
+                <!--<button type="button" ng-click="SaveUserGene()" class="btn btn-info  active col-md-offset-2">保存</button>-->
+            </div>
+        </div>
+    </div>
+
+
+    <!--新增表单-->
+    <div class="modal fade" id="modalAddUserGenList" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>新增基因信息</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="UserGenListForm" name="UserGenListForm">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-2" ng-model="CRUDUserGene.USERID">ID:</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-10" style="color:red">请勾选基因信息</label>
+                            </div>
+                            <div class="form-group">
+                                <span ng-repeat="g in GeneList" class="col-md-3">
+                                    <input type="checkbox" id="g{{$index}}" name="userGeneGroup" value="{{g.ID}}" /> {{g.GeneName}}
+                                    <br ng-show="($index+1)%4==0" />
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveUserGeneList()">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>新增基因</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="UserGeneForm" name="UserGeneForm">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-2" ng-model="CRUDUserGene.USERID">ID:</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">基因名*</label>
+                                <div class="col-md-10">
+                                    <!--<input type="text" class="form-control" ng-model="CRUDUserGene.GeneID" />-->
+                                    <select class="form-control" ng-options="g.ID as g.GeneName for g in GeneList" ng-model="CRUDUserGene.GeneID" ng-change="GeneChanged()" ng-disabled="CRUDUserGene.ID!=null" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Allele1*</label>
+                                <div class="col-md-6">
+                                    <!--<input type="text" class="form-control" ng-model="CRUDUserGene.Allele1" />-->
+                                    <select class="form-control" ng-options="g.ID as g.GeneAlleleName for g in GeneAlleleList" ng-model="CRUDUserGene.Allele1ID" required></select>
+                                </div>
+                                <label class="control-label col-md-2">复制个数</label>
+                                <div class="col-md-2">
+                                    <input type="number" class="form-control" ng-model="CRUDUserGene.CopyNumber1" required min="1" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Allele2*</label>
+                                <div class="col-md-6">
+                                    <!--<input type="text" class="form-control" ng-model="CRUDUserGene.Allele2" />-->
+                                    <select class="form-control" ng-options="g.ID as g.GeneAlleleName for g in GeneAlleleList" ng-model="CRUDUserGene.Allele2ID" required></select>
+                                </div>
+                                <label class="control-label col-md-2">复制个数</label>
+                                <div class="col-md-2">
+                                    <input type="number" class="form-control" ng-model="CRUDUserGene.CopyNumber2" required min="1" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveUserGene()" ng-disabled="UserGeneForm.$invalid">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--上传-->
+    <div class="modal fade" id="modalUploader" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">
+                        <label>上传/查看</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <!--用来存放文件信息-->
+                    <div class="row">
+                        <div class="col-md-3"><div id="picker">选择文件</div></div>
+                        <div class="col-md-3">
+                            <button class="btn btn-default" ng-click="StartUpload()">开始上传</button>
+                        </div>
+                    </div>
+                    <ul class="list-group" ng-repeat="x in Files">
+                        <li class="list-group-item">{{x.Name}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-info">{{x.Msg}}</span><span class="badge" ng-click="RemoveFile($index)">删除</span></li>
+                    </ul>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="panel-title text-info">已上传文件</p>
+                    </div>
+                    <ul class="list-group" ng-repeat="u in UpFiles">
+                        <li class="list-group-item">{{u.FileName}}<span class="badge" ng-click="DelFile(u,$index)">删除</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

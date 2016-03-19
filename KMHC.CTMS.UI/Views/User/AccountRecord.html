@@ -1,0 +1,60 @@
+﻿<div class="container-fluid">
+    <div class="form-horizontal col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <i class="fa fa-fw fa-search-plus fa-lg"></i>
+                <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                    查询条件
+                    <i class="fa fa-angle-down fa-fw pull-right"></i>
+                </strong>
+
+            </div>
+            <div class="panel-collapse collapse in" id="collapseExample">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-10 col-sm-12">
+                                <!--<input type="text" ng-model="keyWord" class="form-control" placeholder="请输入关键字进行查询" />-->
+                                <input type="radio" ng-model="lastThreeMonth" value="0" ng-click="Search()" />最近三个月 &nbsp;
+                                <input type="radio" ng-model="lastThreeMonth" value="1" ng-click="Search()" />三个月前 &nbsp;
+                            </div>
+                            <!--<div class="col-md-1 col-sm-12">
+                                <button type="button" class="btn btn-info btn-block form-control" ng-click="Search()" style="min-width:50px;"><i class="fa fa-fw fa-search"></i> 查询</button>
+                            </div>
+                            <div class="col-md-1 col-sm-12">
+                                <button type="button" class="btn btn-info btn-block  form-control" ng-click="Reset()" style="min-width:50px;"><i class="fa fa-fw fa-refresh"></i> 重置</button>
+                            </div>-->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="" ng-show="AccountRecordList!=null && AccountRecordList.length>0">
+                <table class="table table-bordered table-striped table-hover col-md-8">
+                    <tr class="info">
+                        <th class="col-md-2">时间</th>
+                        <!--<th class="col-md-1">单号</th>-->
+                        <th class="col-md-2">操作</th>
+                        <th class="col-md-3">产品/服务</th>
+                        <th class="col-md-3">金额(元)</th>
+                    </tr>
+                    <tr ng-repeat="q in AccountRecordList">
+                        <td class="col-md-2">{{q.CreateDateTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <!--<td class="col-md-1">{{q.OrderID}}</td>-->
+                        <td class="col-md-2">{{q.SpendTypeText}}</td>
+                        <td class="col-md-3">{{q.ProductName}}</td>
+                        <td class="col-md-3">{{q.Balance==-1?"-":"+"}}{{q.Account}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="text-center" ng-show="AccountRecordList==null || AccountRecordList.length==0">
+                <div class="grey" style="color:gray">
+                    查询不到相关记录!
+                </div>
+            </div>
+            <div id="pager" class="pull-right"></div>
+        </div>
+    </div>
+</div>

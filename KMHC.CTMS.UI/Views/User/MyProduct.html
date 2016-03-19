@@ -1,0 +1,136 @@
+﻿<div class="container-fluid resposive">
+    <div class="panel panel-info col-md-12">
+        <div class="panel-body">
+            <div class="form-horizontal  col-md-11">
+                <div class="form-group">
+                    <label class="control-label col-md-2">你的会员级别是：</label>
+                    <div class="col-md-10" ng-if="CurrentUser.UserInfo.MemberID!=''">
+                        {{CurrentUser.UserInfo.Member.MEMBERNAME}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">会员级别有效期：</label>
+                    <div class="col-md-10" ng-if="CurrentUser.UserInfo.MemberID!='b5a65c11-e6cb-4da5-a757-ee1dfaf32ce3'">
+                        {{CurrentUser.UserInfo.MemberStartDate|date:'yyyy-MM-dd'}}&nbsp;至&nbsp;{{CurrentUser.UserInfo.MemberEndDate|date:'yyyy-MM-dd'}}
+                    </div>
+                    <div class="col-md-10" ng-if="CurrentUser.UserInfo.MemberID=='b5a65c11-e6cb-4da5-a757-ee1dfaf32ce3'">
+                        永久
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">会员权利：</label>
+                    <div class="col-md-10">
+                        {{CurrentUser.UserInfo.Member.MEMBERDESCRIPT}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info col-md-12">
+        <div class="panel-body">
+            <div class="form-horizontal  col-md-11">
+                <!--<div class="form-horizontal  col-md-11">
+                    <label class="control-label col-md-2">会员级别变动记录：</label>
+                    <div class="col-md-10">
+                        2014.05.18 升级为金牌会员<br />
+                        2013.05.18 升级为银牌会员
+                    </div>
+                </div>-->
+                <div class="form-horizontal  col-md-11">
+                    <div class="col-md-12 text-left">
+                    </div>
+                </div>
+                <div class="form-horizontal  col-md-11">
+                    <label class="control-label col-md-2">会员级别图示：</label>
+                    <div class="col-md-10">
+                    </div>
+                </div>
+                <div class="form-horizontal  col-md-11">
+                    <div class="col-md-8 text-left">
+                        <span class="col-md-3"></span>
+                        <span class="col-md-2 text-center" ng-repeat="m in MemberList">
+                            {{m.MEMBERNAME}}<br /><span style="font-size:x-small">({{m.MEMBERPRICE}}元)</span><br /><button class="btn btn-primary" ng-click="BuyMember(m)" ng-disabled="m.MEMBERID=='b5a65c11-e6cb-4da5-a757-ee1dfaf32ce3'||m.MEMBERLEVEL<=CurrentUser.UserInfo.Member.MEMBERLEVEL">购买</button>
+                        </span>
+                        <span class="col-md-2"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info col-md-12">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2 text-right">我的账号余额：</div>
+                <div class="col-md-2 text-left" style="color:red;font-weight:bold">{{CurrentUser.UserInfo.Account}} 元</div>
+                <div class="col-md-2 text-left"><button class="btn" ng-click="ShowRecharge()">充值</button></div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal  col-md-11">
+                <div class="" ng-show="MyProductList!=null && MyProductList.length>0">
+                    <table class="table table-bordered table-striped table-hover col-md-8">
+                        <tr class="info">
+                            <th class="col-md-2">商品类型</th>
+                            <th class="col-md-3">商品/服务</th>
+                            <th class="col-md-1">是否付费项目</th>
+                            <th class="col-md-1">单位</th>
+                            <th class="col-md-1">数量</th>
+                            <th class="col-md-3">有效期</th>
+                            <th class="col-md-1">操作</th>
+                        </tr>
+                        <tr ng-repeat="p in MyProductList">
+                            <td class="col-md-2">{{p.Product.ProductTypeText}}</td>
+                            <td class="col-md-3">{{p.Product.ProductName}}</td>
+                            <td class="col-md-1">{{p.Product.IsFreeText}}</td>
+                            <td class="col-md-1">{{p.Product.ProductUnitText}}</td>
+                            <th class="col-md-1">{{p.ProductNum}}</th>
+                            <td class="col-md-3">{{p.StartDate|date:'yyyy-MM-dd'}} 至 {{p.EndDate|date:'yyyy-MM-dd'}}</td>
+                            <td class="col-md-1">查看</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="text-center" ng-show="MyProductList==null || MyProductList.length==0">
+                    <div class="grey" style="color:gray">
+                        没有购买任何商品和服务!
+                    </div>
+                </div>
+                <div id="pager" class="pull-right"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalRecharge" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>充值</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="rechargeForm" name="rechargeForm">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">充值金额(元)*</label>
+                                <div class="col-md-7">
+                                    <input type="number" class="form-control" ng-model="CRUDRecharge.Money" required /> 
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveRecharge()" ng-disabled="rechargeForm.$invalid">
+                        充值
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>

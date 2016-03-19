@@ -1,0 +1,45 @@
+﻿<div class="container-fluid">
+    <div class="page-header">
+        <h1>评分量表模板管理</h1>
+    </div>
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column">
+            <div class="panel-group nav nav-list affix-top">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="icon-user-md icon-large"></i> 评分量表模板
+                    </div>
+                    <div class="panel panel-body">
+                        <div class="row-fluid">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th class="col-md-1"></th>
+                                        <th class="col-md-3">名称</th>
+                                        <th class="col-md-6">说明</th>
+                                        <th class="col-md-2">操作</th>
+                                    </tr>
+                                    <tr ng-repeat="t in Data">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{t.TemplateTitle}}</td>
+                                        <td>{{t.TemplateDescription}}</td>
+                                        <td>
+                                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="Remove(t)" />
+                                            <input type="button" class="btn btn-default btn-small" value="编辑" ng-click="Edit(t.TemplateID)" />
+                                            <!--<input type="button" class="btn btn-default btn-small" value="创建评分量表" ng-click="Create"  />-->
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row-fluid text-right">
+                            <input type="button" class="btn btn-default" value="创建评分量模板" ng-click="Add()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

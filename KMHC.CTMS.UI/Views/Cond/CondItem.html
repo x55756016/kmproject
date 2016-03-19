@@ -1,0 +1,308 @@
+﻿<div ng-controller="CondItemCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            条件选择
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="container col-md-11">
+                    <div class="row">
+                        <div class="col-md-8 text-left">
+                            <input type="text" ng-model="scKeyWord" class="form-control col-md-6" placeholder="请输入条件名称查询" />
+                        </div>
+                        <div class="col-md-3 text-left">
+                            <input type="button" class="btn btn-default col-md-3" value="查询" ng-click="Search()" />
+                            <input type="button" class="btn btn-default col-md-3" value="新增" ng-click="AddCondItem()" style="margin-left:10px;" />
+                        </div>
+                    </div>
+
+
+                </div>
+                <br />
+                <br />
+            </div>
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-1" rowspan="2">
+                            名称
+                        </th>
+                        <th class="col-md-1" rowspan="2">
+                            条件类型
+                        </th>
+                        <th class="col-md-1" rowspan="2">
+                            数据类型
+                        </th>
+                        <th class="col-md-1" rowspan="2">
+                            分组
+                        </th>
+                        <th class="col-md-1 text-center" colspan="3">
+                            自定义条件
+                        </th>
+                        <th class="col-md-1 text-center" colspan="2">
+                            组合条件
+                        </th>
+                        <th class="col-md-3 text-center" rowspan="2">
+                            操作
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="col-md-1">
+                            元数据
+                        </th>
+                        <th class="col-md-1">
+                            运算符
+                        </th>
+                        <th class="col-md-1">
+                            比较值
+                        </th>
+                        <th class="col-md-1">
+                            逻辑运算符
+                        </th>
+                        <th class="col-md-2">
+                            条件
+                        </th>
+                    </tr>
+                    <tr ng-repeat="c in CondItemList">
+                        <td class="col-md-1">
+                            {{c.DisplayName}}
+                        </td>
+                        <td class="col-md-1">
+                            {{c.CondTypeText}}
+                        </td>
+                        <td class="col-md-1">
+                            {{c.DataTypeText}}
+                        </td>
+                        <td class="col-md-1">
+                            {{c.Category}}
+                        </td>
+                        <td class="col-md-1">
+                            <span ng-show="c.CondType==0">{{c.MetaDataName}}</span>
+                        </td>
+                        <td class="col-md-1">
+                            <span ng-show="c.CondType==0">{{c.OperatorText}}</span>
+                        </td>
+                        <td class="col-md-1">
+                            <span ng-show="c.CondType==0">{{c.OperateValue}}</span>
+                        </td>
+                        <td class="col-md-1">
+                            <span ng-show="c.CondType==1">{{c.LogicalOperatorText}}</span>
+                        </td>
+                        <td class="col-md-2">
+                            <span ng-show="c.CondType==1">{{c.ComboCondItemNames}}</span>
+                        </td>
+                        <td class="col-md-2  text-center">
+                            <input type="button" class="btn btn-default btn-small" value="编辑" ng-click="EditCondItem(c)" />
+                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteCondItem(c)" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalCondItem" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>条件项设置</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="eCondItemFrom" name="eCondItemFrom" ng-show="CRUDCondItem.CondType==0">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-3">ID:</label>
+                                <div class="col-md-8">{{CRUDCondItem.ID}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">名称*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDCondItem.DisplayName" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">条件类型*</label>
+                                <div class="col-md-8">
+                                    <input type="radio" name="condtype" ng-click="SetCondType(0)" ng-checked="CRUDCondItem.CondType==0" />自定义条件 &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <input type="radio" name="condtype" ng-click="SetCondType(1)" ng-checked="CRUDCondItem.CondType==1" />组合条件
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">数据类型*</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-options="d.ivalue as d.text for d in DicDataTypeList|orderBy:'ivalue'" ng-model="CRUDCondItem.DataType" required ng-disabled="CRUDCondItem.CondType==1"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">分组</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDCondItem.Category" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">元数据*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDCondItem.MetaDataName" data-toggle="modal" data-target="#modalMetaDataPicker" readonly="readonly" placeholder="点击选择元数据" required />
+                                    <input type="hidden" class="form-control" ng-model="CRUDCondItem.MetaDataID" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">运算符*</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-options="d.ivalue as d.text for d in DicOperatorList|orderBy:'ivalue'" ng-model="CRUDCondItem.Operator" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">比较值*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDCondItem.OperateValue" required />
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+                    <form id="eCondItemFromCombo" name="eCondItemFromCombo" ng-show="CRUDCondItem.CondType==1">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-3">ID:</label>
+                                <div class="col-md-8">{{CRUDCondItem.ID}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">名称*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDCondItem.DisplayName" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">条件类型*</label>
+                                <div class="col-md-8">
+                                    <input type="radio" name="condtype" ng-click="SetCondType(0)" ng-checked="CRUDCondItem.CondType==0" />自定义条件 &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <input type="radio" name="condtype" ng-click="SetCondType(1)" ng-checked="CRUDCondItem.CondType==1" />组合条件
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">数据类型*</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-options="d.ivalue as d.text for d in DicDataTypeList|orderBy:'ivalue'" ng-model="CRUDCondItem.DataType" required ng-disabled="CRUDCondItem.CondType==1"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">分组</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDCondItem.Category" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">逻辑运算符*</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-options="d.ivalue as d.text for d in DicLogicOperatorList|orderBy:'ivalue'" ng-model="CRUDCondItem.LogicalOperator" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">条件列表*</label>
+                                <div class="col-md-8">
+                                    <div class="col-md-12 text-right">
+                                        <input type="button" value="增加条件" class="btn btn-primary" ng-click="AddComboCondItem()" />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!--<table style="border:0">
+                                            <tr ng-repeat="c in CRUDCondItem.ComboCondItemList">
+                                                <td class="col-md-11">1</td>
+                                                <td class="col-md-1">1</td>
+                                            </tr>
+                                        </table>-->
+                                        <ul style="list-style:none;margin:0; padding:0; text-align:left">
+                                            <li ng-repeat="c in CRUDCondItem.ComboCondItemList" style="padding-top: 5px;width:100%">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" ng-model="c.DisplayName" ng-click="ShowCondPicker(c)" placeholder="点击选择条件" required readonly />
+                                                    <span class="input-group-btn">
+                                                        <input type="button" class="btn btn-danger btn-small" ng-click="DeleteComboCondItem(c)" value="删除" />
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveCondItem()" ng-show="CRUDCondItem.CondType==0" ng-disabled="eCondItemFrom.$invalid">
+                        保存
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveCondItem()" ng-show="CRUDCondItem.CondType==1" ng-disabled="eCondItemFromCombo.$invalid">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="modalMetaDataPicker" tabindex="-1" role="dialog" data-target=".bs-example-modal-lg" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog bs-example-modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>元数据选择器</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div ng-include="'/Views/Common/MetaDataPicker.html'"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveMetaDataPicker()" ng-disabled="SelectedMetaDataID==null || SelectedMetaDataID<=0">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalCondPicker" tabindex="-1" role="dialog" data-target=".bs-example-modal-lg" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog bs-example-modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>条件选择器</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div ng-include="'/Views/Common/CondPicker.html?v1'" id="condpicker"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveCondPicker()" ng-disabled="SelectedCondItemID==null || SelectedCondItemID<=0">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

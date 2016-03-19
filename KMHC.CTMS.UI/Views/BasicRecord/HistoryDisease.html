@@ -1,0 +1,75 @@
+﻿<div class="container-fluid">
+    <div class="page-header">
+        <h1>既往病史</h1>
+    </div>
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column">
+            <div class="panel-group" ng-include="'/Views/BasicRecord/BasicInfo.html'"></div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div id="createInfo" class="panel-heading ">
+                        <i class="icon-user-md icon-large"></i> 病史记录填写
+                    </div>
+                    <div class="panel-body">
+                        <form id="baseform" name="baseform" class="form-horizontal" novalidate>
+                            <div class="form-group">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>类型</th>
+                                        <th>描述</th>
+                                        <th>开始时间</th>
+                                        <th>结束时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="col-md-2">
+                                            <select class="form-control" ng-model="Data.Type" ng-options="Type.Value as Type.Name for Type in Dic.Types">
+
+                                            </select>
+                                        </td>
+                                        <td class="col-md-2">
+                                            <select class="form-control" name="Name" ng-if="Data.Type==1" ng-model="Data.Value" ng-options="Disease.Value as Disease.Name for Disease in Dic.Disease"></select>
+                                            <input class="form-control" name="Name" ng-model="Data.Name" ng-if="Data.Type!=1"/>
+                                        </td>
+                                        <td class="col-md-2">
+                                            <div class="input-group date form_date " data-date="" data-date-format="yyyymmdd" datepicker>
+                                                <input id="txt_StartDate" class="form-control" size="16" type="text" name="StartDate" value="" ng-model="Data.StartDate" placeholder="开始时间" required/>
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-2">
+                                            <div class="input-group date form_date " data-date="" data-date-format="yyyymmdd" datepicker>
+                                                <input id="txt_EndDate" class="form-control" size="16" type="text" name="EndDate" value="" ng-model="Data.EndDate" placeholder="结束时间"/>
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                            </div>
+                                        </td>
+                                        <td class="col-md-2">
+                                            <button class="btn btn-success" type="submit" ng-click="Save(Data.RecordId)" ng-disabled="baseform.$invalid">确定</button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="History in Historys">
+                                        <td class="col-md-2">
+                                            <span class="control-label">{{Dic.Types[History.Type-1].Name}}</span></td>
+                                        <td class="col-md-2">
+                                            <span class="control-label">{{History.Name}}</span></td>
+                                        <td class="col-md-2">
+                                            <span class="control-label">{{History.StartDate}}</span></td>
+                                        <td class="col-md-2">
+                                            <span class="control-label">{{History.EndDate}}</span></td>
+                                        <td class="col-md-2">
+                                            <button class="btn btn-danger" ng-click="Remove(History.ID)">删除</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

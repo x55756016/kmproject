@@ -1,0 +1,105 @@
+﻿<style type="text/css">
+    .webuploader-pick {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        background: #D9EDF7;
+        padding: 0 0;
+        color: #337ab7;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+        width: auto;
+        top: 5px;
+    }
+
+    .webuploader-pick-hover {
+        background: #D9EDF7;
+    }
+
+    tr, th {
+        text-align: center;
+    }
+
+    .loading-modal {
+        background: rgba(0,0,0,0);
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                查询条件
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+
+                        <label class="col-md-2 col-lg-1 col-sm-5 control-label  ">跟踪方式</label>
+                        <div class="col-md-3 col-lg-2 col-sm-7">
+                            <select class="form-control col-md-4" ng-model="search.TraceType">
+                                <option value=""></option>
+                                <option ng-repeat="x in TraceType" value="{{x.value}}">{{x.text}}</option>
+                            </select>
+                        </div>
+
+
+
+
+                        <div class="col-md-2 col-lg-1 col-sm-12">
+                            <button type="button" class="btn btn-info btn-block form-control" ng-click="Init()"><i class="fa fa-fw fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-md-2 col-lg-1 col-sm-12">
+                            <button type="button" class="btn btn-info btn-block  form-control" ng-click="ResetSearch()"><i class="fa fa-fw fa-refresh"></i> 重置</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr class="info">
+                        <th>患者姓名</th>
+                        <th>会员级别</th>
+                        <th>查看</th>
+                        <th>患者待办信息</th>
+                        <th>跟踪方式</th>
+                        <th>跟踪时间</th>
+                        <th>跟踪详情</th>
+                        <th>患者待办任务是否已关闭</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in ServiceTraceInfoList">
+                        <td>{{x.User.NAME}}</td>
+                        <td>{{x.MemberLevel}}</td>
+                        <td><a href="#/DiseaseInfo?hid={{x.UserEvent.ModelId}}&uid={{x.UserEvent.ToUser}}">查看用户详情</a></td>
+                        <td>{{x.UserEvent.ActionInfo}}</td>
+                        <td>{{x.TraceInfo.TraceTypeName}}</td>
+                        <td>{{x.TraceInfo.CreateDateTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                        <td>{{x.TraceInfo.TraceDetail}}</td>
+                        <td>{{x.IsClose}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pager" class="pull-right"></div>
+    </div>
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>处理中，请稍候...</span>
+    </div>
+</div>
+
+

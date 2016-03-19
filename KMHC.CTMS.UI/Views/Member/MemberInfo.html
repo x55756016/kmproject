@@ -1,0 +1,140 @@
+﻿    <div class="container-fluid" auth-check>
+        <h1>会员产品管理</h1>
+        <br />
+        <div class="row-fluid clearfix">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="DESCRIPTION" class="col-sm-2">
+                        <h4>会员级别：</h4>
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-options="d.value as d.text for d in MemberLevelList" ng-model="Model.LevelString"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="TEMPLATENAME" class="col-sm-2">
+                        <h4>价格</h4>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="Model.MEMBERPRICE"
+                               placeholder="请输入价格">
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <a style="cursor: pointer;" data-toggle="modal" data-target="#addItem" class="divider" ng-click="AddFlag()">
+                            <i class="fa fa-fw fa-plus "></i>新增
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <td>序号</td>
+                                    <td>产品/服务</td>
+                                    <td>单位</td>
+                                    <td>数量</td>
+                                    <td>描述</td>
+                                    <td>操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in Model.menberProductList">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.MEMBERNAME}}</td>
+                                    <td>{{item.PRODUCTUNITName}}</td>
+                                    <td>{{item.PRODUCTNUMBER}}</td>
+                                    <td>{{item.MEMPRODESCRIPT}}</td>
+                                    <td>
+                                        <a href="javascript:void(0);" title="编辑" class="text-info"
+                                           ng-click="UpdateFlag(item.PRODUCTID)" data-toggle="modal" data-target="#addItem"   >
+                                            <i class="fa fa-fw fa-edit fa-lg"></i>
+                                        </a>
+
+                                        <a href="javascript:void(0);" ng-click="Remove(item.MEMBERPRODUCTID)" title="删除" class="text-danger">
+                                            <i class="fa fa-fw fa-remove fa-lg"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="TEMPLATENAME" class="col-sm-2">
+                        <h4>会员服务描述</h4>
+                    </label>
+                    <div class="col-sm-10">
+                        <textarea rows="3" ng-model="Model.MEMBERDESCRIPT" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm pull-right">
+                    </div>
+                    <div class="col-sm pull-right">
+                        <button type="button" class="btn btn-info" ng-click="SaveMemberProduct()">
+                            保存
+                        </button>
+                        <button type="button" class="btn btn-info" ng-click="Back()">
+                            返回
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <form name="AddItemForm" class="form-horizontal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel" ng-model="fWindowName">产品/服务添加</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-6" style="line-height:34px;">产品/服务：</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <select class="form-control" ng-model="Item.MEMBERNAME">
+                                        <option ng-repeat="x in productsList" value="{{x.ProductId}},{{x.ProductName}}">{{x.ProductName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-6" style="line-height: 34px;">单位：</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <select class="form-control" ng-model="Item.PRODUCTUNIT">
+                                        <option ng-repeat="x in ServiceUnitList" value="{{x.value}},{{x.text}}">{{x.text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-6" style="line-height: 34px;">数量：</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <input type="text" class="form-control" ng-model="Item.PRODUCTNUMBER" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 col-md-3 col-sm-6" style="line-height:34px;">描述：</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <textarea class="form-control" rows="3" ng-model="Item.MEMPRODESCRIPT"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" ng-click="AddMemPro()">{{AddOrUpdateFlag.Title}}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

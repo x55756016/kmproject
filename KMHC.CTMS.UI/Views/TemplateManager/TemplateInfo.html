@@ -1,0 +1,158 @@
+﻿<div class="container-fluid">
+    <h1>模板项配置列表</h1>
+    <br/>
+    <div class="row-fluid clearfix">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="TEMPLATENAME" class="col-sm-2">
+                    <h4>模板名称：</h4>
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="TEMPLATENAME" ng-model="Template.TEMPLATENAME"
+                           placeholder="请输入名字">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="DESCRIPTION" class="col-sm-2">
+                    <h4>描述信息：</h4>
+                </label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" id="DESCRIPTION" placeholder="描述信息" ng-model="Template.DESCRIPTION"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="DESCRIPTION" class="col-sm-2">
+                    <h4>模板项列表：</h4>
+                </label>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-info" data-toggle="modal"
+                            data-target="#addItem"
+                            ng-click="">
+                        新建
+                    </button>
+                </div>
+            </div>
+
+            <table class="table table-hover table-bordered table-responsive">
+                <tbody>
+                <tr class="info">
+                    <!--<td>项ID</td>-->
+                    <td>项代码</td>
+                    <td>项名称</td>
+                    <td>操作</td>
+                </tr>
+                <tr ng-repeat="item in Template.TemplateItems">
+                    <!--<td>{{item.ITEMID}}</td>-->
+                    <td>{{item.ITEMCODE}}</td>
+                    <td>{{item.ITEMNAME}}</td>
+                    <td>
+                        <button class="btn" ng-click="Remove(item.ITEMID)">
+                            删除
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br/>
+            <br/>
+            <br />
+            <div class="form-group">
+                <div class="col-sm pull-right">
+                   
+                </div>
+
+                <div class="col-sm pull-right">
+                    <button type="button" class="btn btn-info" ng-click="SaveTemplate()">
+                        保存
+                    </button>
+                    <button type="button" class="btn btn-info" ng-click="Back()">
+                        返回
+                    </button>
+                </div>
+
+
+               
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form name="AddItem"  class="form-horizontal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" ng-model="fWindowName">模板项添加</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label ">项代码</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="ID" id="" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">项名称</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="ItemName" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-info btn-block" ng-click="SearchCondition()">查询</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-responsive table-striped table-bordered" id="examItem">
+                                <thead>
+                                    <tr>
+                                        <th>项代码</th>
+                                        <th>项名称</th>
+                                        <th>值类型</th>
+                                        <th>值代码</th>
+                                        <!--<th>操作</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in ListItems" ng-click="Check($index,x)">
+                                        <td>{{x.ITEMNO}}</td>
+                                        <td>{{x.ITEMNAME}}</td>
+                                        <td>{{x.VALUETYPE}}</td>
+                                        <td>{{x.CODEVALUE}}</td>
+                                        <!--<td><button class="btn btn-default" ng-click="AddTempItem(x)">使用</button></td>-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="pager"></div>
+                    <!--<hr />
+                    <div class="form-group">
+                        <label for="TEMPLATENAME" class="col-sm-4">
+                            <h4>所属栏目：</h4>
+                        </label>
+                        <div class="col-sm-6">
+                            <select class="form-control" ng-model="CategoryID">
+                                <option value="">请选择</option>
+                                <option ng-repeat="x in CategoryList" value="{{x.CATEGORYCODE}}">{{x.NAME}}</option>
+                            </select>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" ng-click="AddItemForm()">添加</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

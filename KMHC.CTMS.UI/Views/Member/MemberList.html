@@ -1,0 +1,101 @@
+﻿<style type="text/css">
+    .webuploader-pick {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        background: #D9EDF7;
+        padding: 0 0;
+        color: #337ab7;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+        width: auto;
+        top: 5px;
+    }
+
+    .webuploader-pick-hover {
+        background: #D9EDF7;
+    }
+</style>
+
+<div class="container-fluid" auth-check>
+    <input type="hidden" id="funId" value="9d29ac9d-c4b8-4036-9a31-010979f50072" />
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                查询条件
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-1 col-md-2 control-label ">名称</label>
+                        <div class="col-lg-3 col-md-6">
+                            <select class="form-control" ng-options="d.value as d.text for d in MemberLevelList" ng-model="Keyword">
+                                <option value=""></option>
+                            </select>
+                            <!--<input type="text" class="form-control" ng-model="Keyword" id="Keyword"/>-->
+                            <!--<input type="hidden" id="hdName"/>-->
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <button type="button" class="btn btn-info btn-block form-control" ng-click="SearchCondition()"><i class="fa fa-fw fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <button type="button" class="btn btn-info btn-block  form-control" ng-click="ResetCondition()"><i class="fa fa-fw fa-refresh"></i> 重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a href="/#/MemberInfo?mId=0" class="divider" rktype="Add"><i class="fa fa-fw fa-plus "></i>新增</a>
+            <a ng-click="Search()" href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-refresh fa-lg"></i>刷新</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr class="info">
+                    <th>序号</th>
+                    <!--<th>名称</th>-->
+                    <th>会员级别</th>
+                    <th>价格(元)</th>
+                    <th>单位</th>
+                    <th>详情</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in ListItems" ng-click="CheckRow($index)" on-finish-render-filters>
+                        <td>{{$index+1}}</td>
+                        <!--<td>{{x.MEMBERNAME}}</td>-->
+                        <td>{{x.MEMBERLEVELName}}</td>
+                        <td>{{x.MEMBERPRICE}}</td>
+                        <td>年</td>
+                        <td>{{x.MEMBERDESCRIPT}}</td>
+                        <td>
+                            <!--<a href="/#/MemberInfo?mId={{x.MEMBERID}}" title="查看"><i class="fa fa-fw fa-search fa-lg"></i></a>-->
+                            <a href="/#/MemberInfo?mId={{x.MEMBERID}}" title="编辑" rktype="Modify"><i class="fa fa-fw fa-edit fa-lg"></i></a>
+                            <a href="javascript:void(0);" ng-click="Remove(x.MEMBERID)" title="删除" class="text-danger" rktype="Delete">
+                                <i class="fa fa-fw fa-remove fa-lg"></i>
+                            </a>
+                            <!--添加一个产品太耗时间了 ，先隐藏了删除 ---林德力 20160127-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pager" class="pull-right"></div>
+    </div>
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>处理中，请稍候...</span>
+    </div>
+</div>

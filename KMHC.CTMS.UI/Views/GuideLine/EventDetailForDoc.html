@@ -1,0 +1,660 @@
+﻿<style type="text/css">
+    .panel-body {
+        z-index: 9999;
+    }
+
+    .star {
+        color: red;
+        font-size: 18px;
+    }
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="panel panel-info">
+        <div id="baseInfo" class="panel-heading ">
+            <strong><i class="fa fa-fw fa-user fa-lg"></i>电子病历信息补充</strong>
+        </div>
+        <div class="panel-body">
+        <div class="col-md-10 form-horizontal">
+        <div>
+            <label class="col-md-2 control-label">姓名：{{Item.CnrUser.NAME}}</label>
+            <label class="col-md-4 control-label">证件号：{{Item.CnrUser.IDCARD}}</label>
+            <label class="col-md-3 control-label">性别：{{Item.CnrUser.SexName}}</label>
+            <label class="col-md-3 control-label">年龄：{{Item.CnrUser.AGE}}</label>
+        </div>
+        <div class="col-md-12">
+            <label class="control-label">患者上传的病历列表：</label>
+            <table class="table table-responsive table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>文件名</th>
+                    <th>上传日期</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="f in Files">
+                    <td>{{f.FileName}}</td>
+                    <td>{{f.CreatTime|date:'yyyy-MM-dd'}}</td>
+                    <td><a href="/Upload/{{f.FilePath}}" target="_blank">查看</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">就诊医院<label class="star">*</label>:</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.HOSPITAL" required readonly="readonly"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">就诊时间<label class="star">*</label>:</label>
+            <div class="col-md-8">
+                <div class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                    <input class="form-control" size="10" type="text" value="" required ng-model="Model.DIAGNOSISTIME" readonly="readonly"/>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">主诉</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.MAINDISEASE" readonly="readonly"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">个人史</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.PERSONHISTORY" readonly="readonly"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">婚育史</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.OBSTETRICALHISTORY" readonly="readonly"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">月经史</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.MENSTRUALHISTORY" readonly="readonly"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">体格检查</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.PHYSICALEXAM" readonly="readonly"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">专科情况</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.SPECIALISTCASE" readonly="readonly"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">辅助检查</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.AUXILIARYEXAM" readonly="readonly"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">组织病理学检查</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.HISTOLOGICALLY" readonly="readonly"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">分子病理学检查</label>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3" ng-model="Model.MOLECULARPATHOLOGIC" readonly="readonly"></textarea>
+            </div>
+        </div>
+
+        <!--依据模板检验结果-->
+        <div class="form-group">
+            <label class="col-md-2 control-label">依据模板检验结果</label>
+            <div class="col-md-8">
+                <!--<div class="row">
+                    <div class="col-md-12 form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-info btn-block" ng-click="" data-toggle="modal" data-target="#TemplateModal"><i class="fa fa-fw fa-plus"></i>选择依据模板</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <!--<table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="info">
+                                <th>序号</th>
+                                <th>依据</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in BaseTemplateResultList">
+                                <td>{{$index+1}}</td>
+                                <td>{{x.Name}}</td>
+                                <td>
+                                    <a title="查看" style="cursor: pointer;" ng-click="LoadTemplateData(x.EXAMINETEMPLATESID)" data-toggle="modal" data-target="#TemplateDetailModal">
+                                        <i class="fa fa-fw fa-edit fa-lg"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>-->
+
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <th>序号</th>
+                                    <th>模板名称</th>
+                                    <th>分析项名称</th>
+                                    <th>检查结果</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <!--<tr ng-repeat="i in TemplateInfo.ItemTypes">
+                                <td class="col-md-1" ng-bind="$index+1"></td>
+                                <td class="col-md-1" >12</td>
+                                <td class="col-md-6">{{i.Name}}</td>
+                                <td ng-switch on="i.Type">
+                                    <div ng-switch-when="0" class="form-group">-->
+                                        <!--<label class="checkbox-inline" ng-repeat="o in i.Options">
+                                            <input type="radio" name="{{i.Id}}" ng-model="ReportDetail[i.Id]" value="{{o.Id}}"/>{{o.Description}}
+                                        </label>-->
+                                        <!--<ul ng-repeat="o in i.Options" style="list-style-type: none;">
+                                            <li><input type="radio" name="{{i.Id}}" ng-model="ReportDetail[i.Id]" value="{{o.Id}}"/>{{o.Description}}</li>
+                                        </ul>
+                                    </div>
+                                    <div ng-switch-when="1">-->
+                                        <!--<label class="checkbox-inline" ng-repeat="o in i.Options">
+                                            <input type="checkbox" name="{{i.Id}}" ng-model="ReportDetail[o.Id]" value="{{o.Id}}"/>{{o.Description}}
+                                        </label>-->
+                                        <!--<ul ng-repeat="o in i.Options" style="list-style-type: none;">
+                                            <li><input type="checkbox" name="{{i.Id}}" ng-model="ReportDetail[i.Id]" value="{{o.Id}}"/>{{o.Description}}</li>
+                                        </ul>
+                                    </div>-->
+                                <!--</td>
+                            </tr>
+                            </tbody>-->
+
+                            <tbody ng-repeat="item in LoadBaseTemplateResult">
+                                <tr ng-repeat="i in item.TemplateInfo.ItemTypes">
+                                    <td class="col-md-1" ng-bind="$index+1"></td>
+                                    <td class="col-md-1" ng-hide="TestFlagss($index)" rowspan="{{item.TemplateInfo.ItemTypes.length}}">{{item.Name}}</td>
+                                    <td class="col-md-6">{{i.Name}}</td>
+                                    <td ng-switch on="i.Type">
+                                        <div ng-switch-when="0" class="form-group">
+
+                                            <ul ng-repeat="o in i.Options" style="list-style-type: none; ">
+                                                <li><input type="radio" name="{{item.Id}}" ng-model="item.ReportDetail[i.Id]" value="{{o.Id}}"  disabled="disabled" />{{o.Description}}</li>
+                                            </ul>
+                                        </div>
+                                        <div ng-switch-when="1">
+
+                                            <ul ng-repeat="o in i.Options" style="list-style-type: none; ">
+                                                <li><input type="checkbox" name="{{item.Id}}" ng-model="item.ReportDetail[i.Id]" value="{{o.Id}}" disabled="disabled" />{{o.Description}}</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">实验室检查结果</label>
+            <div class="col-md-8">
+                <div class="row">
+                    <!--<div class="col-md-12 form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-block" ng-click="AddDoctorResult()"><i class="fa fa-fw fa-plus"></i>新建</button>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="info">
+                                <th> 检查时间</th>
+                                <th> 住院/门诊号</th>
+                                <th> 科室</th>
+                                <th> 床号</th>
+                                <th> 临床印象</th>
+                                <th> 检验目的</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in DoctorResultList">
+                                <td>{{x.DiagnosisTime| date:'yyyy-MM-dd'}}</td>
+                                <td>{{x.Diagnosis}}</td>
+                                <td>{{x.Hospital}}</td>
+                                <td>{{x.DiagnosisReport}}</td>
+                                <td>{{x.CI }}</td>
+                                <td>{{x.MedicalhisAttachment}}</td>
+                                <td>
+                                    <a href="javascript:void(0);" ng-click="EditDoctorResult(x)" title="查看"><i class="fa fa-fw fa-edit fa-lg"></i></a>
+                                    <!--<a href="javascript:void(0);" ng-click="RemoveDoctorResult(x)" title="删除" class="text-danger"><i class="fa fa-fw fa-remove  fa-lg"></i></a>-->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div id="doctorResultPager" class="pull-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">影像学检查结果</label>
+            <div class="col-md-8">
+                <div class="row">
+                    <!--<div class="col-md-12 form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-block" ng-click="AddExamineReport()"><i class="fa fa-fw fa-plus"></i>新建</button>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="info">
+                                <th> 检查时间</th>
+                                <th> 申请科室</th>
+                                <th> 检查部位</th>
+                                <th> 报告医生</th>
+                                <th> 审核医生</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in ExamineReportList">
+                                <td>{{x.CheckDate| date:'yyyy-MM-dd'}}</td>
+                                <td>{{x.Dept}}</td>
+                                <td>{{x.Part}}</td>
+                                <td>{{x.ReportDoctor}}</td>
+                                <td>{{x.CheckDoctor }}</td>
+                                <td>
+                                    <a href="javascript:void(0);" ng-click="EditExamineReport(x)" title="查看"><i class="fa fa-fw fa-edit fa-lg"></i></a>
+                                    <!--<a href="javascript:void(0);" ng-click="RemoveExamineReport(x)" title="删除" class="text-danger"><i class="fa fa-fw fa-remove  fa-lg"></i></a>-->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">初步诊断</label>
+            <div class="col-md-8">
+                <span ng-repeat="t in DicCancerType" style="padding-left: 10px;">
+                            <input type="radio" name="diseaseType" ng-model="Model.DISEASETYPE" value={{t.ivalue}} />{{t.text}}
+                        </span>
+            </div>
+        </div>
+
+        <!--主诉疾病-->
+        <div class="form-group">
+            <label class="col-md-2 control-label">主诉疾病</label>
+            <div class="col-md-8">
+                <!--<button type="button" class="btn btn-primary active " ng-click="InitICD10()" data-toggle="modal" data-target="#ICD10Modal" ng-disabled="Model.ICDList.length>=1">添加icd10</button>-->
+                <div class="row">
+                    <div class="col-md-12 form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-5 col-lg-3">
+                                <button type="button" class="btn btn-info btn-block " ng-click="InitICD10(true)" data-toggle="modal" data-target="#ICD10Modal"><i class="fa fa-fw fa-plus"></i>添加主诉疾病</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-responsive table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ICD编号</th>
+                        <th>ICD名称</th>
+                        <th>其他信息</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in Model.ICDList" ng-hide="item.ISMAIN==false">
+                        <td>
+                            {{item.ICDCODE}}
+                        </td>
+                        <td>
+                            {{item.ICDNAME}}
+                        </td>
+                        <td>
+                            <textarea style="width: 100%" ng-model="item.DETAILS"></textarea>
+                        </td>
+                        <td>
+                            <button class="btn btn-default" ng-click="RemoveICD(item.ICDCODE)">删除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--其他疾病-->
+        <div class="form-group">
+            <label class="col-md-2 control-label">其他疾病</label>
+            <div class="col-md-8">
+                <!--<button type="button" class="btn btn-primary active " ng-click="InitICD10()" data-toggle="modal" data-target="#ICD10Modal" ng-disabled="Model.ICDList.length>=1">添加icd10</button>-->
+                <div class="row">
+                    <div class="col-md-12 form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-5 col-lg-3">
+                                <button type="button" class="btn btn-info btn-block " ng-click="InitICD10(false)" data-toggle="modal" data-target="#ICD10Modal"><i class="fa fa-fw fa-plus"></i>添加其他疾病</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-responsive table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ICD编号</th>
+                        <th>ICD名称</th>
+                        <th>其他信息</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in Model.ICDList" ng-hide="item.ISMAIN==true">
+                        <td>
+                            {{item.ICDCODE}}
+                        </td>
+                        <td>
+                            {{item.ICDNAME}}
+                        </td>
+                        <td>
+                            <textarea style="width: 100%" ng-model="item.DETAILS"></textarea>
+                        </td>
+                        <td>
+                            <button class="btn btn-default" ng-click="RemoveICD(item.ICDCODE)">删除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--分期分型-->
+        <div class="form-group">
+            <label class="col-md-2 control-label">分期分型</label>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!--<div class="form-group">
+                            <span ng-repeat="t in DicCancerType" style="padding-left: 10px;">
+                                        <input type="radio" name="diseaseType" ng-model="Model.DISEASETYPE" value={{t.ivalue}} />{{t.text}}
+                                    </span>
+                        </div>-->
+                        <div class="form-group">
+                            <input type="checkbox" ng-model="Model.ISORIGNAL" style="padding-left: 10px;"/> 原发还是复发
+                        </div>
+                        <div class="form-group">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th class="text-center">T</th>
+                                    <th class="text-center">M</th>
+                                    <th class="text-center">N</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <!--<input type="text" ng-model="Model.T" class="form-control" ng-blur="SaveHistory()">-->
+                                        <span ng-repeat="t in ['T1','T2','T3','T4']" style="padding-left: 5px;">
+                                            <input type="radio" ng-model="Model.T" name="t" value="{{t}}" ng-change="SaveHistory()" />&nbsp;{{t}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <!--<input type="text" ng-model="Model.M" class="form-control" ng-blur="SaveHistory()">-->
+                                        <span ng-repeat="n in ['N0','N1','N2','N3']" style="padding-left: 5px;">
+                                            <input type="radio" name="n" ng-model="Model.N" value="{{n}}" ng-change="SaveHistory()" />&nbsp;{{n}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <!--<input type="text" ng-model="Model.N" class="form-control" ng-blur="SaveHistory()">-->
+                                        <span ng-repeat="m in ['M0','M1']" style="padding-left: 5px;">
+                                            <input type="radio" name="m" ng-model="Model.M" value="{{m}}" ng-change="SaveHistory()" />&nbsp;{{m}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">肿瘤位置</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="Model.POSITION" ng-blur="SaveHistory()" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">临床分期*</label>
+                            <div class="col-md-9">
+                                <select class="form-control" ng-options="s.value as s.text for s in DicStage" ng-model="Model.STAGE" ng-change="ChangeLCFQ()" ng-blur="SaveHistory()"></select>
+
+
+                               
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">细胞分型*</label>
+                            <div class="col-md-9">
+                                <select class="form-control" ng-options="c.value as c.text for c in CytotypeList" ng-model="Model.CYTOTYPE" ng-blur="SaveHistory()"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">基因分型*</label>
+                            <div class="col-md-9">
+                                <select class="form-control" ng-options="g.value as g.text for g in GenotypingList" ng-model="Model.GENOTYPING" ng-blur="SaveHistory()"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">是否有远处转移*</label>
+                            <div class="col-md-9">
+                                <select class="form-control" ng-options="t.value as t.text for t in DicTransfer" ng-model="Model.TRANSFER" ng-blur="SaveHistory()"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <strong><i class="fa fa-fw fa-user fa-lg"></i>待办详情</strong>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="InfoForm">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-3 col-lg-2 control-label pull-left">查看详细档案:</label>
+                            <div class="col-md-9">
+                                <a href="/#/CancerRecord?ApplyId={{ApplyId}}&id={{Id}}">
+                                    查看详细档案
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-3 col-lg-2 control-label">医生建议:</label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" id="DOCTORSUGGEST" ng-model="Item.DOCTORSUGGEST"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-3 col-lg-2 control-label">当前所处GuideLine:</label>
+                            <div class="col-md-9">
+                                <input type="text" ng-model="Item.CurrentName"
+                                       value="测试" readonly="readonly" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="NextGuideLine">
+                        <div class="col-md-12">
+                            <label class="col-md-3 col-lg-2 control-label">是否进入下一GuideLine:</label>
+                            <div class="col-md-9">
+                                <!--<select class="form-control" ng-model="Item.NextCurrentNode">
+                                    <option value="" selected="selected">否</option>
+                                </select>-->
+                                <select class="form-control" ng-model="Item.NextCurrentNode" id="NextCurrentNode">
+                                    <option value="">否</option>
+                                    <option ng-repeat="x in NodeList" value="{{x.ID}},{{x.Name}}">{{x.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <!--<div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-1 control-label">开始日期:</label>
+                            <div class="col-md-11">
+                                <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                                    <input class="form-control" size="10" type="text" value="" required ng-model="Item.ENTRYDATE"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-3 col-lg-2 control-label">是否发起GuideLine流程:</label>
+                            <div class="col-md-9">
+                                <!--<select class="form-control">
+                                    <option value="" selected="selected">否</option>
+                                </select>-->
+                                <textarea class="form-control" id="GuideLineFlow"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <div class="col-md-3 col-lg-2 col-md-offset-1">
+                        <button type="button" class="btn btn-info btn-lg btn-block" ng-click="GoBack()">
+                            <i class="fa fa-fw fa-save"></i>返回
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-md-offset-1">
+                        <button type="button" class="btn btn-info btn-lg btn-block" id="btnSave" ng-click="SaveItem()">
+                            <i class="fa fa-fw fa-save"></i>确定
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-md-offset-1">
+                        <button type="button" class="btn btn-info btn-lg btn-block" id="btnClosFlow" ng-click="CloseEvent()">
+                            <i class="fa fa-fw fa-save"></i>结束流程
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--依据模板展示控件-->
+<div class="modal fade" id="TemplateDetailModal" tabindex="-1" role="dialog" aria-labelledby="TemplateDetailModalLabel" data-target=".bs-example-modal-lg">
+    <div class="modal-dialog bs-example-modal-lg" role="document">
+        <div class="modal-content modal-lg">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="TemplateDetailModalLabel">依据模板内容</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr class="info">
+                            <th>序号</th>
+                            <th>分析项名称</th>
+                            <th>检查结果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in TemplateInfo.ItemTypes">
+                            <td ng-bind="$index+1"></td>
+                            <td>{{i.Name}}</td>
+                            <td ng-switch on="i.Type">
+                                <div ng-switch-when="0" class="form-group">
+                                    <!--<label class="checkbox-inline" ng-repeat="o in i.Options">
+                                        <input type="radio" name="{{i.Id}}" ng-model="ReportDetail[i.Id]" value="{{o.Id}}"/>{{o.Description}}
+                                    </label>-->
+                                    <ul ng-repeat="o in i.Options" style="list-style-type: none;">
+                                        <li><input type="radio" name="{{i.Id}}" ng-model="ReportDetail[o.Id]" value="{{o.Id}}" />{{o.Description}}</li>
+                                    </ul>
+                                </div>
+                                <div ng-switch-when="1">
+                                    <!--<label class="checkbox-inline" ng-repeat="o in i.Options">
+                                        <input type="checkbox" name="{{i.Id}}" ng-model="ReportDetail[o.Id]" value="{{o.Id}}"/>{{o.Description}}
+                                    </label>-->
+                                    <ul ng-repeat="o in i.Options" style="list-style-type: none;">
+                                        <li><input type="checkbox" name="{{i.Id}}" ng-model="ReportDetail[o.Id]" value="{{o.Id}}" />{{o.Description}}</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ICD10Modal" tabindex="-1" role="dialog" aria-labelledby="ICD10ModalLabel" data-target=".bs-example-modal-lg">
+    <div class="modal-dialog bs-example-modal-lg" role="document">
+        <div class="modal-content modal-lg">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ICD10ModalLabel">ICD选择器</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-include="'/Views/Common/Disease.html'"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="btnOk" ng-click="SaveICD()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

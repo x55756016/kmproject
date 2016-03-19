@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "ElderlyManageCardCreate";
+    Layout = null;
+}
+<style type="text/css">
+    .form-horizontal {
+        padding-top: 10px;
+    }
+</style>
+<div class="container-fluid">
+    <h2>老年人建档DEMO</h2>
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column">
+            <form ng-submit="save()" novalidate>
+                <div class="panel-group nav nav-list affix-top" ng-click="openOnlyOne($event)">
+                    <div class="panel panel-default">
+                        <div id="baseInfo" class="panel-heading ">
+                            <i class="icon-user-md icon-large"></i> 基本信息
+                        </div>
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="txt_RecordNo">健康档案标识符</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="RecordNo" ng-model="Data.RecordNo">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" ng-click="Search()"><i class="icon-search"></i>查询</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="txt_Name">姓名</label>
+                                <div class="col-md-8">
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" maxlength="50" required />
+                                    <span ng-show=""></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_Gender">性别</label>
+                                <div class="col-md-8 control-label" style="text-align: left;">
+                                    <select id="list_Gender" name="Gender" ng-model="Data.Gender" class="form-control" ng-options="Gender.Value as Gender.Name for Gender in Dic.Gender"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_IdentityType">
+                                    证件类型
+                                </label>
+                                <div class="col-md-8">
+                                    <select id="list_IdentityType" name="IdentityType" ng-model="Data.IdentityType" class="form-control" ng-options="IdentityType.Value as IdentityType.Name for IdentityType in Dic.IdentityType" ng-change="IdentityTypeChange()"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    证件号码
+                                </label>
+                                <div class="col-md-8">
+                                    <input id="txt_IdentityNo" name="IdentityNo" ng-model="Data.IdentityNo" class="form-control" ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">地址</label>
+                                <div class="col-md-8">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>地址</th>
+                                                <th>邮编</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>中国.广东.深圳</td>
+                                                <td>518000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>中国.广东.广州</td>
+                                                <td>518000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">常住地址类型</label>
+                                <div class="col-md-8 control-label" style="text-align: left;">
+                                    <input name="RHType" type="radio" ng-model="Data.RHType" value="1" /><span>1.城市</span>
+                                    <input name="RHType" type="radio" ng-model="Data.RHType" value="2" /><span>2.农村</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">现存主要健康问题</label>
+                                <div class="col-md-8 control-label" style="text-align: left;">
+                                    <input name="RHType" type="checkbox" ng-model="Data.RHType" value="1" /><span>问题1</span>
+                                    <input name="RHType" type="checkbox" ng-model="Data.RHType" value="2" /><span>问题2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                    <button class="btn btn-success" type="submit">确定信息无误并提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

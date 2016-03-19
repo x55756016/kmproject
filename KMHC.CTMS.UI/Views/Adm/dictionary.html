@@ -1,0 +1,69 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            字典维护
+        </div>
+        <div class="panel-body">
+            <form ng-submit="processForm()" name="myForm">
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div id="tree"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-info" style="margin-right:10%;" ng-click="addRootNode()">添加根节点</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnClose"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">节点维护</h4>
+            </div>
+            <form ng-submit="processForm()" name="editForm">
+                <div class="modal-body">
+                    <table cellpadding="0" cellspacing="0" width="100%;">
+                        <tr>
+                            <td class="text-center"><label>节点名称：</label></td>
+                            <td><input type="text" class="form-control" autocomplete="off" placeholder="节点名称" ng-model="editData.text" required /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><label>节&nbsp;点&nbsp;值：</label></td>
+                            <td><input type="text" class="form-control" autocomplete="off" placeholder="节点值" ng-model="editData.value" required /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="addNode()">{{addButtonTitle}}</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="updateNode()" ng-show="addButtonTitle == '往当前节点添加子节点'">修改该节点</button>
+                    <button type="button" class="btn btn-primary" ng-show="addButtonTitle == '往当前节点添加子节点'" ng-click="deleteNode()">删除该节点</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>加载中，请稍候...</span>
+    </div>
+</div>

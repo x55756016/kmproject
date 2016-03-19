@@ -1,0 +1,325 @@
+﻿<div class="container-fluid">
+    <div class="page-header">
+        <h1>家族病史</h1>
+    </div>
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column">
+            <!--<div class="panel-group" ng-include="'/Views/BasicRecord/BasicInfo.html'"></div>-->
+          
+            <div class="panel-group nav nav-list affix-top">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="icon-user-md icon-large"></i> 家族病史
+                    </div>
+
+                    <div class="panel panel-body">
+                        <div class="form-group" ng-include="'/Views/DoctorHistory/Person.html'"></div>
+                        <div class="text-right row-fluid">
+                            <input type="button" class="btn btn-default" value="新增家族史" ng-click="AddFamily()" ng-show="Data.Family.length==0" />&nbsp;&nbsp;
+                            <input type="button" class="btn btn-default" value="新增成员" ng-click="AddMember()" ng-show="Data.Family.length>0" />&nbsp;&nbsp;
+                            <input type="button" class="btn btn-success" value="返回" ng-show="Uid!=null" ng-click="Reback()" />
+                        </div>
+                        <div class="row-fluid">
+                            <table class="table table-bordered" ng-show="Data.Family.length>0">
+                                <tbody>
+                                    <tr>
+                                        <th class="col-md-3">与本人关系</th>
+                                        <th class="col-md-3">姓名</th>
+                                        <th class="col-md-3"></th>
+                                        <th class="col-md-3"></th>
+                                    </tr>
+                                    <tr class="bg-warning"><td colspan="4"><b>本人</b></td></tr>
+                                    <tr ng-repeat="f in Data.Family|BySide:'本人'|orderBy:'RelationShip.Sort'">
+                                        <td>{{f.RelationShip.Text}}</td>
+                                        <td>{{f.Name}}</td>
+                                        <td>
+                                            <input type="button" class="btn btn-default btn-small" value="编辑病史" data-toggle="modal" data-target="#myModal" ng-click="EditMember(f)" />
+                                        </td>
+                                        <td>
+                                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteMember(f)" ng-show="f.RelationShip.Apply==true" />
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-warning"><td colspan="4"><b>父系</b></td></tr>
+                                    <tr ng-repeat="f in Data.Family|BySide:'父系'|orderBy:'RelationShip.Sort'">
+                                        <td>{{f.RelationShip.Text}}</td>
+                                        <td>{{f.Name}}</td>
+                                        <td>
+                                            <input type="button" class="btn btn-default btn-small" value="编辑病史" data-toggle="modal" data-target="#myModal" ng-click="EditMember(f)" />
+                                        </td>
+                                        <td>
+                                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteMember(f)" ng-show="f.RelationShip.Apply==true" />
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-warning"><td colspan="4"><b>母系</b></td></tr>
+                                    <tr ng-repeat="f in Data.Family|BySide:'母系'|orderBy:'RelationShip.Sort'">
+                                        <td>{{f.RelationShip.Text}}</td>
+                                        <td>{{f.Name}}</td>
+                                        <td>
+                                            <input type="button" class="btn btn-default btn-small" value="编辑病史" data-toggle="modal" data-target="#myModal" ng-click="EditMember(f)" />
+                                        </td>
+                                        <td>
+                                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteMember(f)" ng-show="f.RelationShip.Apply==true" />
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- 编辑成员模态框（Modal） -->
+<div class="modal fade" id="editMemberModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label> 家族成员信息</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="editMemberForm" name="editMemberForm">
+                    <div class="panel form-horizontal" id="crud_his">
+                        <div class="form-group hidden">
+                            <label class="control-label col-md-2">ID:</label>
+                            <div class="col-md-9">{{CRUDMember.ID}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">与本人关系:</label>
+                            <div class="col-md-10">
+                                <select id="rs1" ng-options="rs.ID as rs.Text group by rs.Side for rs in Data.DicFamilyRS" ng-model="CRUDMember.RelationID" class="form-control " ng-show="CRUDMember.ID!=null"  disabled><option value="">--请选择--</option></select>
+                                <select id="rs2" ng-options="rs.ID as rs.Text group by rs.Side for rs in Data.DicFamilyRS|filter:{Apply:true}" ng-model="CRUDMember.RelationID" class="form-control " ng-show="CRUDMember.ID==null" ng-change="SelectRelation()" required><option value="">--请选择--</option></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">姓名:</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="CRUDMember.Name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">性别:</label>
+                            <div class="col-md-10">
+                                <select ng-options="rs.Value as rs.Text for rs in [{Text:'男',Value:'1'},{Text:'女',Value:'2'},{Text:'未知',Value:'0'}]" ng-model="CRUDMember.Sex" class="form-control " ng-disabled="CRUDMember.RelationShip!=null && CRUDMember.RelationShip.Sex!='0'" ></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">是否在世:</label>
+                            <div class="col-md-10">
+                                <span>
+                                    <input type="radio" ng-model="CRUDMember.IsAlive" ng-checked="CRUDMember.IsAlive==true" ng-click="CRUDMember.IsAlive=true" />是
+                                    &nbsp;&nbsp;
+                                    <input type="radio" ng-model="CRUDMember.IsAlive" ng-checked="CRUDMember.IsAlive==false" ng-click="CRUDMember.IsAlive=false" />否
+                                </span>
+
+                                <span ng-show="CRUDMember.IsAlive==false" style="padding-left:10px;">
+                                    去世原因:&nbsp;&nbsp; <input type="text" class="form-control-static" ng-model="CRUDMember.DeadReason" style="width:300px;" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">是否多胞胎:</label>
+                            <div class="col-md-10 for">
+                                <input type="checkbox" ng-model="CRUDMember.IsTwins" />&nbsp;&nbsp;
+                                <span ng-show="CRUDMember.IsTwins==true">
+                                    是否同卵：<input type="checkbox" ng-model="CRUDMember.IsIdentical" />
+                                </span>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="control-label col-md-2">是否被领养:</label>
+                            <div class="col-md-10">
+                                <input type="checkbox" ng-model="CRUDMember.IsAdopted" />
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+                            <div class="panel  panel-default">
+                                <div class="panel-heading">
+                                    患病历史
+                                </div>
+                                <div class="panel-body text-right">
+                                    <input type="button" class="btn btn-small" value="新增疾病" ng-click="AddDisease()" />
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>所患疾病</th>
+                                                <th>是否遗传病</th>
+                                                <th>发病时间</th>
+                                                <th>诊断年龄</th>
+                                                <th>治疗医院</th>
+                                                <th>治疗进过</th>
+                                                <th>治疗效果</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            <tr ng-repeat="d in CRUDMember.Diseases|orderBy:'AttackDate'">
+                                                <td class="col-md-2">
+                                                    <input type="text" class="form-control" ng-model="d.DiseaseName" ng-click="ShowDiseasePicker($index)" readonly required/>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <input type="checkbox" ng-model="d.IsInfectious" />
+                                                </td>
+                                                <td class="col-md-2">
+                                                    <input type="text" class="form-control" ng-model="d.AttackDate" data-date-format="yyyy-mm-dd" datepicker />
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <input type="number" class="form-control" ng-model="d.DiagnosisAge" />
+                                                </td>
+                                                <td class="col-md-2">
+                                                    <textarea class="form-control" ng-model="d.TreatmentHospital" rows="2" />
+                                                </td>
+                                                <td class="col-md-2">
+                                                    <textarea class="form-control" ng-model="d.Treatment" rows="2" />
+                                                </td>
+                                                <td class="col-md-2">
+                                                    <textarea class="form-control" ng-model="d.TreatmentResult" rows="2" />
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <input type="button" class="btn btn-small" value="删除" ng-click="Delete(CRUDMember.Diseases,d)" />
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="control-label col-md-2">所患疾病:</label>
+                            <div class="col-md-10">
+
+                                <select ng-options="rs.Code as rs.Name for rs in Data.DicDisease" ng-model="CURDHis.DiseaseCode" class="form-control" required><option value="">--请选择--</option></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">是否遗传病:</label>
+                            <div class="col-md-10">
+                                <input type="checkbox" ng-model="CURDHis.IsInfectious" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">发病时间:</label>
+                            <div class="col-md-10">
+                                <div class="input-group date form_date" data-date-format="yyyy-mm-dd" datepicker>
+                                    <input type="text" class="form-control" ng-model="CURDHis.AttackDate" required />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">发病年龄:</label>
+                            <div class="text-left col-md-10">
+                                <input type="number" class="form-control" ng-model="CURDHis.DiagnosisAge" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">治疗过程(含用药):</label>
+                            <div class="text-left col-md-10">
+                                <textarea class="form-control" ng-model="CURDHis.Treatment" rows="5" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2"><label>治疗结果:</label></label>
+                            <div class="text-left col-md-4">
+                                <select class="col-md-4 form-control" ng-options="rs.Value as rs.Text for rs in [{Text:'康复',Value:0},{Text:'治疗中',Value:1},{Text:'死亡',Value:2}]" ng-model="CURDHis.TreatmentState"><option value="">--请选择--</option></select>
+                            </div>
+                            <label class="control-label col-md-2" ng-show="CURDHis.TreatmentState==0||CURDHis.TreatmentState==2">
+                                {{CURDHis.TreatmentState==0?"康复":(CURDHis.TreatmentState==2?"死亡":"")}}时间:
+                            </label>
+                            <div class="text-left col-md-4" ng-show="CURDHis.TreatmentState==0||CURDHis.TreatmentState==2">
+                                <div class="input-group date form_date" data-date-format="yyyy-mm-dd" datepicker>
+                                    <input type="text" class="form-control" ng-model="CURDHis.TreatmentStatDate" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="SaveMember()" ng-disabled="editMemberForm.$invalid">
+                    保存
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 添加家庭模态框（Modal） -->
+<div class="modal fade" id="addFamilyModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label> 家族成员</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="addFamilyform" name="addFamilyform">
+                    <table class="table">
+                        <tbody>
+                            <tr ng-repeat="fr in Data.DicFamilyRS|orderBy: Sort|filter : {Apply : true}">
+                                <td class="col-md-8">你有多少个{{fr.Text}}?</td>
+                                <td class="col-ms-4 text-left"><input type="number" class="form-control" required ng-model="fr.MemberCount" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="SaveFamily()" ng-disabled="addFamilyform.$invalid">
+                    保存
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div class="modal fade" id="DiseaseModal"  tabindex="-1" role="dialog" aria-labelledby="DiseaseModalLabel" data-target=".bs-example-modal-lg">
+    <div class="modal-dialog bs-example-modal-lg" role="document">
+        <div class="modal-content modal-lg">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="DiseaseModalLabel">ICD选择器</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-include="'/Views/Common/Disease.html'"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="btnOk" ng-click="SaveDisease()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

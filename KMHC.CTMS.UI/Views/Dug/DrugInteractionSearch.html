@@ -1,0 +1,85 @@
+﻿<div class="container-fluid">
+    <h1>药品相互作用查询</h1>
+    <br/>
+    <div class="row-fluid clearfix">    
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <input type="text" class="form-control" ng-model="DrugName" placeholder="药品名称" data-toggle="modal" data-target="#myModal" readonly="readonly" />
+                </div>
+                <!--<div class="col-md-1">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">搜索药品</button>
+                </div>-->
+                <!--<div class="col-md-1">
+                    <button type="button" class="btn btn-info btn-block" ng-click="Search()">查询</button>
+                </div>-->
+                <label ng-show="IsShow">搜索不到相关信息</label>
+            </div>
+            药品信息
+            <table class="table table-hover table-bordered table-responsive">
+                <tbody>
+                <tr class="info">
+                    <td>药品ID</td>
+                    <td>药品全称</td>
+                    <td>创建时间</td>
+                    <td>药品描述</td>
+                    <td>毒理作用</td>
+                </tr>
+                <tr ng-repeat="item in ListItem">
+                    <td>{{item.DrugBankId}}</td>
+                    <td>{{item.Name}}</td>
+                    <td>{{item.CreateTime|date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.Description}}</td>
+                    <td>{{item.Toxicity}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            相互作用信息：
+            <table class="table table-hover table-bordered table-responsive">
+                <tbody>
+                <tr class="info">
+                    <td>药品ID</td>
+                    <td>药品全称</td>
+                    <td>创建时间</td>
+                    <td>药品描述</td>
+                    <td>毒理作用</td>
+                    <td>作用信息</td>
+                </tr>
+                <tr ng-repeat="item2 in ListItem[0].DrugInteractionInfos">
+                    <td>{{item2.DrugBankId}}</td>
+                    <td>{{item2.DrugName}}</td>
+                    <td>{{item2.CreateTime|date:'yyyy-MM-dd'}}</td>
+                    <td>{{item2.Description}}</td>
+                    <td>{{item2.Toxicity}}</td>
+                    <td>{{item2.DrugInter}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">药品选择</h4>
+            </div>
+            <div class="modal-body" ng-include="'/Views/Dug/DrugControl.html'">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>处理中，请稍候...</span>
+    </div>
+</div>

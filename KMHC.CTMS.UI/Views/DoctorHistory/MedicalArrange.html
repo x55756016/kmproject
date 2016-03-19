@@ -1,0 +1,42 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            数据内容
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr class="info">
+                        <th>上传时间</th>
+                        <th>上传文件</th>
+                        <th>备注</th>
+                        <th>文件类型</th>
+                    </tr>
+                </thead>
+                <tbody id="tbBody">
+                    <tr ng-repeat="x in Infos">
+                        <td>{{x.CreatTime| date:'yyyy-MM-dd'}}</td>
+                        <td><a title="查看文件" target="_blank" href="/Upload/{{x.FilePath}}">{{x.FileName}}</a></td>
+                        <td>{{x.Remark}}</td>
+                        <td>
+                            <select class="form-control" ng-model="x.ModelCode">
+                                <option value="">请选择</option>
+                                <option value="0">病历</option>
+                                <option value="1">实验室检查</option>
+                                <option value="2">影像学检查</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pull-right" style="margin-top:20px;">
+        <button type="button" class="btn btn-info " ng-click="Save()" ng-hide="Infos.length==0"><i class="fa fa-fw fa-save"></i> 提交</button>
+        <button type="button" class="btn btn-info " ng-click="GoBack()"><i class="fa fa-fw fa-reply-all"></i> 返回</button>
+    </div>
+</div>
+
+
+
+

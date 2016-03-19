@@ -1,0 +1,97 @@
+﻿<style>
+    .loading-modal {
+        background: rgba(0,0,0,0);
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <strong><i class="fa fa-fw fa-medkit fa-lg"></i> 客服待办明细</strong>
+        </div>
+
+        <div class="panel-body">
+            <div class="form-group" ng-include="'/Views/DoctorHistory/Person.html'"></div>
+            <div class="form-horizontal" style="margin-top:50px;">
+                <hr />
+            </div>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2 col-lg-1 col-sm-5 control-label">联系电话：</label>
+                    <div class="col-md-5 col-sm-7 col-lg-3">
+                        <input type="text" ng-readonly="true" autocomplete="off" placeholder="联系电话" class="form-control" ng-model="UserInfo.MobilePhone" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2 col-lg-1 col-sm-5 control-label">联系邮箱：</label>
+                    <div class="col-md-5 col-sm-7 col-lg-3">
+                        <input type="text" ng-readonly="true" autocomplete="off" placeholder="联系邮箱" class="form-control" ng-model="UserInfo.Email" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-horizontal" style="margin-top:20px;">
+                <div class="form-group">
+                    <label class="col-md-2 col-lg-1 col-sm-5 control-label">患者待办：</label>
+                    <div class="col-md-5 col-sm-7 col-lg-3">
+                        <input type="text" ng-readonly="true" autocomplete="off" placeholder="患者待办" class="form-control" ng-model="EventInfo.ActionInfo" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2 col-lg-1 col-sm-5 control-label">医生建议：</label>
+                    <div class="col-md-5 col-sm-7 col-lg-3">
+                        <textarea rows="3" class="form-control" ng-readonly="true" placeholder="医生建议" ng-model="Apply.DOCTORSUGGEST"></textarea>
+                    </div>
+                </div>
+            </div>
+            <form name="ServiceTaskForm" ng-submit="processForm()">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 col-lg-1 col-sm-5 control-label">跟踪方式：</label>
+                        <div class="col-md-5 col-sm-7 col-lg-3">
+                            <label class="checkbox-inline">
+                                <input type="radio" name="type" value="0" ng-model="Model.TraceType" />电话
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="type" value="1" ng-model="Model.TraceType" />即时通讯
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="type" value="2" ng-model="Model.TraceType" />其他
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-7 control-label">跟踪详情描述：</label>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-7 col-sm-7 col-lg-4">
+                            <textarea rows="3" class="form-control" placeholder="跟踪详情" ng-model="Model.TraceDetail"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-2 col-md-offset-1 col-lg-1">
+                            <button type="button" class="btn btn-info btn-block" onclick="window.location = '/';"><i class="fa fa-fw fa-reply-all"></i> 返回</button>
+                        </div>
+                        <div class="col-md-2 col-md-offset-1 col-lg-1">
+                            <button type="submit" class="btn btn-info btn-block" ng-disabled="ServiceTaskForm.$invalid"><i class="fa fa-fw fa-save"></i> 确认</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>处理中，请稍候...</span>
+    </div>
+</div>

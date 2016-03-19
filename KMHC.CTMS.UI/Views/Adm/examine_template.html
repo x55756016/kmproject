@@ -1,0 +1,159 @@
+﻿<style type="text/css">
+    .webuploader-pick {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        background: #D9EDF7;
+        padding: 0 0;
+        color: #337ab7;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+        width: auto;
+        top: 5px;
+    }
+
+    .webuploader-pick-hover {
+        background: #D9EDF7;
+    }
+
+    tr,th{text-align:center;}
+    .loading-modal{background:rgba(0,0,0,0);}
+</style>
+<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                查询条件
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 col-lg-1 col-sm-5 control-label ">模版名称</label>
+                        <div class="col-md-3 col-lg-2 col-sm-7">
+                            <input type="text" class="form-control" ng-model="search.kwd" autocomplete="off" placeholder="名称或描述" />
+                        </div>
+
+
+
+                        <label class="col-md-2 col-lg-1 col-sm-5 control-label  ">模板类型</label>
+                        <div class="col-md-3 col-lg-2 col-sm-7">
+                            <select class="form-control col-md-4" ng-model="search.type">
+                                <option value=""></option>
+                                <option ng-repeat="x in templateTypeList" value="{{x.value}}">{{x.text}}</option>
+                            </select>
+                        </div>
+
+
+
+
+                        <div class="col-md-2 col-lg-1 col-sm-12">
+                            <button type="button" class="btn btn-info btn-block form-control" ng-click="Search()"><i class="fa fa-fw fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-md-2 col-lg-1 col-sm-12">
+                            <button type="button" class="btn btn-info btn-block  form-control" ng-click="ResetSearch()"><i class="fa fa-fw fa-refresh"></i> 重置</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalExamineDetail" ng-click="Add()"><i class="fa fa-fw fa-plus "></i>新增</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr class="info">
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th>创建日期</th>
+                        <th>修改日期</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in List">
+                        <td>{{x.Name}}</td>
+                        <td class="wrapspace">{{x.Description}}</td>
+                        <td>{{x.CreateDateTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                        <td>{{x.EditDateTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                        <td>
+                            <a  title="编辑模版" data-toggle="modal" data-target="#modalExamineDetail" ng-click="Edit(x.Id)"><i class="fa fa-fw fa-search fa-lg"></i></a>
+                            <a href="#/ExamineTemplateItem/{{x.Id}}" title="编辑检验项"><i class="fa fa-fw fa-edit fa-lg"></i></a>
+                            <a href="javascript:void(0);" ng-click="Remove(x)" title="删除模版" class="text-danger"><i class="fa fa-fw fa-remove fa-lg"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pager" class="pull-right"></div>
+    </div>
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>处理中，请稍候...</span>
+    </div>
+</div>
+
+<div class="modal fade" id="modalExamineDetail" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label>检验模版</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" name="DetailForm" ng-submit="ProcessForm()">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="txtName">名称</label>
+                        <div class="col-md-4" ng-class="{'has-error':InfoForm.Name.$invalid}">
+                            <input type="text" class="form-control" id="txtName" ng-model="ExamineTemplates.Name" name="Name" placeholder="检验模版名称为必填项" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="txtDescription">描述</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" rows="3" id="txtDescription" ng-model="ExamineTemplates.Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="txtTemplateCode">模版类型</label>
+                        <div class="col-md-4">
+                            <!--<select class="form-control" ng-model="ExamineTemplates.TemplateCode">
+                                <option value="SeeDoctorHistory">病例</option>
+                                <option value="LaboratoryResult">实验室检查</option>
+                                <option value="ImageExamination">影像学检查</option>
+                            </select>-->
+                            <select class="form-control col-md-4" ng-model="ExamineTemplates.TemplateCode">
+                                <!--<option value=""></option>-->
+                                <option ng-repeat="x in templateTypeList" value="{{x.nodeId}}">{{x.text}}</option>
+                            </select>
+                            <!--<select class="form-control" style="width: 100%" ng-options="d.nodeId as d.text for d in templateTypeList" ng-model="ExamineTemplates.TemplateCode" required></select>-->
+                            <!--<input type="text" class="form-control" ng-model="ExamineTemplates.TemplateCode" autocomplete="off" placeholder="ImageExamination" />-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-md-offset-1 pull-right">
+                            <button type="submit" class="btn btn-info btn-lg btn-block" ng-disabled="DetailForm.$invalid"><i class="fa fa-fw fa-save"></i> 确定</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

@@ -1,0 +1,413 @@
+﻿<div class="container-fluid">
+    <h1>既往病史</h1>
+    <div class="row-fluid clearfix">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <div class="form-group" ng-include="'/Views/DoctorHistory/Person.html'"></div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="Keyword" ng-model="Keyword" placeholder="疾病名称">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="SearchCondition()"><i class="icon-search"></i>查询</button>
+                            &nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal" ng-click="">新增</button>
+                            &nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-default" type="button" ng-click="back()">返回</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-hover table-bordered table-responsive">
+                <tbody>
+                <tr class="info">
+                    <td>疾病名称</td>
+                    <td>治疗过程</td>
+                    <td>就诊时间</td>
+                    <td>就诊医院</td>
+                    <!--<td>上传附件</td>-->
+                    <td>结构化存储记录详情</td>
+                    <td>操作</td>
+                </tr>
+                    <tr ng-repeat="item in ListItems">
+                        <td>{{item.DISEASENAME}}</td>
+                        <td>{{item.TREATPROCESS}}</td>
+                        <td>{{item.CREATTIME|date:'yyyy-MM-dd'}}</td>
+                        <td>{{item.HOSPITAL}}</td>
+                        <!--<td>-->
+                            <!--<button class="btn">上传</button>-->
+                            <!--<a class="btn btn-info" ng-click="Upload('DiseaseHistory',item.DISEASEHISTORYID)">上传/查看</a>-->
+                        <!--</td>-->
+                        <td>
+                            <button class="btn" data-toggle="modal"
+                                    data-target="#myModalInfo"
+                                    ng-click="SetDisId(item)">
+                                编辑
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn" ng-click="Remove(item.DISEASEHISTORYID)">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div id="pager"></div>
+        </form>
+    </div>
+</div>
+
+<!--附件上传-->
+<!--<div class="modal fade" id="modalUploader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    <label>上传/查看</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3"><div id="picker">选择文件</div></div>
+                    <div class="col-md-3">
+                        <button class="btn btn-default" ng-click="StartUpload()">开始上传</button>
+                    </div>
+                </div>
+                <ul class="list-group" ng-repeat="x in Files">
+                    <li class="list-group-item">
+                        {{x.Name}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-info">{{x.Msg}}</span>
+                        <span class="badge" ng-click="RemoveFile($index)">删除</span>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p class="panel-title text-info">已上传文件</p>
+                </div>
+                <ul class="list-group" ng-repeat="u in UpFiles">
+                    <li class="list-group-item">{{u.FileName}}<span class="badge" ng-click="DelFile(u,$index)">删除</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+<!--既往病史新增-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form name="Communityform" ng-submit="SaveDH()" class="form-horizontal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" ng-model="fWindowName">既往病史新增</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <td>疾病名称：&nbsp;</td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="DiseasehisModel.DISEASENAME" name="DISEASENAME" placeholder="疾病名称" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>治疗过程：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="DiseasehisModel.TREATPROCESS" name="TREATPROCESS" placeholder="治疗过程"/></td>
+                        </tr>
+                        <tr>
+                            <td>就诊时间：&nbsp;</td>
+                            <td>
+                                <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" datepicker>
+                                    <input id="txt_StartDate" class="form-control" size="16" type="text" name="CREATTIME" value="" ng-model="DiseasehisModel.CREATTIME" placeholder="开始时间" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>就诊医院：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="DiseasehisModel.HOSPITAL" name="HOSPITAL" placeholder="就诊医院"/></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--既往病史(结构化存储)-->
+<div class="modal fade" id="myModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form name="Communityform" ng-submit="SaveDH()" class="form-horizontal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel" ng-model="fWindowName">既往病史（结构化存储）</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <td>疾病名称：&nbsp;</td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="DiseasehisModel.DISEASENAME" name="DiseaseName" placeholder="ICD10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>治疗过程：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="DiseasehisModel.TREATPROCESS" name="TREATPROCESS" placeholder="治疗过程"/></td>
+                        </tr>
+                        <tr>
+                            <td>就诊时间：&nbsp;</td>
+                            <td>
+                                <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" datepicker>
+                                    <input id="txt_StartDate" class="form-control" size="16" type="text" name="CREATTIME" value="" ng-model="DiseasehisModel.CREATTIME" placeholder="就诊时间"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>就诊医院：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="DiseasehisModel.HOSPITAL" name="HOSPITAL" placeholder="就诊医院"/></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>发病时间：&nbsp;</td>
+                            <td>
+                                <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" datepicker>
+                                    <input class="form-control" size="16" type="text" name="StartTime" ng-model="DiseasehisModel.STARTTIME" placeholder="发病时间"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>康复时间：&nbsp;</td>
+                            <td>
+                                <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" datepicker>
+                                    <input class="form-control" size="16" type="text" name="RECOVERTIME" ng-model="DiseasehisModel.RECOVERTIME" placeholder="康复时间"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>诊断时间：&nbsp;</td>
+                            <td>
+                                <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" datepicker>
+                                    <input class="form-control" size="16" type="text" name="CONFIRMEDTIME" ng-model="DiseasehisModel.CONFIRMEDTIME" placeholder="诊断时间"/>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>诊断年龄：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="DiseasehisModel.CONFIRMEDAGE" name="ConfirmedAge" placeholder="诊断年龄"/></td>
+                        </tr>
+                        <tr>
+                            <td>诊断地点：&nbsp;</td>
+                            <td><input type="text" class="form-control" ng-model="DiseasehisModel.CONFIRMEDADDRESS" name="ConfirmedAddress" placeholder="诊断地点"/></td>
+                        </tr>
+                        <tr>
+                            <td>诊断方式：&nbsp;</td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="DiseasehisModel.CONFIRMEDMODE" name="ConfirmedMode" placeholder="诊断方式"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>诊断结果：&nbsp;</td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="DiseasehisModel.CONFIRMEDRELUST" name="ConfirmedRelust" placeholder="诊断结果"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>症状描述：&nbsp;</td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="DiseasehisModel.SYMPTOMDESCRIPTION" name="symptomDescription" placeholder="症状描述"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <p>治疗史</p>
+                        <input type="button" value="新增" data-toggle="modal" data-target="#myModalTH"/>
+
+                        <table class="table table-hover table-bordered table-responsive">
+                            <tr class="info">
+                                <th>治疗时间</th>
+                                <th>治疗医院</th>
+                                <th>治疗方式</th>
+                                <th>治疗详情</th>
+                                <th>操作</th>
+                            </tr>
+
+                            <tr ng-repeat="item2 in TreatmentList">
+                                <td>{{item2.TREATMENTTIME|date:'yyyy-MM-dd'}}</td>
+                                <td>{{item2.TREATMENTHOSPITAL}}</td>
+                                <td>{{item2.TREATMENTTYPE}}</td>
+                                <td>
+
+                                    手术： {{item2.OPERATIONTYPE}}--{{item2.OPERATIONRESLUT}}
+                                    放疗： {{item2.RADIOTHERAPYDOSE}}--{{item2.RADIOTHERAPYRESLUT}}
+                                    化疗： {{item2.CHEMOTHERAPYPROJECT}}--{{item2.CHEMOTHERAPYDRUG}}--{{item2.CHEMOTHERAPYRESLUT}}
+
+                                </td>
+                                <td>
+                                    <input type="button" value="删除" ng-click="RemoveTreatment(item2.TREATMENTHISTORYID)"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div >
+                        <input type="checkbox" id="IsCancer" ng-click="toggleTumorMenu()" ng-model="DiseasehisModel.ISCANCER"/>是否肿瘤
+                        <div ng-show="tumorMenuState.show">
+                            <table>
+                                <tr>
+                                    <td>肿瘤名称：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.CANCERNAME" name="CancerName" placeholder="肿瘤名称"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>肿瘤疾病代码：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.CANCERCODE" name="CancerCode" placeholder="肿瘤疾病代码"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>肿瘤位置：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.CANCERPOSITION" name="CancerPosition" placeholder="肿瘤位置"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>病理细胞类型：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.CELLULATYPE" name="cellulaType" placeholder="病理细胞类型"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>临床分期：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.CLINICALSTAGES" name="clinicalStages" placeholder="临床分期"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tumor肿瘤本身：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.TUMOR" name="Tumor" placeholder="Tumor肿瘤本身"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>N 淋巴结转移情况：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.N" name="N" placeholder="Tumor肿瘤本身"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>M 远程转移：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.M" name="M" placeholder="远程转移"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gene基因组型：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.GENE" name="Gene" placeholder="Gene基因组型"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>原发还是复发：&nbsp;</td>
+                                    <td>
+                                        <input type="text" class="form-control" ng-model="DiseasehisModel.ISREAPPEAR" name="IsReappear" placeholder="原发还是复发"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" ng-disabled="Communityform.$invalid" type="submit">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--治疗史-->
+<div class="modal fade" id="myModalTH" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form name="TreatmentFform" ng-submit="SaveTreatment()" class="form-horizontal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" ng-model="fWindowName">治疗史</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <table>
+                            <tr>
+                                <td>治疗时间：&nbsp;</td>
+                                <td>
+                                    <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" datepicker>
+                                        <input id="txt_StartDate" class="form-control" size="16" type="text" name="TreatmentTime" value="" ng-model="TreatmentHistory.TreatmentTime" placeholder="治疗时间" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>治疗医院：&nbsp;</td>
+                                <td><input type="text" class="form-control" ng-model="TreatmentHistory.TreatmentHospital" name="TreatmentHospital" placeholder="治疗医院" /></td>
+                            </tr>
+                            <tr>
+                                <td>治疗方式：&nbsp;</td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="TreatmentHistory.TreatmentType" name="TreatmentType" placeholder="治疗时间" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>手术方式：&nbsp;</td>
+                                <td><input type="text" class="form-control" ng-model="TreatmentHistory.OperationType" name="OperationType" placeholder="手术方式" /></td>
+                            </tr>
+                            <tr>
+                                <td>手术效果：&nbsp;</td>
+                                <td><input type="text" class="form-control" ng-model="TreatmentHistory.OperationReslut" name="OperationReslut" placeholder="手术效果" /></td>
+                            </tr>
+                            <tr>
+                                <td>放疗剂量：&nbsp;</td>
+                                <td><input type="text" class="form-control" ng-model="TreatmentHistory.radiotherapyDose" name="radiotherapyDose" placeholder="放疗剂量" /></td>
+                            </tr>
+                            <tr>
+                                <td>放疗效果：&nbsp;</td>
+                                <td><input type="text" class="form-control" ng-model="TreatmentHistory.radiotherapyReslut" name="radiotherapyReslut" placeholder="放疗效果" /></td>
+                            </tr>
+                            <tr>
+                                <td>化疗方案：&nbsp;</td>
+                                <td><input type="text" class="form-control" ng-model="TreatmentHistory.chemotherapyProject" name="chemotherapyProject" placeholder="化疗方案" /></td>
+                            </tr>
+                            <tr>
+                                <td>化疗药物：&nbsp;</td>
+                                <td><input type="text" class="form-control" ng-model="TreatmentHistory.chemotherapyDrug" name="chemotherapyDrug" placeholder="化疗药物" /></td>
+                            </tr>
+                            <tr>
+                                <td>化疗效果：&nbsp;</td>
+                                <td><input type="text" class="form-control" ng-model="TreatmentHistory.chemotherapyReslut" name="chemotherapyReslut" placeholder="化疗效果" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" ng-disabled="" type="submit">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

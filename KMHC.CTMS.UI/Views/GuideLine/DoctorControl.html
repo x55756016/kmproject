@@ -1,0 +1,163 @@
+﻿<style type="text/css">
+    .webuploader-pick {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        background: #D9EDF7;
+        padding: 0 0;
+        color: #337ab7;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+        width: auto;
+        top: 5px;
+    }
+
+    .webuploader-pick-hover {
+        background: #D9EDF7;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                查询条件
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-1 col-md-2 control-label">用户姓名</label>
+                        <div class="col-lg-3 col-md-6">
+                            <input type="text" class="form-control" ng-model="Keyword" id="Keyword" />
+                            <input type="hidden" id="hdName" />
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <button type="button" class="btn btn-info btn-block form-control" ng-click="SearchCondition()"><i class="fa fa-fw fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <button type="button" class="btn btn-info btn-block  form-control" ng-click="ResetCondition()"><i class="fa fa-fw fa-refresh"></i> 重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a ng-click="Add()" href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-plus "></i>新增</a>
+            <a ng-click="Search()" href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-refresh fa-lg"></i>刷新</a> 
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr class="info">
+                        <th>序号</th>
+                        <th>患者名称</th>
+                        <th>GuideLine名称</th>
+                        <th>进入日期</th>
+                        <th>退出日期</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in ListItems" ng-click="CheckRow($index)">
+                        <td>{{$index+1}}</td>
+                        <td>{{x.Name}}</td>
+                        <td>{{x.CurrentName}}</td>
+                        <td>{{x.ENTRYDATE|date:'yyyy-MM-dd hh:MM'}}</td>
+                        <td>{{x.EXITDATE|date:'yyyy-MM-dd hh:MM'}}</td>
+                        <td>
+                            <a  ng-click="Edit(x)" title="查看" data-toggle="modal" data-target="#divSelectGuideLine">
+                                <i class="fa fa-fw fa-edit fa-lg"></i>
+                            </a>
+                            <!--<a href="/Guideline/index#/Index?Fid={{x.ID}}" title="编辑"><i class="fa fa-fw fa-edit fa-lg"></i></a>-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pager" class="pull-right"></div>
+    </div>
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt=""/><span>处理中，请稍候...</span>
+    </div>
+</div>
+
+
+<div class="modal fade" id="divSelectGuideLine" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label><i class="fa fa-fw fa-user-md"></i> GuideLine确认</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="eAddForm" class="form-horizontal" name="eAddForm">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">当前所处GuideLine:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="Info.CurrentName" required readonly="readonly" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">下一GuideLine:</label>
+                        <div class="col-md-8">
+                            <!--<select class="form-control" ng-options="a.ID as a.Name for a in GuideLineList">-->
+                            <select class="form-control">
+                                <option ng-repeat="x in GuideLineList" value="{{x.ID}}">{{x.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">进入日期:</label>
+                        <div class="col-md-8">
+                            <div class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                                <input class="form-control" size="10" type="text" value="" required ng-model="Info.ENTRYDATE" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">退出日期:</label>
+                        <div class="col-md-8">
+                            <div class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                                <input class="form-control" size="10" type="text" value="" required ng-model="Info.EXITDATE"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <i class="fa fa-fw fa-close"></i>
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="SaveInfo()" ng-disabled="eAddForm.$invalid">
+                    <i class="fa fa-fw fa-save"></i>
+                    保存
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

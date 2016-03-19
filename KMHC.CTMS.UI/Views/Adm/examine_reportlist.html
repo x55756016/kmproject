@@ -1,0 +1,64 @@
+﻿<style>
+    .loading-modal {
+        background: rgba(0,0,0,0);
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            影像检查结果
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-info btn-block" ng-click="Add()"><i class="fa fa-fw fa-plus"></i>新建</button>
+                        </div>
+                        <div class="col-md-1 pull-right">
+                            <button type="button" class="btn btn-default btn-block" ng-click="goBack()"><i class="fa fa-fw fa-reply-all"></i>返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th> 检查时间</th>
+                                <th> 申请科室</th>
+                                <th> 检查部位</th>
+                                <th> 报告医生</th>
+                                <th> 审核医生</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in List">
+                                <td>{{x.CheckDate| date:'yyyy-MM-dd'}}</td>
+                                <td>{{x.Dept}}</td>
+                                <td>{{x.Part}}</td>
+                                <td>{{x.ReportDoctor}}</td>
+                                <td>{{x.CheckDoctor }}</td>
+                                <td>
+                                    <a href="javascript:void(0);" ng-click="Edit(x)" title="编辑"><i class="fa fa-fw fa-edit fa-lg"></i></a>
+                                    <a href="javascript:void(0);" ng-click="Remove(x)" title="删除" class="text-danger"><i class="fa fa-fw fa-remove  fa-lg"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pager" class="pull-right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--遮罩层-->
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>处理中，请稍候...</span>
+    </div>
+</div>
+

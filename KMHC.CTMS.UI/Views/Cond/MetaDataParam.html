@@ -1,0 +1,93 @@
+﻿<div ng-controller="MetaDataParamCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            元数据参数设置
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="container col-md-11 text-left">
+                    <span class="col-md-2"><label>元数据名称：</label></span>
+                    <span class="col-md-4">{{MetaData.DisplayName}}</span>
+                    <input type="button" class="btn btn-default col-md-2" value="新增参数" ng-click="AddMetaDataParam()" style="margin-left:10px;" />
+                    <input type="button" class="btn btn-default col-md-2" value="返回" ng-click="ReBack()" style="margin-left:10px;" />
+                </div>
+            </div>
+            <br />
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-3">
+                            名称
+                        </th>
+                        <th class="col-md-3">
+                            值
+                        </th>
+                        <th class="col-md-6 text-left">
+                            操作
+                        </th>
+                    </tr>
+                    <tr ng-repeat="p in MetaDataParamList">
+                        <td class="col-md-3">
+                            {{p.ParamName}}
+                        </td>
+                        <th class="col-md-3">
+                            {{p.ParamValue}}
+                        </th>
+                        <td class="col-md-6  text-left">
+                            <input type="button" class="btn btn-default btn-small" value="编辑" ng-click="EditMetaDataParam(p)" />
+                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteMetaDataParam(p)" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalMetaDataParam" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>元数据参数设置</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="eMetaDataParamFrom" name="eMetaDataParamFrom">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-3">ID:</label>
+                                <div class="col-md-8">{{CRUDMetaDataParam.ID}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">参数名*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDMetaDataParam.ParamName" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">参数值*</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" ng-model="CRUDMetaDataParam.ParamValue" required/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveMetaDataParam()" ng-disabled="eMetaDataParamFrom.$invalid">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>

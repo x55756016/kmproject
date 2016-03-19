@@ -1,0 +1,142 @@
+﻿<div ng-controller="DrugAlleleCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            基因字典
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <label class="col-md-1 control-label"> DrugBankID:</label>
+                        <div class="col-md-3"><input type="text" ng-model="sDrugBankID" class="form-control "/></div>
+                        <label class="col-md-1 control-label">基因：</label>
+                        <div class="col-md-3">
+                            <select class="form-control" ng-options="g.ID as g.GeneName for g in GeneList" ng-model="sGeneID"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-default col-md-3" value="查询" ng-click="Search()" style="margin-left: 10px;" />
+                            <input type="button" class="btn btn-default col-md-3" value="新增" ng-click="AddDrugAllele()" style="margin-left:10px;" />
+                        </div>
+                    </div>   
+                </div>
+                <br />
+
+            </div>
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-2">
+                            药物名称
+                        </th>
+                        <th class="col-md-2">
+                            基因名
+                        </th>
+                        <th class="col-md-3">
+                            等位基因名
+                        </th>
+                        <th class="col-md-1">
+                            影响类型
+                        </th>
+                        <th class="col-md-2">
+                            影响
+                        </th>
+                        <th class="col-md-2">
+                            操作
+                        </th>
+                    </tr>
+                    <tr ng-repeat="g in GeneList">
+                        <td class="col-md-2">
+                            {{g.Drug.DrugName}}
+                        </td>
+                        <td class="col-md-2">
+                            {{g.GeneAllele.Gene.GeneName}}
+                        </td>
+                        <td class="col-md-3">
+                            {{g.GeneAllele.GeneAlleleName}}
+                        </td>
+                        <td class="col-md-1">
+                            {{g.EffectType}}
+                        </td>
+                        <td class="col-md-2">
+                            {{g.Effect}}
+                        </td>
+                        <td class="col-md-2">
+                            <input type="button" class="btn btn-default btn-small" value="编辑" ng-click="EditDrugAllele(g)" />
+                            <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteDrugAllele(g)" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEditDrugAllele" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>基因用药反应</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="eDrugAlleleForm" name="eDrugAlleleForm">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-2">ID:</label>
+                                <div class="col-md-9">{{CRUDDrugAllele.ID}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">药典*</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDDrugAllele.DrugBankID" placeholder="请输入药典ID" required />
+                                    {{CRUDDrugAllele.Drug.Name}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">基因名*</label>
+                                <div class="col-md-10">
+                                    <!--<input type="text" class="form-control" ng-model="CRUDUserGene.GeneID" />-->
+                                    <select class="form-control" ng-options="g.ID as g.GeneName for g in GeneList" ng-model="CRUDDrugAllele.Allele.GeneID" ng-change="GeneChanged()" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">等位基因*</label>
+                                <div class="col-md-10">
+                                    <!--<input type="text" class="form-control" ng-model="CRUDUserGene.Allele1" />-->
+                                    <select class="form-control" ng-options="g.ID as g.GeneAlleleName for g in GeneAlleleList" ng-model="CRUDDrugAllele.AlleleID" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">影响</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" ng-options="e.Value as e.Text for g in [{Text:'增益',Value:0},{Text:'不良',Value:1}]" ng-model="CRUDDrugAllele.AlleleID" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">影响</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" ng-model="CRUDDrugAllele.Effect" rows="5"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveDrugAllele()" ng-disabled="eDrugAllele.$invalid">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+

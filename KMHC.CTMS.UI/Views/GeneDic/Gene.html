@@ -1,0 +1,137 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                查询条件
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-10 col-sm-12">
+                            <input type="text" ng-model="keyWord" class="form-control" placeholder="请输入名称进行查询" />
+                        </div>
+                        <div class="col-md-1 col-sm-12">
+                            <button type="button" class="btn btn-info btn-block form-control" ng-click="Search()" style="min-width:50px;"><i class="fa fa-fw fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-md-1 col-sm-12">
+                            <!--<button type="button" class="btn btn-info btn-block  form-control" ng-click="Reset()" style="min-width:50px;"><i class="fa fa-fw fa-refresh"></i> 重置</button>-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a ng-click="AddGene()" href="javascript:void(0);"><i class="fa fa-fw fa-plus "></i>新增</a>
+            <!--<a ng-click="SearchCondition()" href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-refresh fa-lg"></i>刷新</a>
+            <a href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-download"></i>导出</a>-->
+            <!--<div id="picker" style="display:inline-block;">
+                <i class="fa fa-fw fa-upload"></i>导入
+            </div>-->
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <tr class="info">
+                    <th class="col-md-2">
+                        基因名
+                    </th>
+                    <th class="col-md-7">
+                        同义词
+                    </th>
+                    <!--<th class="col-md-3" >
+                        更新时间
+                    </th>
+                    <th class="col-md-1" >
+                        更新者
+                    </th>-->
+                    <th class="col-md-3 text-center" colspan="2">
+                        操作
+                    </th>
+                </tr>
+                <tr ng-repeat="g in GeneList">
+                    <td class="col-md-2">
+                        {{g.GeneName}}
+                    </td>
+                    <td class="col-md-7">
+                        {{g.SynonymName}}
+                    </td>
+                    <!--<td class="col-md-3" >
+                        {{g.EditTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                    </td>
+                    <td class="col-md-1" >
+                        {{g.EditUserName}}
+                    </td>-->
+                    <td class="col-md-1  text-center">
+                        <input type="button" class="btn btn-default btn-small" value="编辑等位基因" ng-click="EditGeneAllele(g.ID)" />
+                    </td>
+                    <td class="col-md-2  text-center">
+                        <input type="button" class="btn btn-default btn-small" value="编辑" ng-click="EditGene(g)" />
+                        <input type="button" class="btn btn-danger btn-small" value="删除" ng-click="DeleteGene(g)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--<div>{{GeneJson}}</div>-->
+    </div>
+    <div id="genePager" class="pull-right"></div>
+    <div class="modal fade" id="modalEditGene" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <label>基因</label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="eGeneForm" name="eGeneForm">
+                        <div class="panel form-horizontal" id="crud_his">
+                            <div class="form-group hidden">
+                                <label class="control-label col-md-2">ID:</label>
+                                <div class="col-md-9">{{CRUDGene.ID}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">基因名*</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDGene.GeneName" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">同义词</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="CRUDGene.SynonymName" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">引用序列</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" ng-model="CRUDGene.RefSequence" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveGene()" ng-disabled="eGeneForm.$invalid">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+        
+

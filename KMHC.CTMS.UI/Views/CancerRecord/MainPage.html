@@ -1,0 +1,222 @@
+﻿<style type="text/css">
+    /*.form-horizontal .control-label {
+        text-align: left;
+    }*/
+</style>
+<!--<div class="panel panel-default" ng-controller="cancer_MainPageCtrl">-->
+<div class="panel panel-default" auth-check>
+    <input type="hidden" id="funId" value="104636897A0940D09CAF38D36EA34033" />
+<div id="baseInfo" class="panel-heading ">
+    <i class="icon-user-md icon-large"></i> 肿瘤档案列表
+</div>
+<div class="panel-body">
+    <div class="panel-group">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-1 control-label ">姓名</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" ng-model="s_UserName"/>
+                </div>
+                <label class="col-md-1 control-label text-right">身份证号码</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" ng-model="s_IDCard"/>
+                </div>
+                <label class="col-md-1 control-label text-right">所患疾病</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" ng-model="s_Disease"/>
+                </div>
+                <div class="col-md-1">
+                    <input type="button" class="btn btn-default" value="查询" ng-click="Search()" rktype="View"/>
+                </div>
+                <div class="col-md-1">
+                    <input type="button" value="新建" class="btn btn-default" ng-click="AddUser()" rktype="Add" />
+                </div>
+
+                <div class="col-md-1">
+                    <input type="button" value="返回" ng-disabled="ApplyId==''" class="btn btn-default" ng-click="JumpTo()"/>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="panel-group table-responsive">
+        <table class="table table-striped table-bordered table-hover" ng-show="UserInfos.length>0">
+            <thead>
+            <tr style="background-color: #D9EDF7;">
+                <th style="min-width: 100px;">姓名</th>
+                <th style="min-width: 50px;">性别</th>
+                <th style="min-width: 50px;">年龄</th>
+                <th style="min-width: 100px;">身份证号</th>
+                <th style="min-width: 100px;">就诊疾病</th>
+                <th style="min-width: 50px;">基本信息</th>
+                <th style="min-width: 50px;">体力状况</th>
+                <th style="min-width: 50px;">心理状况</th>
+                <th style="min-width: 50px;">营养状况</th>
+                <th style="min-width: 50px;">既往病史</th>
+                <th style="min-width: 50px;">就诊史</th>
+                <th style="min-width: 50px;">家族史</th>
+                <th style="min-width: 50px;">财务信息</th>
+                <th style="min-width: 50px;">基因组信息</th>
+                <!--<th style="min-width:50px;">精准用药</th>-->
+                <!--<th style="min-width:120px;">建档日期</th>
+                <th style="min-width:120px;">最后更新日期</th>-->
+                <th style="min-width: 120px">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="u in UserInfos">
+                <td style="min-width: 100px;">{{u.NAME}}</td>
+                <td style="min-width: 50px;">{{u.SexName}}</td>
+                <td style="min-width: 50px;">{{u.AGE}}</td>
+                <td style="min-width: 50px;">{{u.IDCARD}}<text ng-show="u.IDCARD">**</text></td>
+                <td style="min-width: 100px;">{{u.DISEASE}}</td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditBaseInfo(u)"/></td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditPhysicalCondition(u)"/></td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditPsychology(u)"/></td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditNutrition(u)"/></td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditHistoryDisease(u)"/></td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditDiagnosis(u)"/></td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditFamilyMemberDisease(u)"/></td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditFinance(u)"/></td>
+                <td style="min-width: 50px;"><input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditUserGene(u)"/></td>
+                <!--<td style="min-width:50px;"><input type="button" value="开始" class="btn btn-default" ng-click="EditPrescription(u)"/></td>-->
+                <!--<td style="min-width:120px;">{{u.CREATTIME|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td style="min-width:120px;">{{u.MODIFYTIME|date:'yyyy-MM-dd HH:mm:ss'}}</td>-->
+                <td style="min-width: 200px;">
+                    <input type="button" value="查看/编辑" class="btn btn-default" ng-click="EditUser(u)"/> &nbsp;
+                    <input type="button" value="删除" class="btn btn-default" ng-click="DeleteUser(u)"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="panel panel-default" ng-repeat="u in UserInfos" style="border-width: 5px;" hidden>
+            <div class="panel-heading">
+                {{u.NAME}}
+                <div style="float: right">
+                    <input type="button" value="编辑" class="btn btn-default btn-small" ng-click="EditUser(u)"/>
+                    <input type="button" value="删除" class="btn btn-default btn-small" ng-click="DeleteUser(u)"/>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row col-md-12">
+                    <label class="control-label col-md-1">性别</label>
+                    <div class="col-md-2">{{u.SEX}}</div>
+                    <label class="control-label col-md-1">年龄</label>
+                    <div class=" col-md-2">{{u.AGE}}</div>
+                </div>
+                <div class="row col-md-12">
+                    <label class="control-label col-md-1">身份证</label>
+                    <div class=" col-md-2">{{u.IDCARD}}</div>
+                    <label class="control-label col-md-1">就诊疾病</label>
+                    <div class="col-md-2">{{u.DISEASE}}</div>
+                </div>
+                <div class="row col-md-12">
+                    <label class="control-label col-md-1">建档日期</label>
+                    <div class=" col-md-2">{{u.CREATTIME|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                    <label class="control-label col-md-1">更新日期</label>
+                    <div class="col-md-2">{{u.MODIFYTIME|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                </div>
+                <div class="row col-md-12">&nbsp;</div>
+                <div class="row col-md-12">
+                    <input type="button" value="基本信息" class="btn btn-default" ng-click="EditBaseInfo(u)"/>
+                    <input type="button" value="体力状况" class="btn btn-default" ng-click="EditPhysicalCondition(u)"/>
+                    <input type="button" value="心理状况" class="btn btn-default" ng-click="EditPsychology(u)"/>
+                    <input type="button" value="营养状况" class="btn btn-default" ng-click="EditNutrition(u)"/>
+                    <input type="button" value="既往病史" class="btn btn-default" ng-click="EditHistoryDisease(u)"/>
+                    <input type="button" value="就诊史" class="btn btn-default" ng-click="EditDiagnosis(u)"/>
+                    <input type="button" value="家族史" class="btn btn-default" ng-click="EditFamilyMemberDisease(u)"/>
+                    <input type="button" value="财务信息" class="btn btn-default" ng-click="EditFinance(u)"/>
+                    <input type="button" value="基因组信息" class="btn btn-default" ng-click="EditUserGene(u)"/>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label>建档</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="eUserForm" name="eUserForm">
+                    <div class="panel form-horizontal" id="crud_his">
+                        <div class="form-group hidden">
+                            <label class="control-label col-md-2">ID:</label>
+                            <div class="col-md-9">{{CRUDUser.USERID}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">姓名*</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="CRUDUser.NAME" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">证件号*</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="CRUDUser.IDCARD" required maxlength="18"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">方言</label>
+                            <div class="col-md-10">
+                                <select ng-options="rs.Value as rs.Text for rs in dicLanguage" ng-model="CRUDUser.LOCALISM" class="form-control "></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">就诊疾病</label>
+                            <div class="col-md-10 for">
+                                <input type="text" ng-model="CRUDUser.DISEASE" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">年龄</label>
+                            <div class="col-md-10 for">
+                                <input type="text" ng-model="CRUDUser.AGE" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">性别</label>
+                            <div class="col-md-10 for">
+                                <input type="radio" value="1" ng-model="CRUDUser.SEX" name="sex" ng-checked="CRUDUser.SEX==1"/>男
+                                <input type="radio" value="0" ng-model="CRUDUser.SEX" name="sex" ng-checked="CRUDUser.SEX==0"/>女
+                                <!--<select class="form-control" ng-model="CRUDUser.SEX">
+                                    <option value=""></option>
+                                    <option value="1">男</option>
+                                    <option value="0">女</option>
+                                </select>-->
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <div class="row col-md-12" style="color:red;margin-left:16%">
+                                姓名和身份证号填写后将不能更改，请务必按照真实情况填写！
+                            </div>
+                        </div>-->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="SaveUser()" ng-disabled="eUserForm.$invalid">
+                    保存
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</div>

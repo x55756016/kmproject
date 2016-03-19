@@ -1,0 +1,184 @@
+﻿<style>
+    .loading-modal {
+        background: rgba(0,0,0,0);
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <strong><i class="fa fa-fw fa-medkit fa-lg"></i> 影像学检验报告</strong>
+        </div>
+        <div class="panel-body">
+            <div class="form-group" ng-include="'/Views/DoctorHistory/Person.html'"></div>
+            <div class="form-horizontal" style="margin-top:50px;">
+                <hr />
+            </div>
+            <div class="form-horizontal">
+                患者上传的附件列表：
+                <div class="table-responsive" style="max-width:30%;">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>文件名</th>
+                                <th>上传日期</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="f in Files">
+                                <td>{{f.FileName}}</td>
+                                <td>{{f.CreatTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                <td><a href="/Upload/{{f.FilePath}}" target="_blank">查看</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <hr />
+            </div>
+            <form name="ReportForm" ng-submit="processForm()">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label ">报告单类型<span style="color:red;">*</span></label>
+                        <div class="col-md-3 col-sm-7">
+                            <select class="form-control" ng-model="ExamineResult.TemplateType" required ng-options="g.Id as g.Name for g in TemplateTypes" ng-change="initTemplate()"></select>
+                        </div>
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label  ">检查日期<span style="color:red;">*</span></label>
+                        <div class="col-md-3 col-sm-7">
+                            <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="检查日期" ng-model="ExamineResult.CheckDate" required />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label ">申请科室</label>
+                        <div class="col-md-3 col-sm-7">
+                            <input type="text" class="form-control" autocomplete="off" placeholder="申请科室" ng-model="ExamineResult.Dept" />
+                        </div>
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label  ">检查部位</label>
+                        <div class="col-md-3 col-sm-7">
+                            <input type="text" class="form-control" autocomplete="off" placeholder="检查部位" ng-model="ExamineResult.Part" />
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid" style="border:1px solid #ccc;padding-top:20px;">
+                    <div class="form-horizontal" style="display:-webkit-box;">
+                        <div class="col-md-12 col-sm-12" style="padding-left:0;">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr class="info">
+                                            <th>序号</th>
+                                            <th class="col-lg-1 col-md-2 col-sm-4">分析项名称</th>
+                                            <th>检查结果</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="i in TemplateList.ItemTypes">
+                                            <td ng-bind="$index+1"></td>
+                                            <td>{{i.Name}}</td>
+                                            <td ng-switch on="i.Type">
+                                                <!--<select class="form-control" ng-model="ExamineResult.ReportDetail[i.Id]" ng-options="o.Id as o.Description for o in i.Options" ng-multiple="false" multiple></select>-->
+                                                <div ng-switch-when="0" class="form-group">
+                                                    <label class="checkbox-inline" ng-repeat="o in i.Options">
+                                                        <input type="radio" name="{{i.Id}}" ng-model="ExamineResult.ReportDetail[i.Id]" value="{{o.Id}}" />{{o.Description}}
+                                                    </label>
+                                                </div>
+                                                <div ng-switch-when="1">
+                                                    <label class="checkbox-inline" ng-repeat="o in i.Options">
+                                                        <input type="checkbox" name="{{i.Id}}" ng-model="ExamineResult.ReportDetail[o.Id]" value="{{o.Id}}" />{{o.Description}}
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal" style="margin-top:20px;">
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label  ">临床诊断：</label>
+                        <div class="col-md-7 col-sm-7">
+                            <input type="text" class="form-control" autocomplete="off" style="border-width: 0 0 1px 0; box-shadow: none; -webkit-box-shadow:none;border-radius:0;" ng-model="ExamineResult.Diagnose" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal" style="margin-top:20px;">
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label ">检查所见：</label>
+                        <div class="col-md-7 col-sm-7">
+                            <textarea class="form-control ng-pristine ng-valid ng-touched" rows="3" ng-model="ExamineResult.See"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal" style="margin-top:20px;">
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label ">报告时间<span style="color:red;">*</span></label>
+                        <div class="col-md-4 col-sm-8 col-lg-2">
+                            <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="报告时间" ng-model="ExamineResult.CreateDateTime" required />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal" style="margin-top:20px;">
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label ">报告医生<span style="color:red;">*</span></label>
+                        <div class="col-md-4 col-sm-8 col-lg-2">
+                            <input type="text" class="form-control" autocomplete="off" ng-model="ExamineResult.ReportDoctor" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal" style="margin-top:20px;">
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-4 col-lg-1 control-label ">审核医生：</label>
+                        <div class="col-md-4 col-sm-8 col-lg-2">
+                            <input type="text" class="form-control" autocomplete="off" ng-model="ExamineResult.CheckDoctor" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 col-sm-6 col-lg-1 col-md-offset-1">
+                        <button type="button" class="btn btn-info btn-lg btn-block" ng-click="goBack()"><i class="fa fa-fw fa-reply-all"></i> 返回</button>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-lg-1 col-md-offset-1">
+                        <button type="submit" class="btn btn-info btn-lg btn-block" ng-disabled="ReportForm.$invalid"><i class="fa fa-fw fa-save"></i> 确定</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imageDetail" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label>图片查看</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <img class="carousel-inner img-responsive img-rounded" src="{{imgSource}}" />
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>处理中，请稍候...</span>
+    </div>
+</div>

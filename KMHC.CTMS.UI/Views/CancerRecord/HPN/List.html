@@ -1,0 +1,69 @@
+﻿<style>
+    th,td{text-align:center;}
+    td{line-height:61px !important;}
+</style>
+<div class="container-fluid">
+    <div class="page-header">
+        <h1>{{data.TemplateType}}</h1>
+    </div>
+    <div class="row-fluid clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group" ng-include="'/Views/DoctorHistory/Person.html'">
+                    </div>
+                    <table cellpadding="0" cellspacing="0" class="table table-hover table-bordered table-responsive">
+                        <tr class="info">
+                            <th>项目</th>
+                            <th>得分</th>
+                            <th>测试时间</th>
+                            <th>测试结果</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="d in data.Templates" class="ng-scope">
+                            <td>{{d.Title}}</td>
+                            <td>{{d.TestScore}}</td>
+                            <td>{{d.TestTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                            <td class="wrapspace">{{d.TestResult}}</td>
+                            <td>
+                                <button type="button" class="btn btn-info" style="margin:5px;" ng-click="goTest(d.ActionName,UserId)">开始测试</button>
+                                <button type="button" class="btn btn-info" style="margin:5px;" data-toggle="modal" data-target="#myModal" ng-click="showHistory(d.ActionName)">历史记录</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+
+            <div class="row col-md-offset-3">
+                <button class="btn btn-group" ng-click="goBack()">返回</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="../../../Content/images/loading.gif" alt="" /><span>加载中，请稍后...</span>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{History.title}}</h4>
+            </div>
+            <form ng-submit="processForm()" name="myForm">
+                <div class="modal-body">
+                    <div style="width:400px;height:400px;margin:0 auto;">
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="btnClose" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-default" ng-click="getHistory()" id="modalsearch" ng-show="false">查询</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

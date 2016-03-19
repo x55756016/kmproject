@@ -1,0 +1,116 @@
+﻿<div class="container-fluid">
+    <div class="page-header">
+        <h1>家庭信息</h1>
+    </div>
+    <form name="Familyform" ng-submit="SaveFamily()" class="form-horizontal">
+        <div class="panel panel-default">
+            <div class="panel-heading">家庭基本资料</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="txtHouseholderName" class="col-md-2 control-label">户主姓名:</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="txtHouseholderName" name="HouseholderName" placeholder="户主姓名" ng-model="Family.HouseholderName" maxlength="50" required>
+                    </div>
+                    <label for="txtCardNo" class="col-md-2 control-label">身份证号:</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="txtCardNo" name="CardNo" placeholder="身份证号" ng-model="Family.CardNo" maxlength="20">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectCommunityId" class="col-md-2 control-label">所在社区:</label>
+                    <div class="col-md-4">
+                        <select id="selectCommunityId" name="CommunityId" ng-model="Family.CommunityId" class="form-control"
+                                ng-options="Community.Id as Community.Name for Community in Communitys"></select>
+                    </div>
+                    <label for="txtZipCode" class="col-md-2 control-label">邮编:</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="txtZipCode" name="ZipCode" placeholder="邮编" ng-model="Family.ZipCode" maxlength="10">
+                    </div>
+                </div>
+                <div ng-include="'/Views/Common/Area.html'"></div>
+                <!--<div ng-include="'/Views/Common/Area.html'" ng-init="CurrentAreas = Areas"></div>-->
+                <div class="form-group">
+                    <label for="txtDisease" class="col-md-2 control-label">疾病:</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="txtDisease" name="DiseaseCode" placeholder="请选择疾病" maxlength="100" data-toggle="modal" data-target="#myModal" readonly="readonly">
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button class="btn btn-success" type="submit" ng-disabled="Familyform.$invalid">保存</button>
+                    <button class="btn btn-success" ng-click="GoBack()">返回</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form name="FamilyMemberform" class="form-horizontal">
+        <div class="panel panel-default">
+            <div class="panel-heading">家庭成员</div>
+            <div class="panel-body">
+                <table class="table  table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>身份证号</th>
+                            <th>与户主关系</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-md-3">
+                                <input class="form-control" name="MemberName" ng-model="Member.MemberName" maxlength="50" required />
+                            </td>
+                            <td class="col-md-3">
+                                <input class="form-control" name="CardNo" ng-model="Member.CardNo" maxlength="20" />
+                            </td>
+                            <td class="col-md-3">
+                                <select class="form-control" name="RelateId" ng-model="Member.RelateId" ng-options="Relate.Value as Relate.Name for Relate in Dic.FamilyRelation"></select>
+                            </td>
+                            <td class="col-md-3">
+                                <button class="btn btn-success" type="submit" ng-click="SaveMember(Member)" ng-disabled="FamilyMemberform.MemberName.$invalid">确定</button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="Member in Members">
+                            <td class="col-md-3">
+                                <input class="form-control" name="MemberName" ng-model="Member.MemberName" maxlength="50" required />
+                            </td>
+                            <td class="col-md-3">
+                                <input class="form-control" name="CardNo" ng-model="Member.CardNo" maxlength="20" />
+                            </td>
+                            <td class="col-md-3">
+                                <select class="form-control" name="RelateId" ng-model="Member.RelateId" ng-options="Relate.Value as Relate.Name for Relate in Dic.FamilyRelation"></select>
+                            </td>
+                            <td class="col-md-3">
+                                <button class="btn btn-success" type="submit" ng-click="SaveMember(Member)" ng-disabled="FamilyMemberform.MemberName.$invalid">确定</button>
+                                <button class="btn btn-danger" ng-click="RemoveMember(Member.FMemberId)">删除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-target=".bs-example-modal-lg">
+        <div class="modal-dialog bs-example-modal-lg" role="document">
+            <div class="modal-content modal-lg">
+                <div class="modal-header bg-success">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">ICD选择器</h4>
+                </div>
+                <div class="modal-body">
+                    <div ng-include="'/Views/Common/Disease.html'"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="btnOk">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

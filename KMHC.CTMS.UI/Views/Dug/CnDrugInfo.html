@@ -1,0 +1,106 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <label><i class="fa fa-fw fa-medkit fa-lg"></i> 药品信息</label>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="InfoForm">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">药名</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.Name}}"  readonly="readonly"/>
+                    </div>
+                    <label class="col-md-1 control-label">编号</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.Identifier}}" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">拼音码</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.PinyinCode}}" readonly="readonly" />
+                    </div>
+                    <label class="col-md-1 control-label">英文名称</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.PinyinCode}}" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">同义词</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.CommonName}}" readonly="readonly" />
+                    </div>
+                    <label class="col-md-1 control-label">类型</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.TypeName}}" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">种类</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.KindName}}" readonly="readonly" />
+                    </div>
+                    <label class="col-md-1 control-label" for="txtIsPrescription">是否处方药</label>
+                    <div class="col-md-5 text-left">
+                        <select class="form-control" id="txtIsPrescription" ng-model="Info.IsPrescription" ng-options="x.id as x.name for x in SelectInfo" disabled="disabled"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">是否医保药</label>
+                    <div class="col-md-5 text-left">
+                        <select class="form-control" id="txtIsPrescription" ng-model="Info.IsMedicalInsurance" ng-options="x.id as x.name for x in SelectInfo" disabled="disabled"></select>
+                    </div>
+                    <label class="col-md-1 control-label">生产厂家</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.Company}}" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">规格</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.Pack}}" readonly="readonly" />
+                    </div>
+                    <label class="col-md-1 control-label">剂型</label>
+                    <div class="col-md-5 text-left">
+                        <input type="text" class="form-control" value="{{Info.DosageForms}}" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">价格</label>
+                    <div class="col-md-11 text-left">
+                        <input type="text" class="form-control" value="{{Info.Price}}" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">用量用法</label>
+                    <div class="col-md-11 text-left">
+                        <textarea class="form-control"  readonly="readonly" >{{Info.Dosage}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">描述</label>
+                    <div class="col-md-11 text-left">
+                        <textarea class="form-control" readonly="readonly">{{Info.Description}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">主治功能</label>
+                    <div class="col-md-11 text-left">
+                        <textarea class="form-control" readonly="readonly" >{{Info.Indication}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">明细</label>
+                    <div class="col-md-11 text-left">
+                        <textarea class="form-control" readonly="readonly" >{{Info.Content}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-1">
+                        <button type="button" class="btn btn-info btn-lg btn-block" ng-click="GoBack()"><i class="fa fa-fw fa-reply-all"></i>返回</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,546 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A4C34E33-9BD8-4371-A1A2-A782526C5336}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KMHC.CTMS.DAL</RootNamespace>
+    <AssemblyName>KMHC.CTMS.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Log, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9720bde59dbab768, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Log.1.0.0.0\lib\net45\Common.Log.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Log.log4net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9720bde59dbab768, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Log.log4net.1.0.0.0\lib\net45\Common.Log.log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Enyim.Caching">
+      <HintPath>..\packages\EnyimMemcached.2.13\lib\net35\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.2400\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.EntityFramework.12.1.2400\lib\net45\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authorization\RoleDAL.cs" />
+    <Compile Include="BaseDAL.cs" />
+    <Compile Include="CancerProcess\DictionaryDAL.cs" />
+    <Compile Include="CancerProcess\EventProductDAL.cs" />
+    <Compile Include="CancerProcess\GuidelineProductDAL.cs" />
+    <Compile Include="CancerProcess\SymptomDAL.cs" />
+    <Compile Include="CancerProcess\SymptomRecordDAL.cs" />
+    <Compile Include="CancerProcess\UserEventDAL.cs" />
+    <Compile Include="CancerRecord\FileUploadDAL.cs" />
+    <Compile Include="CancerRecord\LaboratoryResultDAL.cs" />
+    <Compile Include="CancerRecord\LaboratoryTestItemDAL.cs" />
+    <Compile Include="CancerRecord\SeeDoctorHistoryDAL.cs" />
+    <Compile Include="Database\CRDatabase.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRDatabase.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CRDatabase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CRDatabase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRDatabase.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CR_DRUGEFFECT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CR_DRUGUSE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CR_GENEEFFECT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CR_HABITS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_ACCOUNTRECORD.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_ADM_EXAMINEITEMOPTIONS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_ADM_EXAMINEITEMS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_ADM_EXAMINETEMPLATES.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_BASETEMPLATERESULT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_CONDITIONITEM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_EVENTPRODUCT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_GUIDELINE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_GUIDELINEDATA.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_GUIDELINEFLOW.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_GUIDELINEPRODUCT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_IMAGEEXAMINEREPORT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_IMAGEEXAMINEREPORTDETAIL.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_INFO_LOGINFO.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_MEMBER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_MEMBERPRODUCTS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_METADATA.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_METADATAPARAM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_MYHOUSEKEEPER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_MYPRODUCT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_MYQUESTION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_PARENTGUIDELINE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_PRODUCTS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERANALYSIS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERCHAPTER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERFAVORITESITEM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERITEM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERITEMDB.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERITEMOPTION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPEROPTIONDB.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERRESULANALYSIS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERRESULCHAPTER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERRESULDETAILS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERRESULERROR.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERRESULT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERRESUOPTION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTPAPERUSERFEEDBACK.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTSOLUTION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_QA_TESTSOLUTIONGROUP.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SERVICETRACEINFO.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYMPTOM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYMPTOMRECORDS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_FUNCTION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_FUNCTIONPERMISSION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_LOGINFO.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_PERMISSION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_RESETPASSWORDLOG.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_ROLE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_ROLEFUNCTION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_USERINFO.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_USERROLE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_SYS_USERTYPEROLES.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_USERAPPLY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\CTMS_USEREVENT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_CNDRUG.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_DRUG.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_DRUGINTERACTIONS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_DRUGSYNONYMS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_ENZYMEPO.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_ENZYMES.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_ENZYMESACTIONS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_ENZYMESIDENTIFIER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_ENZYMESSYNONYMS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_EXTERNALIDENTIFIERS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_PRODUCTS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_TARGETACTIONS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_TARGETIDENTIFIER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_TARGETS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_TARGETSPO.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_TRANSPORTERACTIONS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_TRANSPORTERIDENTIFIER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_TRANSPORTERS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DUG_TRANSPORTERSPO.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\GN_DRUGALLELE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\GN_GENE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\GN_GENEALLELE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\GN_GENEALLELELOCUS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HPN_RESULTDESC.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HPN_SENDVERCODELOG.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HPN_TEMPLATE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HPN_Template1.cs" />
+    <Compile Include="Database\HPN_TEMPLATEITEM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HPN_TemplateItem1.cs" />
+    <Compile Include="Database\HPN_TEMPLATEITEMOPTIONS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HPN_TESTRESULT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HPN_TESTRESULTDETAILS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_ACTIVITYLOG.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_ANNUALINCOME.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_AREA.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_ATTACHMENT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_CNR_USER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_CNR_USER_BAK.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_DICTIONARY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_DISEASE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_DISEASECATEGORY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_DISEASEHISTORY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_EXAMINECATEGORY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_EXAMINEITEMCATEGORY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_EXAMINEITEMLABDETAIL.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_EXAMINEITEMS.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_EXAMINERECORD.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_EXAMINERESULT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_EXAMINETEMPLATE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_EXAMINETEMPLATES_DEL.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_FD_DISEASE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_FD_MEMBER.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_FD_RELATION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_FILEUPLOAD.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_IMAGEEXAMINATION.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_ITEMSTANDVAL.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_LABORATORYRESULT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_LABORATORYTESTITEM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_LABTESTITEM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_LABTESTRECORD.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_LABTESTRESULT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_PERSONDRUGHISTORY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_PERSONHEALTHHISTORY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_PERSONINFO.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_REF_CODEFILE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_SCORE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_SCORETEMPLATE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_SEEDOCHISICD.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_SEEDOCTORHISTORY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_TEMPLATEITEM.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_TEMPLATEITEMUNIT.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_TREATMENTHISTORY.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\HR_USERGENE.cs">
+      <DependentUpon>CRDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbSessionFactory.cs" />
+    <Compile Include="PrecisionMedicine\CnDrugDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Database\CRDatabase.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CRDatabase.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Database\CRDatabase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CRDatabase.edmx</DependentUpon>
+      <LastGenOutput>CRDatabase.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Database\CRDatabase.edmx.diagram">
+      <DependentUpon>CRDatabase.edmx</DependentUpon>
+    </None>
+    <None Include="Database\CRDatabase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CRDatabase.edmx</DependentUpon>
+      <LastGenOutput>CRDatabase.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

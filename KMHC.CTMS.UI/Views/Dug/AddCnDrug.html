@@ -1,0 +1,118 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <strong><i class="fa fa-fw fa-medkit fa-lg"></i> 药品编辑</strong>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="InfoForm" >
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtName">药名</label>
+                    <div class="col-md-5" ng-class="{'has-error':InfoForm.Name.$invalid}">
+                        <input type="text" class="form-control" id="txtName" ng-model="Info.Name" name="Name" placeholder="药名为必填项" required />
+                    </div>
+                    <label class="col-md-1 control-label" for="txtIdentifier">编号</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="txtIdentifier" ng-model="Info.DrugBankID" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtPinYinCode">拼音码</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="txtPinYinCode" ng-model="Info.PinyinCode" />
+                    </div>
+                    <label class="col-md-1 control-label" for="txtEnName">英文名称</label>
+                    <div class="col-md-5" ng-class="{'has-error':InfoForm.EnName.$invalid}">
+                        <input type="text" class="form-control" id="txtEnName" ng-model="Info.EnName" name="EnName" required ng-pattern="/\w+[,]?/" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtCommonName">同义词</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="txtCommonName" ng-model="Info.CommonName" />
+                    </div>
+                    <label class="col-md-1 control-label" for="txtTypeName">类型</label>
+                    <div class="col-md-5">
+                        <select class="form-control" id="txtTypeName" ng-model="Info.TypeName" ng-change="TypeChange()">
+                            <option ng-repeat="x in Types" value="{{x.label}}">{{x.label}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtKindName">种类</label>
+                    <div class="col-md-5">
+                        <select class="form-control" id="txtKindName" ng-model="Info.KindName">
+                            <optgroup ng-repeat="x in selected" label="{{x.label}}">
+                                <option ng-repeat="c in x.child" value="{{c.label}}">
+                                    {{c.label}}
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <label class="col-md-1 control-label" for="txtIsPrescription">处方药</label>
+                    <div class="col-md-5">
+                        <select class="form-control" id="txtIsPrescription" ng-model="Info.IsPrescription" ng-options="x.id as x.name for x in SelectInfo"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtIsMedicalInsurance">医保药</label>
+                    <div class="col-md-5">
+                        <select class="form-control" id="txtIsMedicalInsurance" ng-model="Info.IsMedicalInsurance" ng-options="x.id as x.name  for x in SelectInfo" />
+                    </div>
+                    <label class="col-md-1 control-label" for="txtCompany">生产厂家</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="txtCompany" ng-model="Info.Company" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtPack">规格</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="txtPack" ng-model="Info.Pack" />
+                    </div>
+                    <label class="col-md-1 control-label" for="txtDosageForms">剂型</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="txtDosageForms" ng-model="Info.DosageForms" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtPrice">价格</label>
+                    <div class="col-md-11">
+                        <input type="text" class="form-control" id="txtPrice" ng-model="Info.Price" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtDosage">用量用法</label>
+                    <div class="col-md-11">
+                        <textarea class="form-control" rows="3" id="txtDosage" ng-model="Info.Dosage"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtDescription">描述</label>
+                    <div class="col-md-11">
+                        <textarea class="form-control" rows="3" id="txtDescription" ng-model="Info.Description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtIndication">主治功能</label>
+                    <div class="col-md-11">
+                        <textarea class="form-control" rows="3" id="txtIndication" ng-model="Info.Indication"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="txtContent">明细</label>
+                    <div class="col-md-11">
+                        <textarea class="form-control" rows="3" id="txtContent" ng-model="Info.Content"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-1">
+                        <button type="button" class="btn btn-info btn-lg btn-block" ng-click="GoBack()"><i class="fa fa-fw fa-reply-all"></i> 返回</button>
+                    </div>
+                    <div class="col-md-2 col-md-offset-1">
+                        <button type="button" class="btn btn-info btn-lg btn-block" ng-disabled="InfoForm.$invalid" ng-click="Save()"><i class="fa fa-fw fa-save"></i> 确定</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

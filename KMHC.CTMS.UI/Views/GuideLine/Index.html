@@ -1,0 +1,330 @@
+﻿<div class="container mini-layout" id="flowdesign_canvas" style="width: 100%;height:100%;">
+</div>
+
+<!-- fixed navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="pull-right">
+                <button class="btn btn-info" type="button" id="leipi_save">保存设计</button>
+                <button class="btn btn-danger" type="button" id="leipi_clear">清空连接</button>
+            </div>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-th-list icon-white"></i> 菜单<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="active"><a href="/">帮助</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>  
+</div>
+
+
+<!-- end fixed navbar -->
+<!-- Modal -->
+<div id="alertModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>消息提示</h3>
+    </div>
+    <div class="modal-body">
+        <p>提示内容</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">我知道了</button>
+    </div>
+</div>
+
+<!-- attributeModal -->
+<div id="attributeModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 800px; margin-left: -350px">
+    <div class="modal-body" style="max-height: 500px;"><!-- body --></div>
+    <div class="modal-footer" style="padding: 5px;">
+    </div>
+</div>
+
+<!--contextmenu div-->
+<div id="processMenu" style="display: none;">
+    <ul>
+        <li id="pmAttribute" data-toggle="modal"
+            data-target="#EditItem"><i class="icon-cog"></i>&nbsp;<span class="_label">属性</span></li>
+        <!--<li id="pmForm"><i class="icon-th"></i>&nbsp;<span class="_label">表单字段</span></li>
+        <li id="pmJudge"><i class="icon-share-alt"></i>&nbsp;<span class="_label">转出条件</span></li>-->
+        <!--@*
+        <li id="pmSetting"><i class=" icon-wrench"></i>&nbsp;<span class="_label">样式</span></li>*@-->
+        <li id="pmDelete"><i class="icon-trash"></i>&nbsp;<span class="_label">删除</span></li>
+    </ul>
+</div>
+<div id="canvasMenu" style="display: none;">
+    <ul>
+        <!--@*<li id="cmSave"><i class="icon-ok"></i>&nbsp;<span class="_label">保存设计</span></li>*@-->
+        <li id="cmAdd"><i class="icon-plus"></i>&nbsp;<span class="_label">添加步骤</span></li>
+        <!--@*<li id="cmRefresh"><i class="icon-refresh"></i>&nbsp;<span class="_label">刷新 F5</span></li>*@-->
+        <li id="cmHelp"><i class="icon-search"></i>&nbsp;<span class="_label">帮助</span></li>
+    </ul>
+</div>
+<!--end div-->
+
+
+<!--保存页面-->
+<div id="divSave" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>保存内容</h3>
+    </div>
+    <div class="modal-body">
+        <table>
+            <tr>
+                <td>流程名称:&nbsp;</td>
+                <td>
+                    <input type="text" class="form-control" ng-model="GuideLineFlow.GUIDELINENAME" placeholder="流程名称" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" aria-hidden="true" ng-click="SaveFlow()">保存</button>
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">取消</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!--@*获取临床路径*@-->
+<div id="divAddProcess" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>临床路径</h3>
+    </div>
+    <div class="modal-body">
+
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-md-2">
+                    名称
+                </th>
+                <th class="col-md-1">
+                    Code
+                </th>
+                <th class="col-md-1 text-center" colspan="2">
+                    操作
+                </th>
+            </tr>
+            <tr ng-repeat="g in GuideLineList">
+                <td class="col-md-1">
+                    {{g.Name}}
+                </td>
+                <td class="col-md-1">
+                    {{g.Code}}
+                </td>
+                <td class="col-md-1  text-center">
+                    <input type="button" class="btn btn-default btn-small" value="使用" ng-click="AddProcessItem(g)"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--@*<div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">我知道了</button>
+    </div>*@-->
+</div>
+
+<div class="modal hide fade" id="modalGuideLine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" style="width: 800px;">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>元数据设置</h3>
+    </div>
+    <div class="modal-body" style="overflow-x: hidden">
+        <form id="eGuideLineFrom" name="eGuideLineFrom">
+            <div class="panel form-horizontal" id="crud_his" style="max-height: 700px;">
+                <div class="form-group hide">
+                    <label class="control-label col-md-3">ID:</label>
+                    <div class="col-md-8">{{CRUDGuideLine.ID}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3"></label>
+                    <div class="col-md-8">
+                        <input type="checkbox" class=" checkbox-inline checkbox" ng-checked="CRUDGuideLine.IsInherit" ng-model="CRUDGuideLine.IsInherit"/>是否继承父临床路径的条件
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">父临床路径</label>
+                    <div class="col-md-8" style="width: 100%">
+                        <select style="width: 69%" ng-options="g.ID as g.Name for g  in AllGuideLineList" class="form-control" ng-model="CRUDGuideLine.ParentID"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">临床路径code*</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control width70" ng-model="CRUDGuideLine.Code" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">临床路径名称*</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control width70" ng-model="CRUDGuideLine.Name" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">临床依据</label>
+                    <div class="col-md-8">
+                        <textarea class="form-control width70" ng-model="CRUDGuideLine.ClinicalBasis" cols="5"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">推荐流程</label>
+                    <div class="col-md-8">
+                            <input type="text" class="form-control width70" ng-model="CRUDGuideLine.RecommendProcess" />
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="control-label col-md-3">推荐流程</label>
+                    <div class="col-md-8">
+                        <div class="text-right">
+                            <input type="button" class="btn btn-default" value="创建流程（待开发）"/>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label class="control-label col-md-3">元数据</label>
+                    <div class="col-md-8">
+
+                        <table class="table cole-md-12 table-bordered width70">
+                            <tbody>
+                            <tr ng-repeat="d in CRUDGuideLine.MetaDataList">
+                                <td class="col-md-4 text-center"><label class="control-label">{{d.Text}}</label></td>
+                                <td class="col-md-8"><input type="text" class="form-control" ng-model="d.Value"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                            
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">进入条件*</label>
+                    <div class="col-md-8" style="float: left; width: 65%; border: 1px solid #ddd;">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <select class="form-control" style="width: 100%" ng-options="d.ivalue as d.text for d in DicLogicOperatorList|orderBy:'ivalue'" ng-model="CRUDGuideLine.EnterLogicalOperator" required></select>
+                                </div>
+                                <div class="col-md-12 text-right">
+                                    <input type="button" value="增加条件" class="btn btn-primary" ng-click="AddEnterCondItem()"/>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul style="list-style: none; margin: 0; padding: 0; text-align: left">
+                                        <li ng-repeat="c in CRUDGuideLine.EnterCondItemList" style="padding-top: 5px; width: 100%">
+                                            <div class="input-group">
+                                                <input type="text" style="width: 85%" class="form-control" ng-model="c.DisplayName" ng-click="ShowEnterCondPicker(c)" placeholder="点击选择条件" required readonly/>
+                                                <span class="input-group-btn">
+                                                    <input type="button" class="btn btn-danger btn-small" ng-click="DeleteEnterCondItem(c)" value="删除" />
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label class="control-label col-md-3">退出条件*</label>
+                    <div class="col-md-8" style="float: left; width: 65%; border: 1px solid #ddd;">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="col-md-12 text-right">
+                                    <select class="form-control" style="width: 100%" ng-options="d.ivalue as d.text for d in DicLogicOperatorList|orderBy:'ivalue'" ng-model="CRUDGuideLine.OutLogicalOperator" required></select>
+                                </div>
+                                <div class="col-md-12 text-right">
+                                    <input type="button" value="增加条件" class="btn btn-primary" ng-click="AddOutCondItem()"/>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <ul style="list-style: none; margin: 0; padding: 0; text-align: left">
+                                        <li ng-repeat="c in CRUDGuideLine.OutCondItemList" style="padding-top: 5px; width: 100%">
+                                            <div class="input-group">
+                                                <input type="text" style="width: 85%;" class="form-control" ng-model="c.DisplayName" ng-click="ShowOutCondPicker(c)" placeholder="点击选择条件" required readonly/>
+                                                <span class="input-group-btn">
+                                                    <input type="button" class="btn btn-danger btn-small" ng-click="DeleteOutCondItem(c)" value="删除" />
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="SaveGuideLine()" ng-disabled="eGuideLineFrom.$invalid">
+            保存
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+    </div>
+    <!--<div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label>元数据设置</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="SaveGuideLine()" ng-disabled="eGuideLineFrom.$invalid">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>-->
+</div>
+
+
+<div class="modal hide fade" id="modalCondPicker" tabindex="-1" role="dialog" data-target=".bs-example-modal-lg" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog bs-example-modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <label>条件选择器</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div ng-include="'/Views/Common/CondPickerOldLevel.html?v1'" id="condpicker"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="SaveCondPicker()" ng-disabled="SelectedCondItemID==null || SelectedCondItemID<=0">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

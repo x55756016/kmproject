@@ -1,0 +1,66 @@
+﻿<div class="container-fluid" id="DoTreatment" auth-check>
+    <input type="hidden" id="funId" value="D22C0DF60A3C49339C80E05380E1AEA9" />
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                查询条件
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-1 col-md-2 control-label ">待办事项</label>
+                        <div class="col-lg-3 col-md-6">
+                            <input type="text" class="form-control" ng-model="ActionInfo"/>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <button type="button" class="btn btn-info btn-block form-control" rktype="Search"
+                                    ng-model="TestButton" ng-click="SearchCondition()">
+                                <i class="fa fa-fw fa-search">
+
+                                </i> 查询
+                            </button>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <button type="button" class="btn btn-info btn-block  form-control" rktype="Reset" ng-click="Reset()">
+                                <i class="fa fa-fw fa-refresh"></i> 重置
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a ng-click="LoadData(1)" href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-bell-o fa-lg "></i><strong>待办事项</strong> </a>
+            <a ng-click="LoadData(3)" href="javascript:void(0);" class="divider"><i class="fa fa-fw fa-check-circle-o fa-lg"></i><strong>已办事项</strong></a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <!--<thead>
+                <tr class="info">
+                    <th>待办类型</th>
+                    <th>待办任务</th>
+                    <th>接收时间</th>
+                </tr>
+                </thead>-->
+                <tbody>
+                <tr ng-repeat="x in List">
+                    <!--<td>{{x.ActionType}}</td>-->
+                    <td>
+                        <a href="/#/{{x.LinkUrl}}?id={{x.EventID}}&ApplyId={{x.UserApplyId}}&ModelId={{x.ModelId}}" title="查看"><i ng-class="ActionStatus=='1'?'fa fa-fw fa-envelope-o fa-lg':'fa fa-fw fa-check fa-lg'"></i> {{x.ActionInfo}}</a>
+                    </td>
+                    <td>{{x.ReceiptTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="pager" class="pull-right"></div>
+    </div>
+</div>
+

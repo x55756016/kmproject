@@ -1,0 +1,53 @@
+﻿
+    <div class="panel panel-default" ng-controller="basicInfoCtr">
+        <div id="baseInfo" class="panel-heading ">
+            <i class="icon-user-md icon-large"></i> 个人基本信息
+        </div>
+        <div class="panel-body">
+            <div class="col-md-10 form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="txt_RecordNo">城乡居民健康档案编号</label>
+                    <div class="col-md-7">
+                        <input id="txt_RecordNo" name="RecordNo" ng-model="Data.RecordNo"  ng-change="txt_RecordNoChang(Data.RecordNo)" class="form-control" maxlength="17" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">姓名</label>
+                    <div class="col-md-4">
+                        <span>{{Data.Name}}</span>
+                    </div>
+                    <label class="control-label col-md-2">性别</label>
+                    <div class="col-md-4">
+                        <span ng-if="Data.Gender==1">男</span>
+                        <span ng-if="Data.Gender==2">女</span>
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="control-label col-md-2">出生日期</label>
+                    <div class="col-md-4">
+                        <span>{{Data.BirthDate}}</span>
+                    </div>
+                    <label class="control-label col-md-2">本人电话</label>
+                    <div class="col-md-4">
+                        <span>{{Data.Phone}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        证件号码
+                    </label>
+                    <div class="col-md-4">
+                        <span>{{Data.IDNumber}}</span>
+                    </div>
+                    <label class="control-label col-md-2">婚姻状况</label>
+                    <div class="col-md-4">
+                        <span ng-if="Data.MarriageStatus==10">未婚</span>
+                        <span ng-if="Data.MarriageStatus==20">已婚</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2" style="height: 200px;">
+                <img src="/Content/images/defaultFemale.png" style="width: 100%; height: 100%;"/>
+            </div>
+        </div>
+    </div>

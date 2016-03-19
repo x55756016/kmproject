@@ -1,0 +1,118 @@
+﻿<div class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-fw fa-search-plus fa-lg"></i>
+            <strong data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                查询条件
+                <i class="fa fa-angle-down fa-fw pull-right"></i>
+            </strong>
+
+        </div>
+        <div class="panel-collapse collapse in" id="collapseExample">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 col-lg-1 control-label ">上传日期</label>
+                        <div class="col-md-3 col-lg-2">
+                            <div class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" datepicker>
+                                <input id="txt_Date" class="form-control" size="16" type="text" value="" ng-model="Date" placeholder="选择上传日期" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-lg-1">
+                            <button type="button" class="btn btn-info btn-block form-control" ng-click="SearchCondition()"><i class="fa fa-fw fa-search"></i> 查询</button>
+                        </div>
+                        <div class="col-md-2 col-lg-1">
+                            <button type="button" class="btn btn-info btn-block  form-control" ng-click="ResetSearch()"><i class="fa fa-fw fa-refresh"></i> 重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            数据内容
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr class="info">
+                        <th>上传时间</th>
+                        <th>上传文件</th>
+                        <th>备注</th>
+                        <th>文件类型</th>
+                    </tr>
+                </thead>
+                <tbody id="tbBody">
+                    <tr ng-repeat="x in Infos">
+                        <td>{{x.CreatTime| date:'yyyy-MM-dd'}}</td>
+                        <td><a title="查看文件" target="_blank" href="/Upload/{{x.FilePath}}">{{x.FileName}}</a></td>
+                        <td>{{x.Remark}}</td>
+                        <td class="wrapspace">
+                            <select class="form-control" ng-model="x.Type">
+                                <option value="">请选择</option>
+                                <option value="0">病历</option>
+                                <option value="1">实验室检查</option>
+                                <option value="2">影像学检查</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form col-md-4 col-lg-2">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="1" ng-model="Info.CreateNew"  ng-change="CheckCN()"/>新建该患者病历
+                    </label>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label>
+                    请选择患者上传文件关联的病历
+                </label>
+                <input type="text" readonly="readonly" placeholder="请选择患者病历" class="form-control" ng-click="SelectMHC()" ng-model="Info.Hosiptal"/>
+                <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form col-md-12">
+            <fieldset>
+                <legend>备注</legend>
+                <textarea class="form-control" ng-model="Info.Remark"></textarea>
+            </fieldset>
+        </div> 
+    </div>
+    <div class="pull-right" style="margin-top:20px;">
+        <button type="button" class="btn btn-info " ng-click="Save()" ng-hide="Infos.length==0"><i class="fa fa-fw fa-save"></i> 提交</button>
+        <button type="button" class="btn btn-info " ng-click="GoBack()"><i class="fa fa-fw fa-reply-all"></i> 返回</button>
+    </div>
+</div>
+
+<div class="modal fade" id="modalMHC" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    <label><i class="fa fa-fw fa-search-minus"></i>选择病历</label>
+                </h4>
+            </div>
+            <div class="modal-body" ng-include="'/Views/DoctorHistory/MedicalHistoryControl.html'">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

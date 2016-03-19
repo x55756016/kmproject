@@ -1,0 +1,700 @@
+﻿
+<div class="container-fluid">
+    <h2>老年人体检表</h2>
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column">
+            <form ng-submit="save()" novalidate>
+                <div class="panel-group nav nav-list affix-top" ng-click="openOnlyOne($event)">
+
+                    <div class="panel panel-default">
+                        <div id="baseInfo" class="panel-heading ">
+                            <i class="icon-user-md icon-large"></i> 基本信息
+                        </div>
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="txt_BirthDate">年检日期</label>
+                                <div class="col-md-3">
+                                    <div class="input-group date form_date " data-date="" data-date-format="yyyymmdd" datepicker>
+                                        <input class="form-control" size="16" type="text" value="" ng-model="Data.BirthDate" required />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2" for="txt_Name">责任医生</label>
+                                <div class="col-md-3">
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" maxlength="50" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="txt_RecordNo">症状</label>
+                                <div class="col-md-10 form-inline">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 症状1
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 其他：
+                                    </label>
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入其他症状" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div id="censusInfo" class="panel-heading ">
+                            <i class="icon-user-md icon-large"></i> 一般状况
+                        </div>
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">体温</label>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                        <div class="input-group-addon">℃</div>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">脉搏</label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">呼吸</label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">身高</label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">体重</label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">腰围</label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">BMI</label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">血压</label>
+                                <div class="col-md-4 form-inline">
+                                    左侧:
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    右侧:
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    认知功能
+                                </label>
+                                <div class="col-md-10 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 粗筛阴性
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 粗筛阳性
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 简易智力检查，总分：
+                                    </label>
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入智力评分" maxlength="50" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    感情状态
+                                </label>
+                                <div class="col-md-10 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 粗筛阴性
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 粗筛阳性
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 抑郁评分检查，总分：
+                                    </label>
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入抑郁评分" maxlength="50" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="txt_CensusPostCode">
+                                    生活质量(SF36评分)
+                                </label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div id="historyInfo" class="panel-heading">
+                            <i class="icon-user-md icon-large"></i> 脏器功能
+                        </div>
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">视力</label>
+                                <div class="col-md-4 form-inline">
+                                    左眼:
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    右眼:
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">矫正视力</label>
+                                <div class="col-md-4 form-inline">
+                                    左眼:
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    右眼:
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    听力
+                                </label>
+                                <div class="col-md-4 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 听见
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 听不清或者无法听见
+                                    </label>
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    运动功能
+                                </label>
+                                <div class="col-md-4 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 可以顺利完成
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 无法独立完成其中任何一个动作
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">右眼视力</label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">右眼矫正视力</label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div id="historyInfo" class="panel-heading">
+                            <i class="icon-user-md icon-large"></i> 查体
+                        </div>
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    皮肤、巩膜
+                                </label>
+                                <div class="col-md-2">
+                                    <select id="list_EducationLevel" name="EducationLevel" ng-model="Data.EducationLevel" class="form-control" ng-options="EducationLevel.Value as EducationLevel.Name for EducationLevel in Dic.EducationLevel"></select>
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    淋巴结
+                                </label>
+                                <div class="col-md-6 form-inline">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 未触及
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 锁骨上
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 腋窝
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 其他：
+                                    </label>
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入淋巴结部位" maxlength="50" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    肺
+                                </label><div class="col-md-10">
+    <div class="col-md-1">
+        <label class="checkbox inline">
+            桶状胸：
+        </label>
+    </div>
+    <div class="col-md-11">
+        <label class="checkbox inline">
+            <input id="inlineCheckbox1" type="checkbox" value="option1">
+        </label>
+    </div>
+    <div class="col-md-1">
+        <label class="checkbox inline">
+            呼吸音：
+        </label>
+    </div>
+    <div class="col-md-2">
+        <label class="radio inline">
+            <input id="inlineCheckbox1" type="radio" value="option1"> 正常
+        </label>
+    </div>
+    <div class="col-md-2">
+        <label class="radio inline">
+            <input id="inlineCheckbox1" type="radio" value="option1"> 异常：
+        </label>
+    </div>
+    <div class="col-md-7">
+        <input name="Name" class="form-control ng-pristine ng-untouched ng-valid ng-valid-maxlength" id="txt_Name" maxlength="50" placeholder="请填入异常现象" ng-model="Data.Name">
+    </div>
+    <div class="col-md-1">
+        <label class="checkbox inline">
+            啰音：
+        </label>
+    </div>
+    <div class="col-md-2">
+        <label class="radio inline">
+            <input id="inlineCheckbox1" type="radio" value="option1"> 干啰音
+        </label>
+    </div>
+    <div class="col-md-2">
+        <label class="radio inline">
+            <input id="inlineCheckbox1" type="radio" value="option1"> 湿啰音：
+        </label>
+    </div>
+    <div class="col-md-7">
+        <input name="Name" class="form-control ng-pristine ng-untouched ng-valid ng-valid-maxlength" id="txt_Name" maxlength="50" placeholder="请填入啰音现象" ng-model="Data.Name">
+    </div>
+</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    心脏
+                                </label>
+                                <div class="col-md-10">
+                                    <label class="col-md-2">
+                                        心率(次/分钟)：
+                                    </label>
+                                    <div class="col-md-2">
+                                        <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" maxlength="50" />
+                                    </div>
+                                    <label class="col-md-2">
+                                        心律：
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select id="list_EducationLevel" name="EducationLevel" ng-model="Data.EducationLevel" class="form-control" ng-options="EducationLevel.Value as EducationLevel.Name for EducationLevel in Dic.EducationLevel"></select>
+                                    </div>
+                                    <label class="col-md-2">
+                                        杂音：
+                                    </label>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 无
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 有：
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入杂音现象" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    腹部
+                                </label>
+                                <div class="col-md-10">
+                                    <label class="col-md-2">
+                                        压痛：
+                                    </label>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 无
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 有：
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入压痛现象" maxlength="50" />
+                                    </div>
+                                    <label class="col-md-2">
+                                        包块：
+                                    </label>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 无
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 有：
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入包块现象" maxlength="50" />
+                                    </div>
+                                    <label class="col-md-2">
+                                        肝大：
+                                    </label>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 无
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 有：
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入肝大现象" maxlength="50" />
+                                    </div>
+                                    <label class="col-md-2">
+                                        脾大：
+                                    </label>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 无
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 有：
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入脾大现象" maxlength="50" />
+                                    </div>
+                                    <label class="col-md-2">
+                                        移动性浊音：
+                                    </label>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 无
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 有：
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入浊音现象" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    肛门指诊
+                                </label>
+                                <div class="col-md-2">
+                                    <select id="list_EducationLevel" name="EducationLevel" ng-model="Data.EducationLevel" class="form-control" ng-options="EducationLevel.Value as EducationLevel.Name for EducationLevel in Dic.EducationLevel"></select>
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    前列腺
+                                </label>
+                                <div class="col-md-6">
+
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 正常
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="radio inline">
+                                            <input type="radio" id="inlineCheckbox1" value="option1"> 异常：
+                                        </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入异常现象" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    下肢水肿
+                                </label>
+                                <div class="col-md-2">
+                                    <select id="list_EducationLevel" name="EducationLevel" ng-model="Data.EducationLevel" class="form-control" ng-options="EducationLevel.Value as EducationLevel.Name for EducationLevel in Dic.EducationLevel"></select>
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    其他
+                                </label>
+                                <div class="col-md-6">
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div id="historyInfo" class="panel-heading">
+                            <i class="icon-user-md icon-large"></i> 一般人群检查
+                        </div>
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">血常规</label>
+                                <div class="col-md-10">
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">Hb(g/L)</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">g/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">WBC</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">PLT</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">其他</label>
+                                    <div class="col-md-2">
+                                        <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">尿常规</label>
+                                <div class="col-md-10">
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">尿蛋白</label>
+                                    <div class="col-md-2">
+                                        <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">尿糖</label>
+                                    <div class="col-md-2">
+                                        <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">尿酮体</label>
+                                    <div class="col-md-2">
+                                        <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">尿潜血</label>
+                                    <div class="col-md-2">
+                                        <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">其他</label>
+                                    <div class="col-md-2">
+                                        <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">大便潜血</label>
+                                <div class="col-md-6 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 阴性
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 阳性
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">肝功能</label>
+                                <div class="col-md-10">
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">ALT</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">U/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">AST</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">U/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">ALB</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">g/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">TBIL</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">μmol/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">DBIL</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">μmol/L</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">肾功能</label>
+                                <div class="col-md-10">
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">Scr</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">μmol/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">BUN</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">μmol/L</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">血脂</label>
+                                <div class="col-md-10">
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">CHO</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">mmol/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">TG</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">mmol/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">LDL-C</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">mmol/L</div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2" for="list_CensusRegisterFlag">HDL-C</label>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                            <div class="input-group-addon">mmol/L</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    空腹血糖(mmol/L)
+                                </label>
+                                <div class="col-md-2">
+                                    <input id="txt_CensusPostCode" name="CensusPostCode" ng-model="Data.CensusPostCode" class="form-control" />
+                                </div>
+                                <label class="control-label col-md-2" for="list_CensusAddress">
+                                    HBsAg
+                                </label>
+                                <div class="col-md-6 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 阴性
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 阳性
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">眼底</label>
+                                <div class="col-md-6 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 正常
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 异常：
+                                    </label>
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入异常现象" maxlength="50" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">心电图</label>
+                                <div class="col-md-6 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 正常
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 异常：
+                                    </label>
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入异常现象" maxlength="50" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">胸片</label>
+                                <div class="col-md-6 form-inline">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 正常
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="inlineCheckbox1" value="option1"> 异常：
+                                    </label>
+                                    <input id="txt_Name" name="Name" ng-model="Data.Name" class="form-control" placeholder="请填入异常现象" maxlength="50" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" for="list_CensusRegisterFlag">其他</label>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                    <button class="btn btn-success" type="submit">确定信息无误并提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

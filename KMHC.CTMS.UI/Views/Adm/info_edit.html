@@ -1,0 +1,191 @@
+﻿
+
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            知识编辑
+        </div>
+        <div class="panel-body">
+            <form ng-submit="processForm()" name="myForm">
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <label for="txtTypeName" class="form-inline">类型名称：<input type="text" class="form-control" autocomplete="off" placeholder="类型名称" ng-model="formData.CategoryName" id="txtTypeName" ng-readonly="true" data-toggle="modal" data-target="#typeModel" required /></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <label for="txtTitle" class="form-inline">标题名称：<input type="text" class="form-control" autocomplete="off" placeholder="标题名称" ng-model="formData.Title" id="txtTitle" required /></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <label for="txtSource" class="form-inline">文献来源：<input type="text" class="form-control" autocomplete="off" placeholder="文献来源" ng-model="formData.Source" id="txtSource" /></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <label for="txtKeyword" class="form-inline">关&nbsp;&nbsp;键&nbsp;词：<textarea class="form-control" placeholder="关键词" ng-model="formData.KeyWord" id="txtKeyword" rows="3" cols="40" /></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <label for="txtDigest" class="form-inline">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要：<textarea class="form-control" placeholder="摘要" ng-model="formData.Digest" id="txtDigest" required rows="3" cols="40" /></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="col-md-1"></div>
+                        <div class="form-group">
+                            <textarea id="editor_id" name="content" style="width:80%;height:300px;">
+                                &lt;strong&gt;HTML内容&lt;/strong&gt;
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>上传附件：</label>
+                                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modalUploader">上传附件</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" style="table-layout:fixed;">
+                                        <thead>
+                                            <tr>
+                                                <th>文件名</th>
+                                                <th>上传日期</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="t in UpFiles">
+                                                <td>{{t.FileName}}</td>
+                                                <td>{{t.CreatTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                                <td class="text-center"><a href="/Upload/{{t.FilePath}}" class="btn btn-info">查看</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-horizontal">
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right:10%;" ng-disabled="myForm.$invalid">保存</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="typeModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">类型选择</h4>
+            </div>
+            <form ng-submit="processForm()" name="myForm">
+                <div class="modal-body">
+                    <div id="tree"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="btnClose" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--附件上传-->
+<div class="modal fade" id="modalUploader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    <label>上传/查看</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!--用来存放文件信息-->
+                <div class="row">
+                    <div class="col-md-3"><div id="picker">选择文件</div></div>
+                    <div class="col-md-3">
+                        <button class="btn btn-default" ng-click="StartUpload()">开始上传</button>
+                    </div>
+                </div>
+                <ul class="list-group" ng-repeat="x in Files">
+                    <li class="list-group-item">
+                        {{x.Name}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-info">{{x.Msg}}</span>
+                        <span class="badge" ng-click="RemoveFile($index)" style="cursor:pointer;">删除</span>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p class="panel-title text-info">已上传文件</p>
+                </div>
+                <ul class="list-group" ng-repeat="u in UpFiles">
+                    <li class="list-group-item">{{u.FileName}}<span class="badge" ng-click="DelFile(u,$index)" style="cursor:pointer;">删除</span></li>
+                </ul>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div class="loading-modal" ng-show="loading">
+    <div class="loading">
+        <img src="/Content/images/loading.gif" alt="" /><span>加载中，请稍候...</span>
+    </div>
+</div>

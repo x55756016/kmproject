@@ -1,0 +1,54 @@
+﻿<div class="container-fluid">
+    <h2>健康检查分类列表</h2>
+    <div class="row-fluid clearfix">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="Keyword" ng-model="Keyword" placeholder="请输入关键字">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="Search()"><i class="icon-search"></i>查询</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-default" type="button" ng-click="Add()">新增</button>
+                    <button class="btn btn-default" type="button" ng-show="ParentID > 0" ng-click="GoBack()">返回</button>
+                </div>
+            </div>
+
+           <!-- <table id="kq" class="table table-hover">
+                <tr ng-repeat="item in ListItems" data-tt-id="{{item.ID}}">
+                    <td>{{item.Name}}</td>
+                </tr>
+               
+            </table>
+            <script>
+                $("#kq").treetable({ expandable: true, clickableNodeNames: true });
+            </script>-->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>分类代号</th>
+                                <th>分类名称</th>
+                                <th>描述或备注</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in ListItems" ng-dblclick="Open(item.ID)">
+                                <td>{{item.CategoryCode}}</td>
+                                <td>{{item.Name}}</td>
+                                <td>{{item.Description}}</td>
+                                <td>
+                                    <button class="btn btn-small btn-danger" ng-click="SubList(item.ID)">下级</button>
+                                    <button class="btn btn-small btn-danger" ng-click="Remove(item.ID)">删除</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+           
+            <div id="pager"></div>
+</form>
+    </div>
+</div>
