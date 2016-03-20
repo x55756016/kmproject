@@ -32,7 +32,7 @@ namespace KMHC.CTMS.DAL.Database
         public Nullable<System.DateTime> EDITDATETIME { get; set; }
         public string OWNERID { get; set; }
         public string OWNERNAME { get; set; }
-        public decimal ISDELETED { get; set; }
+        public bool ISDELETED { get; set; }
         public string HGVSNAME { get; set; }
         public string AMINOACIDEFFECT { get; set; }
         public string VARIANTGUIDELINE { get; set; }

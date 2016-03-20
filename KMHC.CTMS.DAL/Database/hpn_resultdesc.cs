@@ -17,8 +17,8 @@ namespace KMHC.CTMS.DAL.Database
         public string ID { get; set; }
         public string TEMPLATENAME { get; set; }
         public string SUBRESULTNAME { get; set; }
-        public Nullable<float> MINSCORES { get; set; }
-        public Nullable<float> MAXSCORES { get; set; }
+        public Nullable<decimal> MINSCORES { get; set; }
+        public Nullable<decimal> MAXSCORES { get; set; }
         public string RESULT { get; set; }
         public string RESULTDETAIL { get; set; }
     }

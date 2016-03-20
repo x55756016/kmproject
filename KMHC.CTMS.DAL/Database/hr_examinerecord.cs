@@ -14,7 +14,7 @@ namespace KMHC.CTMS.DAL.Database
     
     public partial class HR_EXAMINERECORD
     {
-        public decimal EXAMID { get; set; }
+        public int EXAMID { get; set; }
         public string EXAMNO { get; set; }
         public string EXAMTYPE { get; set; }
         public string VISITWAY { get; set; }
@@ -25,6 +25,6 @@ namespace KMHC.CTMS.DAL.Database
         public string UPDATEBY { get; set; }
         public decimal STATUS { get; set; }
         public Nullable<System.DateTime> EXAMDATE { get; set; }
-        public Nullable<decimal> PERSONID { get; set; }
+        public Nullable<int> PERSONID { get; set; }
     }
 }

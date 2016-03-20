@@ -24,7 +24,7 @@ namespace KMHC.CTMS.DAL.Database
         public string EDITUSERID { get; set; }
         public Nullable<System.DateTime> EDITDATETIME { get; set; }
         public string OWNERID { get; set; }
-        public decimal ISDELETED { get; set; }
+        public Nullable<bool> ISDELETED { get; set; }
         public string CREATEUSERNAME { get; set; }
         public string EDITUSERNAME { get; set; }
         public string OWNERNAME { get; set; }

@@ -18,9 +18,9 @@ namespace KMHC.CTMS.DAL.Database
         public Nullable<decimal> PRODUCTTYPE { get; set; }
         public string PRODUCTNAME { get; set; }
         public Nullable<decimal> ISFREE { get; set; }
-        public Nullable<float> PRODUCTPRICE { get; set; }
+        public Nullable<decimal> PRODUCTPRICE { get; set; }
         public Nullable<decimal> PRODUCTUNIT { get; set; }
-        public Nullable<float> SALEPRICE { get; set; }
+        public Nullable<decimal> SALEPRICE { get; set; }
         public string PRODUCTREMARK { get; set; }
     }
 }

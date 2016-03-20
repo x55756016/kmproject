@@ -14,7 +14,7 @@ namespace KMHC.CTMS.DAL.Database
     
     public partial class HR_REF_CODEFILE
     {
-        public decimal CODEID { get; set; }
+        public int CODEID { get; set; }
         public string CODENO { get; set; }
         public Nullable<decimal> STATUS { get; set; }
         public string CODENAME { get; set; }

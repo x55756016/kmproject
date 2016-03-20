@@ -14,7 +14,7 @@ namespace KMHC.CTMS.DAL.Database
     
     public partial class HR_EXAMINEITEMS
     {
-        public decimal ITEMID { get; set; }
+        public int ITEMID { get; set; }
         public string ITEMNO { get; set; }
         public string ITEMNAME { get; set; }
         public string DESCRIPTION { get; set; }

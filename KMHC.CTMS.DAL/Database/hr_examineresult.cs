@@ -14,7 +14,7 @@ namespace KMHC.CTMS.DAL.Database
     
     public partial class HR_EXAMINERESULT
     {
-        public decimal RESULTID { get; set; }
+        public int RESULTID { get; set; }
         public Nullable<decimal> ITEMID { get; set; }
         public string RESULT { get; set; }
         public Nullable<System.DateTime> CREATEDATE { get; set; }
@@ -22,6 +22,6 @@ namespace KMHC.CTMS.DAL.Database
         public Nullable<System.DateTime> UPDATEDATE { get; set; }
         public string UPDATEBY { get; set; }
         public decimal STATUS { get; set; }
-        public Nullable<decimal> EXAMID { get; set; }
+        public Nullable<int> EXAMID { get; set; }
     }
 }

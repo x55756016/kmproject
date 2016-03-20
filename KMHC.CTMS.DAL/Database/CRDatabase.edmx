@@ -445,9 +445,9 @@
           <Property Name="PRODUCTTYPE" Type="decimal" Precision="8" Scale="0" />
           <Property Name="PRODUCTNAME" Type="varchar" MaxLength="200" />
           <Property Name="ISFREE" Type="decimal" Precision="8" Scale="0" />
-          <Property Name="PRODUCTPRICE" Type="float" />
+          <Property Name="PRODUCTPRICE" Type="decimal" Precision="9" Scale="0" />
           <Property Name="PRODUCTUNIT" Type="decimal" Precision="8" Scale="0" />
-          <Property Name="SALEPRICE" Type="float" />
+          <Property Name="SALEPRICE" Type="decimal" Precision="9" Scale="0" />
           <Property Name="PRODUCTREMARK" Type="varchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="CTMS_QA_TESTPAPER">
@@ -951,7 +951,7 @@
           <Property Name="EDITUSERID" Type="varchar" MaxLength="100" />
           <Property Name="EDITDATETIME" Type="datetime" Precision="0" />
           <Property Name="OWNERID" Type="varchar" MaxLength="100" />
-          <Property Name="ISDELETED" Type="decimal" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="ISDELETED" Type="bool" />
           <Property Name="CREATEUSERNAME" Type="varchar" MaxLength="50" />
           <Property Name="EDITUSERNAME" Type="varchar" MaxLength="50" />
           <Property Name="OWNERNAME" Type="varchar" MaxLength="50" />
@@ -1342,7 +1342,7 @@
           <Property Name="EDITDATETIME" Type="datetime" Precision="0" />
           <Property Name="OWNERID" Type="varchar" MaxLength="50" />
           <Property Name="OWNERNAME" Type="varchar" MaxLength="50" />
-          <Property Name="ISDELETED" Type="decimal" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="ISDELETED" Type="bool" Nullable="false" />
           <Property Name="HGVSNAME" Type="varchar" MaxLength="200" />
           <Property Name="AMINOACIDEFFECT" Type="varchar" MaxLength="200" />
           <Property Name="VARIANTGUIDELINE" Type="varchar" MaxLength="200" />
@@ -1354,8 +1354,8 @@
           <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="TEMPLATENAME" Type="varchar" MaxLength="50" />
           <Property Name="SUBRESULTNAME" Type="varchar" MaxLength="50" />
-          <Property Name="MINSCORES" Type="float" />
-          <Property Name="MAXSCORES" Type="float" />
+          <Property Name="MINSCORES" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="MAXSCORES" Type="decimal" Precision="9" Scale="0" />
           <Property Name="RESULT" Type="varchar" MaxLength="1000" />
           <Property Name="RESULTDETAIL" Type="varchar" MaxLength="2000" />
         </EntityType>
@@ -1584,9 +1584,9 @@
           <Key>
             <PropertyRef Name="CATEGORYID" />
           </Key>
-          <Property Name="CATEGORYID" Type="decimal" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="CATEGORYID" Type="int" Nullable="false" />
           <Property Name="CATEGORYNAME" Type="varchar" MaxLength="100" />
-          <Property Name="PARENTID" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="PARENTID" Type="int" />
           <Property Name="CREATEDATE" Type="datetime" Precision="0" />
           <Property Name="CREATEBY" Type="varchar" MaxLength="100" />
           <Property Name="UPDATEDATE" Type="datetime" Precision="0" />
@@ -1694,7 +1694,7 @@
           <Key>
             <PropertyRef Name="ITEMID" />
           </Key>
-          <Property Name="ITEMID" Type="decimal" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="ITEMID" Type="int" Nullable="false" />
           <Property Name="ITEMNO" Type="varchar" MaxLength="20" />
           <Property Name="ITEMNAME" Type="varchar" MaxLength="100" />
           <Property Name="DESCRIPTION" Type="varchar" MaxLength="500" />
@@ -1711,7 +1711,7 @@
           <Key>
             <PropertyRef Name="EXAMID" />
           </Key>
-          <Property Name="EXAMID" Type="decimal" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="EXAMID" Type="int" Nullable="false" />
           <Property Name="EXAMNO" Type="varchar" MaxLength="2000" />
           <Property Name="EXAMTYPE" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="VISITWAY" Type="varchar" MaxLength="3" />
@@ -1722,13 +1722,13 @@
           <Property Name="UPDATEBY" Type="varchar" MaxLength="100" />
           <Property Name="STATUS" Type="decimal" Precision="3" Scale="0" Nullable="false" />
           <Property Name="EXAMDATE" Type="datetime" Precision="0" />
-          <Property Name="PERSONID" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="PERSONID" Type="int" />
         </EntityType>
         <EntityType Name="HR_EXAMINERESULT">
           <Key>
             <PropertyRef Name="RESULTID" />
           </Key>
-          <Property Name="RESULTID" Type="decimal" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="RESULTID" Type="int" Nullable="false" />
           <Property Name="ITEMID" Type="decimal" Precision="9" Scale="0" />
           <Property Name="RESULT" Type="varchar" MaxLength="2000" />
           <Property Name="CREATEDATE" Type="datetime" Precision="0" />
@@ -1736,7 +1736,7 @@
           <Property Name="UPDATEDATE" Type="datetime" Precision="0" />
           <Property Name="UPDATEBY" Type="varchar" MaxLength="100" />
           <Property Name="STATUS" Type="decimal" Precision="3" Scale="0" Nullable="false" />
-          <Property Name="EXAMID" Type="decimal" Precision="9" Scale="0" />
+          <Property Name="EXAMID" Type="int" />
         </EntityType>
         <EntityType Name="HR_EXAMINETEMPLATE">
           <Key>
@@ -1990,7 +1990,7 @@
           <Key>
             <PropertyRef Name="PERSONID" />
           </Key>
-          <Property Name="PERSONID" Type="decimal" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="PERSONID" Type="int" Nullable="false" />
           <Property Name="PERSONNO" Type="varchar" MaxLength="18" Nullable="false" />
           <Property Name="NAME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="GENDER" Type="varchar" MaxLength="3" Nullable="false" />
@@ -2044,7 +2044,7 @@
           <Key>
             <PropertyRef Name="CODEID" />
           </Key>
-          <Property Name="CODEID" Type="decimal" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="CODEID" Type="int" Nullable="false" />
           <Property Name="CODENO" Type="varchar" MaxLength="100" />
           <Property Name="STATUS" Type="decimal" Precision="3" Scale="0" />
           <Property Name="CODENAME" Type="varchar" MaxLength="100" />
@@ -2982,9 +2982,9 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Property Name="PRODUCTTYPE" Type="Decimal" />
           <Property Name="PRODUCTNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="ISFREE" Type="Decimal" />
-          <Property Name="PRODUCTPRICE" Type="Single" />
+          <Property Name="PRODUCTPRICE" Type="Decimal" />
           <Property Name="PRODUCTUNIT" Type="Decimal" />
-          <Property Name="SALEPRICE" Type="Single" />
+          <Property Name="SALEPRICE" Type="Decimal" />
           <Property Name="PRODUCTREMARK" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CTMS_QA_TESTPAPER">
@@ -3456,7 +3456,7 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Property Name="EDITUSERID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EDITDATETIME" Type="DateTime" />
           <Property Name="OWNERID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ISDELETED" Type="Decimal" Nullable="false" />
+          <Property Name="ISDELETED" Type="Boolean" />
           <Property Name="CREATEUSERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EDITUSERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OWNERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3847,7 +3847,7 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Property Name="EDITDATETIME" Type="DateTime" />
           <Property Name="OWNERID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OWNERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ISDELETED" Type="Decimal" Nullable="false" />
+          <Property Name="ISDELETED" Type="Boolean" Nullable="false" />
           <Property Name="HGVSNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="AMINOACIDEFFECT" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="VARIANTGUIDELINE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -3859,8 +3859,8 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="TEMPLATENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SUBRESULTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MINSCORES" Type="Single" />
-          <Property Name="MAXSCORES" Type="Single" />
+          <Property Name="MINSCORES" Type="Decimal" />
+          <Property Name="MAXSCORES" Type="Decimal" />
           <Property Name="RESULT" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="RESULTDETAIL" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -4066,9 +4066,9 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Key>
             <PropertyRef Name="CATEGORYID" />
           </Key>
-          <Property Name="CATEGORYID" Type="Decimal" Nullable="false" />
+          <Property Name="CATEGORYID" Type="Int32" Nullable="false" />
           <Property Name="CATEGORYNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="PARENTID" Type="Decimal" />
+          <Property Name="PARENTID" Type="Int32" />
           <Property Name="CREATEDATE" Type="DateTime" />
           <Property Name="CREATEBY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="UPDATEDATE" Type="DateTime" />
@@ -4129,7 +4129,7 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Key>
             <PropertyRef Name="ITEMID" />
           </Key>
-          <Property Name="ITEMID" Type="Decimal" Nullable="false" />
+          <Property Name="ITEMID" Type="Int32" Nullable="false" />
           <Property Name="ITEMNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ITEMNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -4146,7 +4146,7 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Key>
             <PropertyRef Name="EXAMID" />
           </Key>
-          <Property Name="EXAMID" Type="Decimal" Nullable="false" />
+          <Property Name="EXAMID" Type="Int32" Nullable="false" />
           <Property Name="EXAMNO" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="EXAMTYPE" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="VISITWAY" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
@@ -4157,13 +4157,13 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Property Name="UPDATEBY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="Decimal" Nullable="false" />
           <Property Name="EXAMDATE" Type="DateTime" />
-          <Property Name="PERSONID" Type="Decimal" />
+          <Property Name="PERSONID" Type="Int32" />
         </EntityType>
         <EntityType Name="HR_EXAMINERESULT">
           <Key>
             <PropertyRef Name="RESULTID" />
           </Key>
-          <Property Name="RESULTID" Type="Decimal" Nullable="false" />
+          <Property Name="RESULTID" Type="Int32" Nullable="false" />
           <Property Name="ITEMID" Type="Decimal" />
           <Property Name="RESULT" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="CREATEDATE" Type="DateTime" />
@@ -4171,7 +4171,7 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Property Name="UPDATEDATE" Type="DateTime" />
           <Property Name="UPDATEBY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="Decimal" Nullable="false" />
-          <Property Name="EXAMID" Type="Decimal" />
+          <Property Name="EXAMID" Type="Int32" />
         </EntityType>
         <EntityType Name="HR_EXAMINETEMPLATE">
           <Key>
@@ -4406,7 +4406,7 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Key>
             <PropertyRef Name="PERSONID" />
           </Key>
-          <Property Name="PERSONID" Type="Decimal" Nullable="false" />
+          <Property Name="PERSONID" Type="Int32" Nullable="false" />
           <Property Name="PERSONNO" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="GENDER" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
@@ -4460,7 +4460,7 @@ FROM `HR_LABTESTITEM` AS `HR_LABTESTITEM`</DefiningQuery>
           <Key>
             <PropertyRef Name="CODEID" />
           </Key>
-          <Property Name="CODEID" Type="Decimal" Nullable="false" />
+          <Property Name="CODEID" Type="Int32" Nullable="false" />
           <Property Name="CODENO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="Decimal" />
           <Property Name="CODENAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />

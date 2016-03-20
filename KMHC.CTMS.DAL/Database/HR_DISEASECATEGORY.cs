@@ -14,9 +14,9 @@ namespace KMHC.CTMS.DAL.Database
     
     public partial class HR_DISEASECATEGORY
     {
-        public decimal CATEGORYID { get; set; }
+        public int CATEGORYID { get; set; }
         public string CATEGORYNAME { get; set; }
-        public Nullable<decimal> PARENTID { get; set; }
+        public Nullable<int> PARENTID { get; set; }
         public Nullable<System.DateTime> CREATEDATE { get; set; }
         public string CREATEBY { get; set; }
         public Nullable<System.DateTime> UPDATEDATE { get; set; }

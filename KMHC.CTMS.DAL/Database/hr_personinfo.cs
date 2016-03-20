@@ -14,7 +14,7 @@ namespace KMHC.CTMS.DAL.Database
     
     public partial class HR_PERSONINFO
     {
-        public decimal PERSONID { get; set; }
+        public int PERSONID { get; set; }
         public string PERSONNO { get; set; }
         public string NAME { get; set; }
         public string GENDER { get; set; }
