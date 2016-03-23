@@ -48,8 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DB\20160319.psc" />
-    <None Include="DB\oracleUpdatePDM.pdm" />
-    <None Include="DB\肿瘤全流程管理物理模型V1.0.pdm" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
